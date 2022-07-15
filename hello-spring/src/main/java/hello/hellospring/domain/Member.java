@@ -2,22 +2,41 @@ package hello.hellospring.domain;
 
 public class Member {
 
-    private Long id;
-    private String name;
+    private String id;
+    private String nickName;
+    private String password;
+    private Long point;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    private String getNickName() {
+        return nickName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    private void setNickName(String nickName) {
+        this.nickName = nickName;
     }
+
+    private String getPassword() {
+        return password;
+    }
+
+    private void setPassword(String password) {
+        this.password = password;
+    }
+
+    private Long getPoint() {
+        return point;
+    }
+
+    private void setPoint(Long point) {
+        this.point = point;
+    }
+
 }
