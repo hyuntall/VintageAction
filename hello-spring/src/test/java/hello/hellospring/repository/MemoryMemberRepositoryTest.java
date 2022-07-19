@@ -19,6 +19,7 @@ public class MemoryMemberRepositoryTest {
         repository.clearStore();
     }
 
+    /*
     @Test
     public void save(){
         Member member = new Member();
@@ -59,4 +60,5 @@ public class MemoryMemberRepositoryTest {
 
         assertThat(result.size()).isEqualTo(2);
     }
+     */
 }

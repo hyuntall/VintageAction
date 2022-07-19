@@ -3,7 +3,7 @@ package hello.hellospring.domain;
 public class Member {
 
     private String id;
-    private String nickName;
+    private String name;
     private String password;
     private Long point;
 
@@ -15,27 +15,27 @@ public class Member {
         this.id = id;
     }
 
-    private String getNickName() {
-        return nickName;
+    public String getName() {
+        return name;
     }
 
-    private void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    private String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    private Long getPoint() {
+    public Long getPoint() {
         return point;
     }
 
-    private void setPoint(Long point) {
+    public void setPoint(Long point) {
         this.point = point;
     }
 

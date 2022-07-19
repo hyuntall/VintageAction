@@ -32,7 +32,7 @@ class MemberServiceTest {
         member.setName("hello");
 
         //when
-        Long saveId = memberService.join(member);
+        String saveId = memberService.join(member);
 
         //then
         Member findMember = memberService.findOne(saveId).get();
@@ -62,4 +62,5 @@ class MemberServiceTest {
     @Test
     void findOne() {
     }
+
 }
