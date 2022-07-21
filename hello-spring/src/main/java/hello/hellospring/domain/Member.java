@@ -1,42 +1,33 @@
 package hello.hellospring.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
 public class Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long memberNo;
 
-    private String id;
-    private String name;
-    private String password;
-    private Long point;
+    @Column(nullable = false)
+    private String memberId;
 
-    public String getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    private String memberName;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    @Column(nullable = false)
+    private String memberPassword;
 
-    public String getName() {
-        return name;
-    }
+    private Long memberPoint;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @OneToMany(mappedBy = "vintageId")
+    private List<VintageBoard> vintageBoardList = new ArrayList<>();
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getPoint() {
-        return point;
-    }
-
-    public void setPoint(Long point) {
-        this.point = point;
-    }
 
 }
