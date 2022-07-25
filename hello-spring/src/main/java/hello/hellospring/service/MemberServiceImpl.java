@@ -15,23 +15,47 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberRepository memberRepository;
 
+    /**
+     * 회원가입
+     * @param member
+     * @return
+     */
     @Override
-    public Member save(Member member) {
-        Member createdMember = memberRepository.save(member);
-        return member;
+    public Member save(Member member) throws Exception{
+        return memberRepository.save(member);
     }
 
+    /**
+     * 회원가입 시 id 중복체크(작성 중)
+     * @param memberId
+     * @return
+     */
     @Override
-    public Optional<Member> findOne(Long memberNo) {
+    public boolean existsByMemberId(String memberId) {
+        return memberRepository.existsByMemberId(memberId);
+    }
+
+    /**
+     * 회원no 로 조회하기
+     * @param memberNo
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Optional<Member> findOne(Long memberNo) throws Exception{
         Optional<Member> findMember = memberRepository.findById(memberNo);
         if (findMember.isEmpty())
             return Optional.empty();
         return findMember;
     }
 
+    /**
+     * 모든 회원 조회하기
+     * @return
+     * @throws Exception
+     */
     @Override
-    public List<Member> findAll() {
-        List<Member> members = memberRepository.findAll();
-        return members;
+    public List<Member> findAll() throws Exception{
+        return memberRepository.findAll();
     }
 }

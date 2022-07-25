@@ -28,8 +28,8 @@ public class VintageBoardController {
     //중고상품 등록페이지로 이동
     @GetMapping("/vintage/new")
     public String createVintageForm(Model model) {
-        List<Member> members = memberService.findAll();
-        model.addAttribute("members",members);
+        //List<Member> members = memberService.findAll();
+        //model.addAttribute("members",members);
         return "/vintage/vintageRegister";
     }
 
@@ -42,8 +42,8 @@ public class VintageBoardController {
                                 @RequestParam("memberId") Long memberId){
 
         //선택한 회원정보 가져오기
-        Optional<Member> findMember = memberService.findOne(memberId);
-        Member member = findMember.get();
+        //Optional<Member> findMember = memberService.findOne(memberId);
+        //Member member = findMember.get();
 
 
         //아이템 저장
@@ -62,7 +62,7 @@ public class VintageBoardController {
         vintageBoard.setVintageItem(saveItem);
 
         //VintageBoard 작성자 세팅 - 연관관계 편의 메서드
-        vintageBoard.setMember(member);
+        //vintageBoard.setMember(member);
 
         //중고거래 게시글 등록
        vintageService.save(vintageBoard);
