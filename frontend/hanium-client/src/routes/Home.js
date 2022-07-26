@@ -1,10 +1,9 @@
 import React from "react";
-import AppRouter from "../components/AppRouter";
 
 const Home = () => {
     return (
         <>
-            <AppRouter />
+            메인화면입니다.
         </>
     )
 }

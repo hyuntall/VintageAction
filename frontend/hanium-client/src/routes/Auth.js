@@ -1,13 +1,12 @@
-import AuthForm from "../components/AuthForm";
 import React from "react";
+import AppRouter from "../components/AppRouter";
 
 const Auth = () => {
-
     return (
-        <div className="authContainer">
-            <AuthForm/>
-        </div>
+        <>
+            <AppRouter />
+        </>
     )
 }
 
-export default Auth;
+export default Auth

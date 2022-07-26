@@ -5,13 +5,18 @@ const Navigation = () => (
     <nav>
         <ul className="navigator">
             <li>
+                <Link to="/home" className="Home">
+                    Home
+                </Link>
+            </li>
+            <li>
                 <Link to="/sign-up" className="SignUp">
                     Sign Up
                 </Link>
             </li>
             <li>
-                <Link to="/home" className="Home">
-                    Home
+                <Link to="/sign-in" className="signIn">
+                    sign In
                 </Link>
             </li>
         </ul>
