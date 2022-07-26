@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import Auth from '../routes/Auth';
+import AppRouter from './AppRouter';
 
 function App() {
     return (
         <div>
-            <Auth/>
+            <AppRouter/>
         </div>
     );
 }

@@ -5,7 +5,7 @@ const Navigation = () => (
     <nav>
         <ul className="navigator">
             <li>
-                <Link to="/home" className="Home">
+                <Link to="/" className="Home">
                     Home
                 </Link>
             </li>

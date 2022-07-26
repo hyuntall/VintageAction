@@ -1,10 +1,10 @@
 import React from "react";
-import AppRouter from "../components/AppRouter";
+import App from "../components/App";
 
 const Auth = () => {
     return (
         <>
-            <AppRouter />
+            <App />
         </>
     )
 }
