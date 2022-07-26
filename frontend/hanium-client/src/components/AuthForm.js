@@ -22,21 +22,15 @@ const AuthForm =() => {
     const onSubmit = async (event) => {
         // 회원가입 or 로그인 버튼 ( newAccount에 따라 )
         event.preventDefault();
-        
-        
-        /* 에러 수정 필요
-        try {
-            axios.post('/api/members/new/', {
-                id: id,
-                name: name,
-                password: password
-            })
+        // 입력받은 데이터를 객체에 담아
+        // 회원가입 api에 post 요청
+        axios.post('/api/members/new/', {
+            id: id,
+            name: name,
+            password: password
+        })
         .then(response => console.log(response.data))
         .catch(error => console.log(error.response.data))
-        }
-        catch (error) {
-            console.log("error")
-        }*/
     };
     // 로그인 <> 회원가입 체인지
     const toggleAccount = () => setNewAccount((prev) => !prev);

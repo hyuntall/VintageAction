@@ -12,6 +12,7 @@ import hello.hellospring.domain.Member;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -22,14 +23,14 @@ public class MemberController {
     private final MemberService memberService;
 
 
-    /*
+    
     //회원가입 페이지로 이동
-    @GetMapping(value = "/members/new")
+    @GetMapping(value = "/api/members/new")
     public String createForm() {
         return "members/createdMemberForm";
     }
 
-     */
+     
 
     /**
      * 회원 가입
@@ -37,8 +38,9 @@ public class MemberController {
      * @return
      * @throws Exception
      */
-    @PostMapping(value = "/members/new")
+    @PostMapping(value = "/api/members/new")
     public ResponseEntity<String> create(@RequestBody MemberSignupDto memberSignupDto) throws Exception {
+        System.out.println(memberSignupDto.getId());
         Member member = memberSignupDto.toEntity();
         memberService.save(member);
         return new ResponseEntity<String>("Success", HttpStatus.OK);
@@ -62,7 +64,7 @@ public class MemberController {
      * @return
      * @throws Exception
      */
-    @GetMapping(value = "/members")
+    @GetMapping(value = "/api/members")
     public ResponseEntity<?> memberList() throws Exception {
         List<Member> members = memberService.findAll();
         return ResponseEntity.ok(members);
