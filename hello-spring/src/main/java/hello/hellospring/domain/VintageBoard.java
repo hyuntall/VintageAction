@@ -23,7 +23,7 @@ public class VintageBoard extends BaseTimeEntity{
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberId") //1:1 관계에서는 FK를 가지는 쪽이 연관관계의 주인이다. 그래서 @JoinColunm 여기다 넣었다.
+    @JoinColumn(name = "memberId") //1:1 관계에서는 FK를 가지는 쪽이 연관관계의 주인이다. 그래서 @JoinColumn 여기다 넣었다.
     private Member member;
 
 
