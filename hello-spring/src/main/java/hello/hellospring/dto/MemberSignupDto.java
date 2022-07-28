@@ -1,15 +1,14 @@
 package hello.hellospring.dto;
 
 import hello.hellospring.domain.Member;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor //기본 생성자 생성
 @AllArgsConstructor
 @Getter
+@Setter
 public class MemberSignupDto {
     @NotBlank(message = "아이디를 입력하세요.")
     private String id;
@@ -27,4 +26,6 @@ public class MemberSignupDto {
                 .memberPassword(password)
                 .build();
     }
+
+
 }

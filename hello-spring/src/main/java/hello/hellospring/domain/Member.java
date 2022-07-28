@@ -4,10 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.EnumType.STRING;
 
 @Entity
 @Getter
@@ -26,6 +29,9 @@ public class Member {
     @Column(nullable = false)
     private String memberPassword;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     private Long memberPoint;
 
     @OneToMany(mappedBy = "vintageId")
@@ -37,5 +43,10 @@ public class Member {
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberPassword = memberPassword;
+        this.role = Role.MEMBER;
+    }
+
+    public void encryptPassword(PasswordEncoder passwordEncoder) {
+        memberPassword = passwordEncoder.encode(memberPassword);
     }
 }

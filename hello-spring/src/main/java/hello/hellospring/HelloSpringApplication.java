@@ -17,7 +17,7 @@ public class HelloSpringApplication {
 	}
 
 
-	//테트스 데이터 삽입
+	//테스트 데이터 삽입
 	@Bean
 	public CommandLineRunner runner(MemberRepository memberRepository) throws Exception {
 		return (args) -> {
