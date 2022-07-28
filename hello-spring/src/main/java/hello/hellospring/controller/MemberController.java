@@ -1,29 +1,15 @@
 package hello.hellospring.controller;
 
+import hello.hellospring.domain.Member;
 import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.MemberSignupDto;
-import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import hello.hellospring.domain.Member;
-import org.springframework.ui.Model;
-
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -68,6 +54,13 @@ public class MemberController {
         }else{
         }
         return null;
+    }
+
+    @PostMapping(value = "/api/members/login")
+    public ResponseEntity<String> login(@RequestBody MemberInfoDto memberInfoupDto) throws Exception {
+        System.out.println(memberInfoupDto.getId());
+
+        return new ResponseEntity<String>("Success", HttpStatus.OK);
     }
 
 

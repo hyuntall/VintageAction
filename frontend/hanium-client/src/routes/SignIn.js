@@ -1,11 +1,11 @@
-import SignUpForm from "../components/SignUpForm";
 import React from "react";
+import SignInForm from "../components/SignInForm";
 
 const SignIn = () => {
 
     return (
         <div className="authContainer">
-            로그인폼 구현 예정
+            <SignInForm />
         </div>
     )
 }
