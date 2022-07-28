@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅</title>
+</head>
+<body>
+    <form action="/chat/new" method="POST">
+        <div class="form-group">
+            <p>
+                <label for="member">접속 Id</label>
+                <select id="member" name="memberId">
+                    <option value="">회원선택</option>
+                    <option th:each="member : ${members}"
+                            th:value="${member.memberNo}"
+                            th:text="${member.memberId}"></option>
+                </select>
+            </p>
+            <button type="submit">입장</button>
+        </div>
+    </form>
+</body>
+</html>
