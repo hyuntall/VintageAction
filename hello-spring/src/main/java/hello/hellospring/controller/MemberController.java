@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.*;
 import hello.hellospring.domain.Member;
 import org.springframework.ui.Model;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 
@@ -53,9 +56,14 @@ public class MemberController {
     @PostMapping(value = "/api/members/new")
     public ResponseEntity<String> create(@RequestBody MemberSignupDto memberSignupDto) throws Exception {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         System.out.println(memberSignupDto.getId());
         Member member = memberSignupDto.toEntity();
         memberService.save(member);
+=======
+        //Member member = memberSignupDto.toEntity();
+        memberService.save(memberSignupDto);
+>>>>>>> Stashed changes
 =======
         //Member member = memberSignupDto.toEntity();
         memberService.save(memberSignupDto);
