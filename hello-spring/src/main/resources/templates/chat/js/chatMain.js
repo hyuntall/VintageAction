@@ -1,12 +1,12 @@
 
-var usernamePage = document.querySelector('#username-page');
-var chatPage = document.querySelector('#chat-page');
-var messageArea = document.querySelector('#messageArea');
+var formGroup = document.querySelector('#memberForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
+var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
+var selectUser = null;
 var username = null;
 
 var colors = [
@@ -16,18 +16,19 @@ var colors = [
 
 
 function connect(event) {
-    username = document.querySelector('#name').value.trim(); //"${sender.getMemberName()}"
+    event.preventDefault();
+
+    selectUser = document.querySelector("#member-Select");
+    username = selectUser.options[selectUser.selectedIndex].text;
+
 
     if(username) {
-        usernamePage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
 
-        const socket = new SockJS('/ws');
+        var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
     }
-    event.preventDefault();
 }
 
 
@@ -36,9 +37,7 @@ function onConnected() {
     stompClient.subscribe('/topic/public', onMessageReceived);
 
     // 접속 member명 추가
-    stompClient.send("/app/chat.addUser",
-        {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+    stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: username, type: 'JOIN'})
     )
 
     connectingElement.classList.add('hidden');
@@ -52,6 +51,7 @@ function onError(error) {
 
 
 function sendMessage(event) {
+    event.preventDefault();
     var messageContent = messageInput.value.trim();
 
     if(messageContent && stompClient) {
@@ -64,7 +64,6 @@ function sendMessage(event) {
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
-    event.preventDefault();
 }
 
 
@@ -116,4 +115,5 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-messageForm.addEventListener('submit', sendMessage, true)
+formGroup.addEventListener('submit', connect, true);
+messageForm.addEventListener('submit', sendMessage, true);
