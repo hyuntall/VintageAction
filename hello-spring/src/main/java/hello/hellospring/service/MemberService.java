@@ -4,16 +4,14 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.MemberSignupDto;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public interface MemberService extends UserDetailsService{
+public interface MemberService{
 
     //회원가입
     Member save(MemberSignupDto memberDto) throws Exception;

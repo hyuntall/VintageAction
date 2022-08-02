@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ebac62d1-d152-46d5-845d-051dffedca8d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hello-spring/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/controller/VintageBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/controller/VintageBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/domain/VintageBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/domain/VintageBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/controller/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/controller/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/domain/Member.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/domain/Member.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/domain/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/global/SecurityUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/global/security/component/CustomLogInSuccessHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/global/security/component/CustomLoginFailureHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/global/security/component/JsonAuthenticationManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/global/security/component/JsonUsernamePasswordAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/repository/MemberRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/repository/MemberRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/service/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/service/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/service/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/service/MemberServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hello-spring/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/resources/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hello-spring/src/main/resources/templates/vintage/vintageRegister.html" beforeDir="false" afterPath="$PROJECT_DIR$/hello-spring/src/main/resources/templates/vintage/vintageRegister.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +94,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/hello-spring/src/main/java/hello/hellospring/service" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -99,10 +107,14 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\Hanium\git\22_hf266\hello-spring\src\main\java\hello\hellospring\service" />
       <recent name="$PROJECT_DIR$/hello-spring/src/main/resources/templates/chat" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/hello-spring/src/main/resources/templates/chat/js" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="hello.hellospring.interceptor" />
     </key>
   </component>
   <component name="RunManager">
@@ -141,6 +153,9 @@
       <workItem from="1658920925018" duration="14664000" />
       <workItem from="1658949629411" duration="10624000" />
       <workItem from="1659009430549" duration="1180000" />
+      <workItem from="1659413366772" duration="43000" />
+      <workItem from="1659424665193" duration="615000" />
+      <workItem from="1659441936952" duration="4529000" />
     </task>
     <servers />
   </component>

@@ -20,7 +20,7 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberNo;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String memberId;
 
     @Column(nullable = false)
@@ -28,9 +28,6 @@ public class Member {
 
     @Column(nullable = false)
     private String memberPassword;
-
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     private Long memberPoint;
 
@@ -43,7 +40,6 @@ public class Member {
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberPassword = memberPassword;
-        this.role = Role.MEMBER;
     }
 
     //패스워드 암호화
