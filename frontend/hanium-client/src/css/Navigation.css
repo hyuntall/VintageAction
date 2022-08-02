@@ -1,0 +1,48 @@
+.navigator {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    justify-content: right;
+    display: flex;
+    list-style:none;
+}
+.navigator li {
+    padding: 10px;
+    font-size: 15px;
+}
+.navigator .home {
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+
+.navigator .profile {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+
+.item-navigater-container {
+    position: absolute;
+    width: 100%;
+    top: 50px;
+}
+
+.item-navigator {
+    justify-content: center;
+    display: flex;
+    list-style:none;
+}
+
+.item-navigator li {
+    padding: 10px;
+    font-size: 30px;
+}
+
+.item-navigator img {
+    width: 50px;
+}

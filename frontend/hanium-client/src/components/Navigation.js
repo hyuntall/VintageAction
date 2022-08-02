@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom"
-
+import "../css/Navigation.css"
 const Navigation = ({ isLoggedIn, userObj }) => {
     console.log(userObj)
     return (

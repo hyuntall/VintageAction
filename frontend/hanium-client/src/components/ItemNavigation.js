@@ -1,21 +1,22 @@
 import React from "react";
 import {Link} from "react-router-dom"
-
-const Navigation = () => (
-    <nav>
+import "../css/Navigation.css"
+const ItemNavigation = () => (
+    <div className="item-navigater-container">
         <ul className="item-navigator">
             <li>
                 <Link to="/vintage" className="vintage">
-                    중고
+                    일반 거래
                 </Link>
             </li>
+            <img className="icon" src={require("../img/temp.png")} />
             <li>
                 <Link to="/aa" className="뭐였지">
-                    경매
+                    경매 거래
                 </Link>
             </li>
         </ul>
-    </nav>
+    </div>
 )
 
-export default Navigation
+export default ItemNavigation
