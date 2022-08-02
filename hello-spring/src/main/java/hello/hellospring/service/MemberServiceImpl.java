@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -92,6 +93,12 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public MemberInfoDto getMyInfo() throws Exception {
         Member findMember = memberRepository.findByMemberId(SecurityUtil.getLoginUsername()).orElseThrow(() -> new Exception("회원이 없습니다"));
         return new MemberInfoDto(findMember);
+    }
+
+    @Override
+    public void withdraw() throws Exception {
+        Member member = memberRepository.findByMemberId(SecurityUtil.getLoginUsername()).orElseThrow(() -> new Exception("회원이 존재하지 않습니다"));
+        memberRepository.delete(member);
     }
 
 }

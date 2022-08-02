@@ -31,4 +31,7 @@ public interface MemberService extends UserDetailsService{
     MemberInfoDto getMyInfo() throws Exception;
 
     //회원 정보 수정(비밀번호 변경)
+
+    //회원 탈퇴
+    void withdraw() throws Exception;
 }

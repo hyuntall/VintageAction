@@ -7,9 +7,11 @@ import hello.hellospring.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +19,6 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-
 
     
     //회원가입 페이지로 이동
@@ -56,12 +57,12 @@ public class MemberController {
         return null;
     }
 
-    @PostMapping(value = "/api/members/login")
-    public ResponseEntity<String> login(@RequestBody MemberInfoDto memberInfoupDto) throws Exception {
-        System.out.println(memberInfoupDto.getId());
-
-        return new ResponseEntity<String>("Success", HttpStatus.OK);
-    }
+//    @PostMapping(value = "/api/members/login")
+//    public ResponseEntity<String> login(@RequestBody MemberInfoDto memberInfoupDto) throws Exception {
+//        System.out.println(memberInfoupDto.getId());
+//
+//        return new ResponseEntity<String>("Success", HttpStatus.OK);
+//    }
 
 
     /**
@@ -78,11 +79,21 @@ public class MemberController {
     /**
      * 내정보조회
      */
-    @GetMapping("/member")
+    @GetMapping("/api/member")
     public MemberInfoDto getMyInfo(
             HttpServletResponse response) throws Exception {
 
         MemberInfoDto info = memberService.getMyInfo();
+
         return info;
     }
+
+    /**
+     * 회원탈퇴
+     */
+    @DeleteMapping("/api/member/withdraw")
+    public void withdraw() throws Exception {
+        memberService.withdraw();
+    }
+
 }

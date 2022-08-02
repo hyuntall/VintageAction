@@ -46,7 +46,10 @@ public class Member {
         this.role = Role.MEMBER;
     }
 
+    //패스워드 암호화
     public void encryptPassword(PasswordEncoder passwordEncoder) {
         memberPassword = passwordEncoder.encode(memberPassword);
     }
+
+
 }
