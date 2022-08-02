@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 //import '../auth.css'
 
-const AuthForm =() => {
+const AuthForm =({refreshUser}) => {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -40,11 +40,24 @@ const AuthForm =() => {
         })
         .then(response => {
             console.log(response.data);
-            navigate("/", {isLoggedIn:true, userObj:userObj})})
+            setUserObj({
+                id: id,
+                name: name,
+                password: password
+            })
+            navigate("/", {
+                state:{
+                    isLoggedIn:true, 
+                    userObj:{
+                        id: id,
+                        name: name,
+                        password: password
+                    }
+                }
+            })
+        })
         .catch(error => console.log(error.response.data))
     };
-    // 로그인 <> 회원가입 체인지
-    const toggleAccount = () => setNewAccount((prev) => !prev);
     return (
         <>
             <form onSubmit={onSubmit} className="container">
@@ -78,9 +91,6 @@ const AuthForm =() => {
                 value={newAccount ? "Create Account" : "Log In"}/>
                 {error && <span className="authError">{error}</span>}
             </form>
-            <span onClick={toggleAccount}
-                className="authSwitch">{newAccount ? "Log In" : "Create Account"}
-            </span>
         </>
     )
 }

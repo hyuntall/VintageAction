@@ -1,10 +1,11 @@
 import { React, useState} from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const SignInForm =() => {
+    const navigate = useNavigate();
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
-    const [newAccount, setNewAccount] = useState(true);
     const [error, setError] = useState("");
     //const [memberObj, setMemberObj] = useState(null);
     const onChange = (event) => {
@@ -24,11 +25,21 @@ const SignInForm =() => {
             id: id,
             password: password
         })
-        .then(response => console.log(response.data))
+        .then(response => {
+            console.log(response.data)
+            navigate("/", {
+                state:{
+                    isLoggedIn:true, 
+                    userObj:{
+                        id: id,
+                        name: id,
+                        password: password
+                    }
+                }
+            })})
         .catch(error => console.log(error.response.data))
     };
-    // 로그인 <> 회원가입 체인지
-    const toggleAccount = () => setNewAccount((prev) => !prev);
+
     return (
         <>
             <form onSubmit={onSubmit} className="container">
@@ -51,12 +62,9 @@ const SignInForm =() => {
 
                 <input type="submit" 
                 className="authInput authSubmit"
-                value={newAccount ? "Sign In" : "Log In"}/>
+                value="Log In"/>
                 {error && <span className="authError">{error}</span>}
             </form>
-            <span onClick={toggleAccount}
-                className="authSwitch">{newAccount ? "Log In" : "Sign In"}
-            </span>
         </>
     )
 }
