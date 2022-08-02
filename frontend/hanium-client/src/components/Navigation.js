@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom"
 
-const Navigation = () => (
+const Navigation = ({ isLoggedIn, userObj }) => (
     <nav>
         <ul className="navigator">
             <li>
@@ -9,16 +9,35 @@ const Navigation = () => (
                     Home
                 </Link>
             </li>
-            <li>
-                <Link to="/sign-up" className="SignUp">
-                    Sign Up
-                </Link>
-            </li>
-            <li>
-                <Link to="/sign-in" className="signIn">
-                    sign In
-                </Link>
-            </li>
+            {isLoggedIn ? (
+            <>
+                <li>
+                    <Link to="/profile" className="Profile">
+                        My Profile
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/" className="Home">
+                        Sign Out
+                    </Link>
+                </li>
+            </>
+            ) : (
+                <>
+                <li>
+                    <Link to="/sign-up" className="SignUp">
+                        Sign Up
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/sign-in" className="SignIn">
+                        Sign In
+                    </Link>
+                </li>
+            </>
+            )
+            
+            }
         </ul>
     </nav>
 )

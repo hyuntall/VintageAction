@@ -1,12 +1,15 @@
 import { React, useState} from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 //import '../auth.css'
 
 const AuthForm =() => {
+    const navigate = useNavigate();
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [newAccount, setNewAccount] = useState(true);
+    const [userObj, setUserObj] = useState(null);
     const [error, setError] = useState("");
     //const [memberObj, setMemberObj] = useState(null);
     const onChange = (event) => {
@@ -24,12 +27,20 @@ const AuthForm =() => {
         event.preventDefault();
         // 입력받은 데이터를 객체에 담아
         // 회원가입 api에 post 요청
-        axios.post('/api/members/new/', {
+        setUserObj({
             id: id,
             name: name,
             password: password
         })
-        .then(response => console.log(response.data))
+        console.log(userObj)
+        await axios.post('/api/members/new/', {
+            id: id,
+            name: name,
+            password: password
+        })
+        .then(response => {
+            console.log(response.data);
+            navigate("/", {isLoggedIn:true, userObj:userObj})})
         .catch(error => console.log(error.response.data))
     };
     // 로그인 <> 회원가입 체인지
