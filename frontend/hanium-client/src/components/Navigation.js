@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom"
 import "../css/Navigation.css"
-const Navigation = ({ isLoggedIn, memberObj }) => {
+const Navigation = ({ isLoggedIn, memberObj, refreshMember }) => {
 
     return (
     <nav>
@@ -19,7 +19,7 @@ const Navigation = ({ isLoggedIn, memberObj }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/" className="Home" >
+                    <Link to="/" className="Home">
                         Sign Out
                     </Link>
                 </li>

@@ -4,20 +4,18 @@ import SignUp from "../routes/SignUp";
 import SignIn from "../routes/SignIn";
 import Home from "../routes/Home";
 import Profile from "../routes/Profile";
-import ItemNavigation from "./ItemNavigation";
-import Navigation from "./Navigation";
 import Header from "./Header";
 import VintageUpload from "../routes/VintageUpload";
 const AppRouter = ({ isLoggedIn, memberObj, refreshMember }) => {
     return (
         <Router>
-            <Header isLoggedIn={isLoggedIn} memberObj={memberObj}/>
+            <Header isLoggedIn={isLoggedIn} memberObj={memberObj} refreshMember={refreshMember}/>
             <div className="router">
                 <Routes>
                     <>
                         <Route path='/sign-up' element={<SignUp refreshMember={refreshMember}/>}/>
                         <Route path='/sign-in' element={<SignIn refreshMember={refreshMember}/>}/>
-                        <Route path='/profile' element={<Profile memberObj={memberObj}/>}/>
+                        <Route path='/profile' element={<Profile memberObj={memberObj} refreshMember={refreshMember}/>}/>
                         <Route path='/vintage-upload' element={<VintageUpload memberObj={memberObj}/>}/>
                         <Route path='/' element={<Home/>}/>
                     </>
