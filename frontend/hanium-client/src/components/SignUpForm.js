@@ -3,13 +3,13 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 //import '../auth.css'
 
-const AuthForm =({refreshUser}) => {
+const AuthForm =({refreshMember}) => {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
     const [newAccount, setNewAccount] = useState(true);
-    const [userObj, setUserObj] = useState(null);
+    const [memberObj, setMemberObj] = useState(null);
     const [error, setError] = useState("");
     //const [memberObj, setMemberObj] = useState(null);
     const onChange = (event) => {
@@ -27,12 +27,11 @@ const AuthForm =({refreshUser}) => {
         event.preventDefault();
         // 입력받은 데이터를 객체에 담아
         // 회원가입 api에 post 요청
-        setUserObj({
+        setMemberObj({
             id: id,
             name: name,
             password: password
         })
-        console.log(userObj)
         await axios.post('/api/members/new/', {
             id: id,
             name: name,
@@ -40,21 +39,17 @@ const AuthForm =({refreshUser}) => {
         })
         .then(response => {
             console.log(response.data);
-            setUserObj({
-                id: id,
-                name: name,
-                password: password
+            setMemberObj({
+                memberId: id,
+                memberName: name,
+                memberPassword: password
             })
-            navigate("/", {
-                state:{
-                    isLoggedIn:true, 
-                    userObj:{
-                        id: id,
-                        name: name,
-                        password: password
-                    }
-                }
+            refreshMember({
+                memberId: id,
+                memberName: name,
+                memberPassword: password
             })
+            navigate("/")
         })
         .catch(error => console.log(error.response.data))
     };

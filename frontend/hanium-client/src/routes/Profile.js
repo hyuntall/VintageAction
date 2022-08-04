@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Profile = ({ userObj }) => {
+const Profile = ({ memberObj }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const goBack = () => {
@@ -10,10 +10,10 @@ const Profile = ({ userObj }) => {
     return (
         <>
             <div>
-                이름: {location.state.userObj.name}
+                이름: {memberObj.memberName}
             </div>
             <div>
-                ID: {location.state.userObj.id}
+                ID: {memberObj.memberId}
             </div>
             <button onClick={goBack}>Home</button>
         </>

@@ -6,16 +6,17 @@ import Home from "../routes/Home";
 import Profile from "../routes/Profile";
 import ItemNavigation from "./ItemNavigation";
 import Navigation from "./Navigation";
-const AppRouter = ({ isLoggedIn, userObj }) => {
+import Header from "./Header";
+const AppRouter = ({ isLoggedIn, memberObj, refreshMember }) => {
     return (
         <Router>
-            <ItemNavigation />
+            <Header isLoggedIn={isLoggedIn} memberObj={memberObj}/>
             <div className="router">
                 <Routes>
                     <>
-                        <Route path='/sign-up' element={<SignUp/>}/>
-                        <Route path='/sign-in' element={<SignIn/>}/>
-                        <Route path='/profile' element={<Profile userObj={userObj}/>}/>
+                        <Route path='/sign-up' element={<SignUp refreshMember={refreshMember}/>}/>
+                        <Route path='/sign-in' element={<SignIn refreshMember={refreshMember}/>}/>
+                        <Route path='/profile' element={<Profile memberObj={memberObj}/>}/>
                         <Route path='/' element={<Home/>}/>
                     </>
                 </Routes>

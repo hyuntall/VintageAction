@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import SignInForm from "../components/SignInForm";
 
-const SignIn = () => {
+const SignIn = ({ refreshMember }) => {
     const navigate = useNavigate();
     const goBack = () => {
         navigate(-1);
@@ -10,7 +10,7 @@ const SignIn = () => {
     return (
         <>
             <div className="authContainer">
-                <SignInForm />
+                <SignInForm refreshMember={refreshMember}/>
             </div>
             <button onClick={goBack}>
                 Home

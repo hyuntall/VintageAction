@@ -2,7 +2,7 @@ import { React, useState} from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-const SignInForm =() => {
+const SignInForm =({ refreshMember }) => {
     const navigate = useNavigate();
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
@@ -26,17 +26,10 @@ const SignInForm =() => {
             password: password
         })
         .then(response => {
-            console.log(response.data)
-            navigate("/", {
-                state:{
-                    isLoggedIn:true, 
-                    userObj:{
-                        id: id,
-                        name: id,
-                        password: password
-                    }
-                }
-            })})
+            //console.log(response.data)
+            refreshMember(response.data)
+            navigate("/")
+            })
         .catch(error => console.log(error.response.data))
     };
 

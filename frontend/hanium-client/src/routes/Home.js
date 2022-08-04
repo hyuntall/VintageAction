@@ -11,12 +11,6 @@ const Home = () => {
     }
     return (
         <>
-        {location.state ? (
-            <Navigation isLoggedIn={location.state.isLoggedIn} userObj={location.state.userObj}/>
-        ) : (
-            <Navigation isLoggedIn={false} userObj={null}/>
-        )}
-        
             메인화면입니다.
         </>
     )

@@ -1,7 +1,7 @@
 import SignUpForm from "../components/SignUpForm";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-const SignUp = ({refreshUser}) => {
+const SignUp = ({refreshMember}) => {
     const navigate = useNavigate();
     const goBack = () => {
         navigate(-1);
@@ -9,7 +9,7 @@ const SignUp = ({refreshUser}) => {
     return (
         <>
             <div className="authContainer">
-                <SignUpForm refreshUser={refreshUser}/>
+                <SignUpForm refreshMember={refreshMember}/>
             </div>
             <button onClick={goBack}>
                 Home

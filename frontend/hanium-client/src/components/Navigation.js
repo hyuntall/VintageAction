@@ -1,25 +1,25 @@
 import React from "react";
 import {Link} from "react-router-dom"
 import "../css/Navigation.css"
-const Navigation = ({ isLoggedIn, userObj }) => {
-    console.log(userObj)
+const Navigation = ({ isLoggedIn, memberObj }) => {
+
     return (
     <nav>
         <ul className="navigator">
             <li>
-                <Link to="/" state={{isLoggedIn: isLoggedIn, userObj: userObj}} className="Home">
+                <Link to="/" className="Home">
                     Home
                 </Link>
             </li>
-            {isLoggedIn ? (
+            {memberObj ? (
             <>
                 <li>
-                    <Link to="/profile" state={{isLoggedIn: isLoggedIn, userObj: userObj}} className="Profile">
+                    <Link to="/profile" className="Profile">
                         My Profile
                     </Link>
                 </li>
                 <li>
-                    <Link to="/" state={{isLoggedIn: false, userObj: null}} className="Home">
+                    <Link to="/" className="Home">
                         Sign Out
                     </Link>
                 </li>
