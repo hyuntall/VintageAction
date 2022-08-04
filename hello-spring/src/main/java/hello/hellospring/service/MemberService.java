@@ -7,6 +7,7 @@ import hello.hellospring.dto.MemberSignupDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,5 +32,5 @@ public interface MemberService{
     //회원 정보 수정(비밀번호 변경)
 
     //회원 탈퇴
-    void withdraw() throws Exception;
+    void withdraw(Member deleteMember) throws Exception;
 }

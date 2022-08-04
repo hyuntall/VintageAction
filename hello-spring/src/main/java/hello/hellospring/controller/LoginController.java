@@ -27,8 +27,8 @@ public class LoginController {
     //4. filter를 적용한 로그인
     @PostMapping("/api/members/login")
     public ResponseEntity<?> login(@Valid @RequestBody MemberSigninDto form, BindingResult bindingResult,
-                                HttpServletRequest request, HttpServletResponse response,
-                                @RequestParam(defaultValue = "/api") String redirectURL) {
+                                   HttpServletRequest request, HttpServletResponse response,
+                                   @RequestParam(defaultValue = "/api") String redirectURL) {
 
         //유효하지 않은 입력 폼 입력 시 로그인 폼으로 이동
         if (bindingResult.hasErrors()) {
@@ -55,6 +55,7 @@ public class LoginController {
         session.setAttribute("memberId", loginMember.get().getMemberId()); //게시글 올릴 때를 위해서 session에 저장
 
 
+        System.out.println(session.getId());
 
         /*filter 에서 넘겨받은 redirecURL을 적용 시키기 위해서 이렇게 바꾸었다.
         로그인을 하지 않고 /items 로 갔다가 로그인 페이지로 리다이렉트 되었다가
@@ -66,13 +67,15 @@ public class LoginController {
 
 
     //3. HttpSession 을 이요한 로그아웃
-    @PostMapping("/api/logout")
+    @PostMapping("/api/members/logout")
     public ResponseEntity<?> logoutV3(HttpServletRequest request) {
         //세션을 없애는 것이 목적이기 때문에 false 옵션을 주고 조회해 온다.
         HttpSession session = request.getSession(false);
+
         if(session != null){
-            session.invalidate(); //세셔 만료
+            session.invalidate(); //세션 만료
+            return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
         }
-        return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
+        return new ResponseEntity<>("세션이 만료되었습니다.", HttpStatus.UNAUTHORIZED);
     }
 }

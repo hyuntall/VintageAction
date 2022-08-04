@@ -24,4 +24,7 @@ public class Item {
 
     @OneToOne(mappedBy = "vintageItem", fetch = FetchType.LAZY)
     private VintageBoard vintageBoard;
+
+    @OneToOne(mappedBy = "auctionItem", fetch = FetchType.LAZY)
+    private AuctionBoard auctionBoard;
 }

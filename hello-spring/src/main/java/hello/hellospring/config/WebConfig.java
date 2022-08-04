@@ -2,9 +2,11 @@ package hello.hellospring.config;
 
 import hello.hellospring.interceptor.LogInterceptor;
 import hello.hellospring.interceptor.LoginCheckInterceptor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
@@ -20,6 +22,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/api", "/api/members/add", "/api/login", "/api/logout", "/css/**", "/*.ico");
+                .excludePathPatterns("/api", "/api/members/new", "/api/members/login", "/api/members/logout", "/css/**", "/*.ico",
+                    "/api/members/withdraw"
+                );
     }
 }

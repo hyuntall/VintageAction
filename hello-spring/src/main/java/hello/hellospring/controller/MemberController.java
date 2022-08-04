@@ -8,9 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -25,9 +28,12 @@ public class MemberController {
      * 회원 가입
      */
     @PostMapping(value = "/api/members/new")
-    public ResponseEntity<String> create(@RequestBody MemberSignupDto memberSignupDto) throws Exception {
+    public ResponseEntity<?> create(@Valid @RequestBody MemberSignupDto memberSignupDto, BindingResult bindingResult) throws Exception {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
         memberService.save(memberSignupDto);
-        return new ResponseEntity<String>("회원가입 성공", HttpStatus.OK);
+        return new ResponseEntity<>("회원가입 성공", HttpStatus.OK);
     }
 
     /**
@@ -67,9 +73,14 @@ public class MemberController {
     /**
      * 회원탈퇴
      */
-    @DeleteMapping("/api/member/withdraw")
-    public void withdraw() throws Exception {
-        memberService.withdraw();
+    @PostMapping("/api/members/withdraw")
+    public void withdraw(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+
+        Member deleteMember = (Member) session.getAttribute(session.getId());
+        memberService.withdraw(deleteMember);
+
+        session.invalidate(); //세션 만료
     }
 
 }

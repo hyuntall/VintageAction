@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,8 +56,9 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void withdraw() throws Exception {
+    public void withdraw(Member deleteMember) throws Exception {
 
+        memberRepository.delete(deleteMember);
     }
 
 
@@ -64,11 +67,6 @@ public class MemberServiceImpl implements MemberService{
 //        Member findMember = memberRepository.findByMemberId(SecurityUtil.getLoginUsername()).orElseThrow(() -> new Exception("회원이 없습니다"));
 //        return new MemberInfoDto(findMember);
 //    }
-//
-//    @Override
-//    public void withdraw() throws Exception {
-//        Member member = memberRepository.findByMemberId(SecurityUtil.getLoginUsername()).orElseThrow(() -> new Exception("회원이 존재하지 않습니다"));
-//        memberRepository.delete(member);
-//    }
+
 
 }

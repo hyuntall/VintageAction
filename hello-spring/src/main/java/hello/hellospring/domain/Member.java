@@ -34,6 +34,9 @@ public class Member {
     @OneToMany(mappedBy = "vintageId")
     private List<VintageBoard> vintageBoardList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "auction_id")
+    private List<AuctionBoard> auctionBoardList = new ArrayList<>();
+
     //DTO 클래스의 toEntity() 에서 사용하기 위해서 선언
     @Builder
     public Member(String memberId, String memberName, String memberPassword){
