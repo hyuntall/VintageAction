@@ -1,6 +1,7 @@
 package hello.hellospring.controller;
 
 
+import hello.hellospring.domain.Item;
 import hello.hellospring.domain.VintageBoard;
 import hello.hellospring.dto.VintageBordForm;
 import hello.hellospring.service.ItemService;
