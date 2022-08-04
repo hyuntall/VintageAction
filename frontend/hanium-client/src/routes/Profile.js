@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
+import axios from "axios";
 const Profile = ({ memberObj, refreshMember }) => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -9,7 +9,11 @@ const Profile = ({ memberObj, refreshMember }) => {
     }
     const SignOut = () => {
         refreshMember(null)
-        navigate("/")
+        axios.post('/api/members/logout/', )
+        .then(response => {
+            console.log(response.data);
+            navigate("/")
+        })
     }
     return (
         <>

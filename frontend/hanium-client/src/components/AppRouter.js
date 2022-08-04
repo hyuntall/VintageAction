@@ -6,6 +6,7 @@ import Home from "../routes/Home";
 import Profile from "../routes/Profile";
 import Header from "./Header";
 import VintageUpload from "../routes/VintageUpload";
+import Vintage from "../routes/Vintage";
 const AppRouter = ({ isLoggedIn, memberObj, refreshMember }) => {
     return (
         <Router>
@@ -17,6 +18,7 @@ const AppRouter = ({ isLoggedIn, memberObj, refreshMember }) => {
                         <Route path='/sign-in' element={<SignIn refreshMember={refreshMember}/>}/>
                         <Route path='/profile' element={<Profile memberObj={memberObj} refreshMember={refreshMember}/>}/>
                         <Route path='/vintage-upload' element={<VintageUpload memberObj={memberObj}/>}/>
+                        <Route path='/vintage' element={<Vintage />}/>
                         <Route path='/' element={<Home/>}/>
                     </>
                 </Routes>
