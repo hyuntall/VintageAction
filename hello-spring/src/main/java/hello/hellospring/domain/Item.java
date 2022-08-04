@@ -1,5 +1,7 @@
 package hello.hellospring.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,9 +24,23 @@ public class Item {
     private Integer itemStartPrice;
     private Integer itemCurPrice;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "vintageItem", fetch = FetchType.LAZY)
     private VintageBoard vintageBoard;
 
+
     @OneToOne(mappedBy = "auctionItem", fetch = FetchType.LAZY)
     private AuctionBoard auctionBoard;
+
+    @Builder
+    public Item(Long itemId, String itemName, String itemCategory, Integer itemPrice, String itemImage, Integer itemStartPrice, Integer itemCurPrice, VintageBoard vintageBoard) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.itemCategory = itemCategory;
+        this.itemPrice = itemPrice;
+        this.itemImage = itemImage;
+        this.itemStartPrice = itemStartPrice;
+        this.itemCurPrice = itemCurPrice;
+        this.vintageBoard = vintageBoard;
+    }
 }

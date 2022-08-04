@@ -52,7 +52,7 @@ public class LoginController {
         HttpSession session = request.getSession(true);
         //세션에 로그인 회원 정보를 보관한다.
         session.setAttribute(session.getId(), loginMember.get());
-        session.setAttribute("memberId", loginMember.get().getMemberId()); //게시글 올릴 때를 위해서 session에 저장
+        session.setAttribute("memberNo", loginMember.get().getMemberNo()); //게시글 올릴 때를 위해서 session에 저장
 
 
         System.out.println(session.getId());
@@ -62,13 +62,13 @@ public class LoginController {
         로그인을 하면 /items 페이지로 이동할 것이다. 반면에 로그인을 했으면 defaultvalue 인 "/"가
         적용되어서 home 으로 돌아갈 것이다.
          */
-        return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
+        return new ResponseEntity<>(loginMember.get(), HttpStatus.OK);
     }
 
 
     //3. HttpSession 을 이요한 로그아웃
     @PostMapping("/api/members/logout")
-    public ResponseEntity<?> logoutV3(HttpServletRequest request) {
+    public ResponseEntity<?> logout(HttpServletRequest request) {
         //세션을 없애는 것이 목적이기 때문에 false 옵션을 주고 조회해 온다.
         HttpSession session = request.getSession(false);
 

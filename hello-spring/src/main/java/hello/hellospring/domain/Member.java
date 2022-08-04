@@ -1,5 +1,6 @@
 package hello.hellospring.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class Member {
 
     private Long memberPoint;
 
+    @JsonManagedReference // 양방향 관계에서 json 순화참조 에러 해결하기 위해서 넣었다.
     @OneToMany(mappedBy = "vintageId")
     private List<VintageBoard> vintageBoardList = new ArrayList<>();
 
@@ -44,11 +46,5 @@ public class Member {
         this.memberName = memberName;
         this.memberPassword = memberPassword;
     }
-
-    //패스워드 암호화
-    public void encryptPassword(PasswordEncoder passwordEncoder) {
-        memberPassword = passwordEncoder.encode(memberPassword);
-    }
-
 
 }

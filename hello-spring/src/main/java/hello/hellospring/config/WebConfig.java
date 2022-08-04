@@ -20,10 +20,8 @@ public class WebConfig implements WebMvcConfigurer {
         //로그인 check 인터셉터 등록
         //모든 경로에 적용하되, white list는 제외 시킨다.
         registry.addInterceptor(new LoginCheckInterceptor())
-                .order(2)
+                .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/api", "/api/members/new", "/api/members/login", "/api/members/logout", "/css/**", "/*.ico",
-                    "/api/members/withdraw"
-                );
+                .excludePathPatterns("/api", "/api/members/new", "/api/members/login", "/api/members/logout", "/css/**", "/*.ico");
     }
 }

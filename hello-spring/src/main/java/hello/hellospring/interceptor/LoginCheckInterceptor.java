@@ -1,5 +1,6 @@
 package hello.hellospring.interceptor;
 
+import hello.hellospring.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -28,7 +29,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
         //인터셉트는 WebConfig 에서 등록해야 한다.
         if (session == null || session.getAttribute(session.getId()) == null) {
             log.info("미인증 사용자 요청");
-            response.sendRedirect("/api/login?redirectURL="+requestURI);
+            throw new UnauthorizedException("로그인이 필요합니다.");
         }
         return true; // 다음 진행으로 넘어가서 컨트롤러 호출
     }

@@ -1,13 +1,15 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.VintageBoard;
+import hello.hellospring.dto.VintageBordForm;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface VintageService {
     //1. 중고거래 글 등록(게시글 내용, 아이템 정보를 받아온다.)
-    VintageBoard save(VintageBoard vintageBoard);
+    VintageBoard save(VintageBordForm vintageForm, Long memberId);
+
 
     //2. 중고거래 글 수정
 
