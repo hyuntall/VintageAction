@@ -19,7 +19,7 @@ const Navigation = ({ isLoggedIn, memberObj }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/" className="Home">
+                    <Link to="/" className="Home" >
                         Sign Out
                     </Link>
                 </li>

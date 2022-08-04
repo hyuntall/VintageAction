@@ -83,7 +83,7 @@ const AuthForm =({refreshMember}) => {
 
                 <input type="submit" 
                 className="authInput authSubmit"
-                value={newAccount ? "Create Account" : "Log In"}/>
+                value="Create Account"/>
                 {error && <span className="authError">{error}</span>}
             </form>
         </>
