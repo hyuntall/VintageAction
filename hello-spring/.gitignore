@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+#profile 관리
+application-mysql.properties
