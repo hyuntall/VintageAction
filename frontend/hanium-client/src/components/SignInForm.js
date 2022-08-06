@@ -30,7 +30,7 @@ const SignInForm =({ refreshMember }) => {
             refreshMember(response.data)
             navigate("/")
             })
-        .catch(error => console.log(error.response.data))
+        .catch(error => alert(error.response.data))
     };
 
     return (

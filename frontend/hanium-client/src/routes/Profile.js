@@ -7,12 +7,15 @@ const Profile = ({ memberObj, refreshMember }) => {
     const goBack = () => {
         navigate(-1);
     }
+    if (!memberObj) {
+        navigate("/")
+    }
     const SignOut = () => {
         refreshMember(null)
+        navigate("/")
         axios.post('/api/members/logout/', )
         .then(response => {
             console.log(response.data);
-            navigate("/")
         })
     }
     return (

@@ -1,8 +1,17 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import axios from "axios";
 import "../css/Navigation.css"
 const Navigation = ({ isLoggedIn, memberObj, refreshMember }) => {
-
+    const navigate = useNavigate()
+    const SignOut = () => {
+        refreshMember(null)
+        navigate("/")
+        axios.post('/api/members/logout/', )
+        .then(response => {
+            console.log(response.data);
+        })
+    }
     return (
     <nav>
         <ul className="navigator">
@@ -19,9 +28,9 @@ const Navigation = ({ isLoggedIn, memberObj, refreshMember }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/" className="Home">
+                    <span className="Home" onClick={SignOut}>
                         Sign Out
-                    </Link>
+                    </span>
                 </li>
             </>
             ) : (

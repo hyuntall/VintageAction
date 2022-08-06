@@ -11,7 +11,7 @@ function App() {
         if(localStorage.getItem("memberObj") != null){
             console.log(JSON.parse(localStorage.getItem("memberObj")).memberName)
             const LoggedInObj = JSON.parse(localStorage.getItem("memberObj"))
-            console.log("흠???")
+
             setMemberObj({
                 memberId: LoggedInObj.memberId,
                 memberName: LoggedInObj.memberName,
@@ -24,16 +24,17 @@ function App() {
         // 유저 정보 변경 시 리프레시 하는 함수
         setIsLoggedIn(true);
         if (memberObj){
-
-            localStorage.setItem('memberObj', JSON.stringify(memberObj))
             setMemberObj({
                 memberId: memberObj.memberId,
                 memberName: memberObj.memberName,
                 memberPassword: memberObj.memberPassword
               });
-        }else
+            localStorage.setItem('memberObj', JSON.stringify(memberObj))
+        }else{
+            setMemberObj(null)
             localStorage.removeItem('memberObj')
         }
+    }
     return (
         <div className='app-container'>
             <AppRouter isLoggedin={isLoggedIn} memberObj={memberObj} refreshMember={refreshMember}/>
