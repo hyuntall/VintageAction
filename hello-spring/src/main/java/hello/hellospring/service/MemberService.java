@@ -4,6 +4,7 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.MemberSignupDto;
+import hello.hellospring.dto.MemberUpdateDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public interface MemberService{
     MemberInfoDto getMyInfo() throws Exception;
 
     //회원 정보 수정(비밀번호 변경)
+    void memberUpdate(String id, MemberUpdateDto memberUpdateDto);
 
     //회원 탈퇴
     void withdraw(Member deleteMember) throws Exception;

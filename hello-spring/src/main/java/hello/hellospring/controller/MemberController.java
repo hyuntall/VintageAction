@@ -3,7 +3,9 @@ package hello.hellospring.controller;
 import hello.hellospring.domain.Member;
 import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.MemberSignupDto;
+import hello.hellospring.dto.MemberUpdateDto;
 import hello.hellospring.service.MemberService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +49,19 @@ public class MemberController {
         return null;
     }
 
+    /**
+     * 회원정보수정
+     */
+    @PostMapping("/api/memberUpdate")
+    public ResponseEntity<?> memberUpdate(HttpServletRequest request, @RequestBody MemberUpdateDto memberUpdateDto) throws Exception {
+        HttpSession session = request.getSession(false);
+
+        Member updateMember = (Member) session.getAttribute(session.getId());
+
+        memberService.memberUpdate(updateMember.getMemberId(), memberUpdateDto);
+        return new ResponseEntity<>("회원변경완료",HttpStatus.OK);
+
+    }
 
 
     /**

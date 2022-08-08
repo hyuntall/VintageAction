@@ -47,4 +47,9 @@ public class Member {
         this.memberPassword = memberPassword;
     }
 
+    //회원 정보수정을 위한
+    public void memberUpdate(String memberPassword){
+        this.memberPassword = memberPassword;
+    }
+
 }
