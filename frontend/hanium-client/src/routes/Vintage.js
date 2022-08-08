@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import Item from "../components/Item";
+import "../css/Vintage.css"
 const Vintage = () => {
     const [itemList, setItemList] = useState(null)
-    axios.get('/api/vintages/')
-    .then(response => {
-        //console.log(response.data);
-        //setItemList(response.data)
-        //console.log(itemList[0])
-        // 한번만 렌더링 되도록 수정 필요.
-    })
+    const getItemList = () => {
+        axios.get('/api/vintages/')
+        .then(response => {
+        setItemList(response.data)
+        })
+    }
+    useEffect(getItemList, [])
     return (
-        <div className="vintageContainer">
-            중고 상품 리스트
-            {
-                itemList && itemList.map(item => (
-                    <p>gd</p>
-                ))
-            }
-        </div>
+        <>
+        <h1>중고 상품 리스트</h1>
+            <div className="vintage-container">
+                {
+                    itemList && itemList.slice(0).reverse().map(item => (
+                        <Item key={item.vintageId} itemName={item.vintageTitle} />
+                    ))
+                }
+            </div>
+        </>
     )
 }
 

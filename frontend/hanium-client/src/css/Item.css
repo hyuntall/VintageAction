@@ -1,0 +1,14 @@
+.item-container {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+}
+
+.thumbnail {
+    width: 80px;
+}
+
+.item-title {
+    margin: 0;
+    font-weight:bold
+}

@@ -7,6 +7,7 @@ import Profile from "../routes/Profile";
 import Header from "./Header";
 import VintageUpload from "../routes/VintageUpload";
 import Vintage from "../routes/Vintage";
+import VintageItem from "../routes/VintageItem";
 const AppRouter = ({ isLoggedIn, memberObj, refreshMember }) => {
     return (
         <Router>
