@@ -8,10 +8,11 @@ import Header from "./Header";
 import VintageUpload from "../routes/VintageUpload";
 import Vintage from "../routes/Vintage";
 import VintageDetail from "../routes/VintageDetail";
-const AppRouter = ({ isLoggedIn, memberObj, refreshMember }) => {
+const AppRouter = ({ memberObj, refreshMember }) => {
     return (
         <Router>
-            <Header isLoggedIn={isLoggedIn} memberObj={memberObj} refreshMember={refreshMember}/>
+            {/*헤더에 유저 정보 전달하여 로그인 유무에 따라 네비게이션 달리 표시 */}
+            <Header memberObj={memberObj} refreshMember={refreshMember}/>
             <div className="router">
                 <Routes>
                     <>

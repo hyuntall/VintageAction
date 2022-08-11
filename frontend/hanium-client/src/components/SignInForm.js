@@ -8,6 +8,8 @@ const SignInForm =({ refreshMember }) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     //const [memberObj, setMemberObj] = useState(null);
+    
+    
     const onChange = (event) => {
         const {target: {name, value}} = event;
         if(name === "id"){
@@ -16,17 +18,21 @@ const SignInForm =({ refreshMember }) => {
             setPassword(value)
         }
     }
+
     const onSubmit = async (event) => {
         // 회원가입 or 로그인 버튼 ( newAccount에 따라 )
         event.preventDefault();
         // 입력받은 데이터를 객체에 담아
-        // 회원가입 api에 post 요청
+        // 로그인 api에 post 요청
         axios.post('/api/members/login', {
             id: id,
             password: password
         })
         .then(response => {
-            //console.log(response.data)
+            console.log("로그인 성공")
+            // 로그인 성공 시
+            // App.js의 유저 정보 갱신 함수 호출
+            // 전달받은 유저 정보를 갱신하여 홈으로 이동
             refreshMember(response.data)
             navigate("/")
             })

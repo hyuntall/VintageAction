@@ -1,13 +1,13 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../css/Profile.css"
 const Profile = ({ memberObj, refreshMember }) => {
     const navigate = useNavigate();
-    const location = useLocation();
     const goBack = () => {
         navigate(-1);
     }
+    // 유저 정보가 없으면 기본 페이지로 이동
     if (!memberObj) {
         navigate("/")
     }

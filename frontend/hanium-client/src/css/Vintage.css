@@ -5,11 +5,12 @@
 }
 
 .vintage-upload-container {
+    position: relative;
     background-color: white;
     width: 70%;
-    height: 60vh;
+    height: 80%;
     margin: auto;
-    margin-top: 5vh;
+    top: 10%;
     align-content: center;
     border: 0;
     border-radius: 2.5em;
@@ -18,25 +19,27 @@
 .vintage-upload-container h3 {
     position: relative;
     margin: auto;
-    top: 3vh;
+    top: 7%;
     margin-left: 10%;
-    font-size: 2vw;
+    font-size: 1.2em;
+    height: 1%;
 }
 
 
 .vintage-upload-container .vintage-upload-form {
     position: relative;
     margin: auto;
-    top: 2vh;
     display: flex;
-    height: 90%;
+    height: 80%;
+    top: 10%;
 }
 
 .vintage-upload-form .image-form{
     width: 30%;
     margin-left: 5%;
     margin-top: 5vh;
-    height: 60%;
+    height: 100%;
+    align-content: center;
 }
 
 .vintage-upload-form img {
@@ -44,13 +47,13 @@
     border-radius: 30%;
     width: 80%;
     height: 30vh;
-    margin-left: 10%;
+    margin-left: 8%;
 }
 .image-form label {
     display: inline-block;
     padding: .5em .75em;
     color: #999;
-    font-size: inherit;
+    font-size: 1em;
     line-height: normal;
     vertical-align: middle;
     background-color: #fdfdfd;
@@ -58,9 +61,11 @@
     border: 3px solid #ebebeb;
     border-bottom-color: #e2e2e2;
     border-radius: .25em;
-    width: 30%;
-    margin-left: 32.5%;
+    width: 40%;
+    margin-left: 25%;
     text-align: center;
+    vertical-align:middle;
+    height: 10%;
 }
 .vintage-upload-form .image-form input[type="file"] {
     position: absolute;
@@ -77,6 +82,7 @@
     font-weight: bolder;
     display: inline-block;
     width: 30%;
+    font-size: 1.2em;
 }
 
 .vintage-upload-form .text-form input {
@@ -93,26 +99,28 @@
 }
 
 .vintage-upload-form .text-form {
-    margin-top: 1vw;
+    margin-top: 1vh;
     width: 50%;
     margin-left: 5%;
+    height: 100%;
 }
 
 .vintage-upload-form .text-form * {
     margin-top: 1%;
     margin-bottom: 1%;
-    font-size: 20px;
+    font-size: 1em;
+    height: 10%;
 }
 
 .vintage-upload-form .text-form .detail-input {
-    height: 10vw;
+    height: 20%;
 }
 
 .vintage-upload-form .vintage-submit {
     position: absolute;
     height: 10%;
     width: 10%;
-    bottom: 1.3vw;
+    bottom: 0;
     right: 5%;
     background-color: orange;
     border: 0;
