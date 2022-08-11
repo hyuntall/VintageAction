@@ -35,15 +35,19 @@ const SignInForm =({ refreshMember }) => {
 
     return (
         <>
-            <form onSubmit={onSubmit} className="container">
+        <div className="signIn-form">
+            <form onSubmit={onSubmit}>
+                <label htmlFor="id-input">아이디</label>
                 <input 
                 name="id"
                 placeholder="id" 
                 required 
                 value={id}
                 onChange={onChange}
-                className="authInput"/>
-
+                className="id-input"
+                id="id-input"/>
+                <br/>
+                <label htmlFor="password-input">비밀번호</label>
                 <input 
                 name="password"
                 type="password" 
@@ -51,13 +55,23 @@ const SignInForm =({ refreshMember }) => {
                 required 
                 value={password}
                 onChange={onChange}
-                className="authInput"/>
+                className="password-input"
+                id="password-input"/>
+                <br/>
+                <input type="submit" 
+                className="signUp-submit submit"
+                value="Sign Up"/>
 
                 <input type="submit" 
-                className="authInput authSubmit"
-                value="Log In"/>
+                className="signIn-submit submit"
+                value="Sign In"/>
+                <br/>
+                <span>아이디를 잊으셨습니까?</span>
+                <br/>
+                <span>비밀번호를 잊으셨습니까?</span>
                 {error && <span className="authError">{error}</span>}
             </form>
+            </div>
         </>
     )
 }
