@@ -53,6 +53,7 @@ public class LoginController {
         //세션에 로그인 회원 정보를 보관한다.
         session.setAttribute(session.getId(), loginMember.get());
         session.setAttribute("memberNo", loginMember.get().getMemberNo()); //게시글 올릴 때를 위해서 session에 저장
+        session.setAttribute("memberId", loginMember.get().getMemberId());
 
 
         System.out.println(session.getId());
