@@ -1,10 +1,10 @@
 import React from "react";
 import VintageUploadForm from "../components/VintageUploadForm";
-
+import "../css/Vintage.css"
 const VintageUpload = () => {
 
     return (
-        <div className="vintageUploadContainer">
+        <div className="vintage-upload-container">
             <VintageUploadForm/>
         </div>
     )

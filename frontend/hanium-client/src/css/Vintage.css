@@ -3,3 +3,107 @@
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     grid-gap: 20px;
 }
+
+.vintage-upload-container {
+    background-color: white;
+    width: 70%;
+    height: 80%;
+    margin: auto;
+    margin-top: 3%;
+    align-content: center;
+    border: 0;
+    border-radius: 2.5em;
+}
+
+.vintage-upload-container .vintage-upload-form {
+    position: relative;
+    margin: auto;
+    padding-top: 7%;
+    display: flex;
+    height: 90%;
+}
+
+.vintage-upload-form .image-form{
+    width: 30%;
+    margin-left: 5%;
+}
+
+.vintage-upload-form img {
+    border: 5px solid lightgray;
+    border-radius: 30%;
+    height: 200px;
+    width: 80%;
+    margin-left: 10%;
+}
+.image-form label {
+    display: inline-block;
+  padding: .5em .75em;
+  color: #999;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 3px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: .25em;
+  width: 30%;
+  margin-left: 32.5%;
+  text-align: center;
+}
+.vintage-upload-form .image-form input[type="file"] {
+    position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
+.vintage-upload-form .text-form label {
+    font-weight: bolder;
+    display: inline-block;
+    width: 20%;
+}
+
+.vintage-upload-form .text-form input {
+    display: inline-block;
+    border: 3px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+}
+.vintage-upload-form .text-form select {
+    display: inline-block;
+    border: 3px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: .25em;
+}
+
+.vintage-upload-form .text-form {
+    width: 50%;
+    margin-left: 5%;
+}
+
+.vintage-upload-form .text-form * {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-size: 20px;
+}
+
+.vintage-upload-form .text-form .detail-input {
+    height: 100px;
+}
+
+.vintage-upload-form .vintage-submit {
+    position: absolute;
+    height: 7%;
+    width: 100px;
+    bottom: 15%;
+    right: 5%;
+    background-color: orange;
+    border: 0;
+    border-radius: 0.5em;
+    font-weight: bold;
+}

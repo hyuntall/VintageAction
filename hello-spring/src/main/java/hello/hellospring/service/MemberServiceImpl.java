@@ -5,6 +5,7 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.MemberSignupDto;
 
+import hello.hellospring.dto.MemberUpdateDto;
 import hello.hellospring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -53,6 +55,15 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public MemberInfoDto getMyInfo() throws Exception {
         return null;
+    }
+
+    @Override
+    @Transactional  //JPA 영속성을 위해 어노테이션 추가 _ 트랜젝션 종료후 JPARepository에 변화가 반영됨
+    public void memberUpdate(String id, MemberUpdateDto memberUpdateDto){
+        Member member = memberRepository.findByMemberId(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다."));
+
+        member.memberUpdate(memberUpdateDto.getPassword());
+
     }
 
     @Override
