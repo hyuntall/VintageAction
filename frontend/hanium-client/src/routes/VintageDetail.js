@@ -1,9 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-
-const VintageInfo = () => {
+import axios from "axios";
+const VintageDetail = () => {
     const vintageId = useParams().vintageId;
-    console.log(vintageId);
+    axios.get(`/api/vintages/${vintageId}`)
+        .then(response => {
+        console.log(response.data)
+        })
     return (
         <>
         상품 ID: {vintageId}
@@ -11,4 +14,4 @@ const VintageInfo = () => {
     )
 }
 
-export default VintageInfo
+export default VintageDetail

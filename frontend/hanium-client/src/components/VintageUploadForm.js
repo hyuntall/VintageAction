@@ -11,7 +11,6 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
     const [error, setError] = useState(null)
 
     const fileInput = useRef();
-    //const [memberObj, setMemberObj] = useState(null);
     const onChange = (event) => {
         const {target: {name, value}} = event;
         if(name === "title"){
@@ -33,6 +32,7 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
         reader.onloadend = (finishEvent) => {
             const {currentTarget: { result }} = finishEvent
             setAttachment(result)
+            console.log(result)
         }
         reader.readAsDataURL(theFile);
     }
