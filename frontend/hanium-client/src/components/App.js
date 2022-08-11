@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import AppRouter from './AppRouter';
 import "../css/App.css"
+import Footer from './Footer';
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [memberObj ,setMemberObj] = useState(null);
@@ -38,7 +39,7 @@ function App() {
     return (
         <div className='app-container'>
             <AppRouter isLoggedin={isLoggedIn} memberObj={memberObj} refreshMember={refreshMember}/>
-            Footer 들어갈 곳
+            <Footer />
         </div>
     );
 }

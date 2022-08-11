@@ -8,7 +8,6 @@ const Vintage = () => {
         axios.get('/api/vintages/')
         .then(response => {
         setItemList(response.data)
-        console.log(response.data)
         })
     }
     useEffect(getItemList, [])
@@ -18,7 +17,7 @@ const Vintage = () => {
             <div className="vintage-container">
                 {
                     itemList && itemList.slice(0).reverse().map(item => (
-                        <Item key={item.vintageId} itemName={item.vintageTitle} />
+                        <Item key={item.vintageId} itemInfo={item}/>
                     ))
                 }
             </div>

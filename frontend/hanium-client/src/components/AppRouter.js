@@ -7,7 +7,7 @@ import Profile from "../routes/Profile";
 import Header from "./Header";
 import VintageUpload from "../routes/VintageUpload";
 import Vintage from "../routes/Vintage";
-import VintageItem from "../routes/VintageItem";
+import VintageDetail from "../routes/VintageDetail";
 const AppRouter = ({ isLoggedIn, memberObj, refreshMember }) => {
     return (
         <Router>
@@ -20,6 +20,7 @@ const AppRouter = ({ isLoggedIn, memberObj, refreshMember }) => {
                         <Route path='/profile' element={<Profile memberObj={memberObj} refreshMember={refreshMember}/>}/>
                         <Route path='/vintage-upload' element={<VintageUpload memberObj={memberObj}/>}/>
                         <Route path='/vintage' element={<Vintage />}/>
+                        <Route path="/vintage/:vintageId" element={<VintageDetail />}/>
                         <Route path='/' element={<Home/>}/>
                     </>
                 </Routes>
