@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../css/Profile.css"
 const Profile = ({ memberObj, refreshMember }) => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,6 +21,7 @@ const Profile = ({ memberObj, refreshMember }) => {
     }
     return (
         <>
+        <div className="profile-container">
             <div>
                 이름: {memberObj.memberName}
             </div>
@@ -31,6 +33,7 @@ const Profile = ({ memberObj, refreshMember }) => {
             <button onClick={SignOut}>
                 sign out
             </button>
+        </div>
         </>
     )
 }

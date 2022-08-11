@@ -9,7 +9,7 @@ const ItemNavigation = () => (
                     일반 거래
                 </Link>
             </li>
-            <img className="icon" src={require("../img/temp.png")} />
+            <img className="icon" src={require("../img/logo.png")} />
             <li>
                 <Link to="/aa" className="뭐였지">
                     경매 거래

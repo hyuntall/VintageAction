@@ -8,6 +8,7 @@ const Vintage = () => {
         axios.get('/api/vintages/')
         .then(response => {
         setItemList(response.data)
+        console.log(response.data)
         })
     }
     useEffect(getItemList, [])
