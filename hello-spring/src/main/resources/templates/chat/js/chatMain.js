@@ -4,10 +4,11 @@ var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
+var currentUser = document.getElementsByTagName("span")[0].innerHTML;
 
 var stompClient = null;
 var selectUser = null;
-var username = null;
+var receiver = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -15,14 +16,17 @@ var colors = [
 ];
 
 
+
 function connect(event) {
     event.preventDefault();
 
     selectUser = document.querySelector("#member-Select");
-    username = selectUser.options[selectUser.selectedIndex].text;
+    receiver = selectUser.options[selectUser.selectedIndex].text;
 
+    console.log("connected");
+    console.log(currentUser);
 
-    if(username) {
+    if(currentUser) {
 
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
@@ -33,14 +37,11 @@ function connect(event) {
 
 
 function onConnected() {
-    // Public Topic에 구독
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    // user 개인 구독
+    stompClient.subscribe('/user'+ currentUser +'/queue/messages', onMessageReceived);
 
-    // 접속 member명 추가
-    stompClient.send("/app/chat.addUser", {}, JSON.stringify({sender: username, type: 'JOIN'})
-    )
 
-    connectingElement.classList.add('hidden');
+    //connectingElement.classList.add('hidden');
 }
 
 
@@ -56,7 +57,7 @@ function sendMessage(event) {
 
     if(messageContent && stompClient) {
         var chatMessage = {
-            sender: username,
+            sender: currentUser,
             content: messageInput.value,
             type: 'CHAT'
         };
@@ -73,11 +74,6 @@ function onMessageReceived(payload) {
     var messageElement = document.createElement('li');
 
     if(message.type === 'JOIN') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
-    } else if (message.type === 'LEAVE') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
     } else {
         messageElement.classList.add('chat-message');
 
@@ -88,10 +84,10 @@ function onMessageReceived(payload) {
 
         messageElement.appendChild(avatarElement);
 
-        var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
-        usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
+        var currentUserElement = document.createElement('span');
+        var currentUserText = document.createTextNode(message.sender);
+        currentUserElement.appendChild(currentUserText);
+        messageElement.appendChild(currentUserElement);
     }
 
     var textElement = document.createElement('p');
