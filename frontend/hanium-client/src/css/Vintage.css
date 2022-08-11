@@ -15,10 +15,19 @@
     border-radius: 2.5em;
 }
 
-.vintage-upload-container .vintage-upload-form {
+.vintage-upload-container h3 {
     position: relative;
     margin: auto;
     top: 3vh;
+    margin-left: 10%;
+    font-size: 2vw;
+}
+
+
+.vintage-upload-container .vintage-upload-form {
+    position: relative;
+    margin: auto;
+    top: 2vh;
     display: flex;
     height: 90%;
 }
@@ -26,7 +35,7 @@
 .vintage-upload-form .image-form{
     width: 30%;
     margin-left: 5%;
-    margin-top: 3vh;
+    margin-top: 5vh;
     height: 60%;
 }
 
@@ -34,7 +43,7 @@
     border: 5px solid lightgray;
     border-radius: 30%;
     width: 80%;
-    height: 40vh;
+    height: 30vh;
     margin-left: 10%;
 }
 .image-form label {
@@ -103,7 +112,7 @@
     position: absolute;
     height: 10%;
     width: 10%;
-    bottom: 0vh;
+    bottom: 1.3vw;
     right: 5%;
     background-color: orange;
     border: 0;
