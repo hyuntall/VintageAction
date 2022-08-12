@@ -53,7 +53,6 @@ public class LoginController {
         //세션에 로그인 회원 정보를 보관한다.
         session.setAttribute(session.getId(), loginMember.get());
         session.setAttribute("memberNo", loginMember.get().getMemberNo()); //게시글 올릴 때를 위해서 session에 저장
-        session.setAttribute("memberId", loginMember.get().getMemberId());
 
 
         System.out.println(session.getId());
@@ -69,14 +68,13 @@ public class LoginController {
 
     //3. HttpSession 을 이요한 로그아웃
     @PostMapping("/api/members/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
+    public ResponseEntity<?> logoutV3(HttpServletRequest request) {
         //세션을 없애는 것이 목적이기 때문에 false 옵션을 주고 조회해 온다.
         HttpSession session = request.getSession(false);
-
         if(session != null){
             session.invalidate(); //세션 만료
             return new ResponseEntity<>("로그아웃 완료", HttpStatus.OK);
         }
-        return new ResponseEntity<>("세션이 만료되었습니다.", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>("세션이 만료되었거나 로그인을 하지 않았습니다.", HttpStatus.UNAUTHORIZED);
     }
 }

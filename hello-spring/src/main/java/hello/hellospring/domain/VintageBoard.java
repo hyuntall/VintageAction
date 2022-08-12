@@ -22,7 +22,7 @@ public class VintageBoard extends BaseTimeEntity{
     //private Status status;
 
     @JsonBackReference // 양방향 관계에서 json 순화참조 에러 해결하기 위해서 넣었다.
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "itemId") //1:1 관계에서는 FK를 가지는 쪽이 연관관계의 주인이다. 그래서 @JoinColumn 여기다 넣었다.
     private Item vintageItem;
 
@@ -46,6 +46,7 @@ public class VintageBoard extends BaseTimeEntity{
         this.vintageItem = vintageItem;
         vintageItem.setVintageBoard(this);
     }
+
     @Builder
     public VintageBoard(Long vintageId, String vintageTitle, String vintageDetail, Item vintageItem, Member member) {
         this.vintageId = vintageId;

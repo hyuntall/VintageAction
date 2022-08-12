@@ -33,6 +33,7 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member save(MemberSignupDto memberSignupDto) throws Exception {
         Member member = memberSignupDto.toEntity();
+        member.setMemberPoint(10000L);
         Member saveMember = memberRepository.save(member);
         return saveMember;
     }

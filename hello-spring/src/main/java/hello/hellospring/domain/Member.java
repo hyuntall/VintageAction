@@ -15,6 +15,7 @@ import static javax.persistence.EnumType.STRING;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class Member {
     @Id
@@ -33,11 +34,12 @@ public class Member {
     private Long memberPoint;
 
     @JsonManagedReference // 양방향 관계에서 json 순화참조 에러 해결하기 위해서 넣었다.
-    @OneToMany(mappedBy = "vintageId")
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<VintageBoard> vintageBoardList = new ArrayList<>();
 
     @OneToMany(mappedBy = "auction_id")
     private List<AuctionBoard> auctionBoardList = new ArrayList<>();
+
 
     //DTO 클래스의 toEntity() 에서 사용하기 위해서 선언
     @Builder

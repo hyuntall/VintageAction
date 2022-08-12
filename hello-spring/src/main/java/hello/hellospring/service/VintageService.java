@@ -3,17 +3,19 @@ package hello.hellospring.service;
 import hello.hellospring.domain.VintageBoard;
 import hello.hellospring.dto.VintageBordForm;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public interface VintageService {
     //1. 중고거래 글 등록(게시글 내용, 아이템 정보를 받아온다.)
-    VintageBoard save(VintageBordForm vintageForm, Long memberId);
-
+    VintageBoard save(VintageBordForm vintageForm, Long memberId) throws IOException;
 
     //2. 중고거래 글 수정
+    VintageBoard update(Long vintageId, VintageBordForm vintageForm, Long memberNo) throws IOException;
 
     //3. 중고거래 글 삭제
+    void delete(Long vintageId, Long memberNo);
 
     //3. 중고거래 글 전부 다 조회
     List<VintageBoard> findAll();

@@ -13,12 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -26,24 +30,26 @@ import java.util.Optional;
 public class VintageBoardController {
 
     private final VintageService vintageService;
-    private final MemberService memberService;
-    private final ItemService itemService;
 
 
     // CREATE - 중고등록 로직 -> 등록이 성공적으로 완료되면 main 페이지로 이동한다.
     @PostMapping("/api/vintage/new")
-    public ResponseEntity<?> createVintage(@Valid @RequestBody VintageBordForm vintageForm,
+    public ResponseEntity<?> createVintage(@Valid @ModelAttribute VintageBordForm vintageForm,
                                            BindingResult bindingResult,
                                            HttpServletRequest request) throws Exception {
 
         if(bindingResult.hasErrors()){
-            return new ResponseEntity<>("validation error", HttpStatus.BAD_REQUEST);
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            Map<String, Object> result = new HashMap<>();
+            for (FieldError fieldError : fieldErrors) {
+                result.put(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
 
         //세션에 저장된 로그인 한 회원 정보 가져오기
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         Long memberId = (Long)session.getAttribute("memberNo");
-        System.out.println(memberId);
 
         VintageBoard saveVintageBoard = vintageService.save(vintageForm, memberId);
         return new ResponseEntity<>(saveVintageBoard,HttpStatus.OK);
@@ -57,12 +63,46 @@ public class VintageBoardController {
         return new ResponseEntity<>(vintageBoards, HttpStatus.OK);
     }
 
-    //중고상품 상세 조회
-    @GetMapping("/api/vintages/{vintageBoardId}")
-    public ResponseEntity<?> vintageDetail(@PathVariable("vintageBoardId") Long vintageBoardId, Model model) {
+    //READ - 중고상품 상세 조회 -> 제목 / 아이템명, 아이템 가격, 아이템 이미지 / 설명
+    @GetMapping("/api/vintage/{vintageBoardId}")
+    public ResponseEntity<?> vintageDetail(@PathVariable("vintageBoardId") Long vintageBoardId) {
         Optional<VintageBoard> findVintageBoard = vintageService.findById(vintageBoardId);
         VintageBoard vintageBoard = findVintageBoard.get();
-        return new ResponseEntity<>(vintageBoard, HttpStatus.OK);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("title", vintageBoard.getVintageTitle());
+        result.put("detail", vintageBoard.getVintageDetail());
+        result.put("itemName", vintageBoard.getVintageItem().getItemName());
+        result.put("itemPrice", vintageBoard.getVintageItem().getItemPrice());
+        result.put("itemCategory", vintageBoard.getVintageItem().getItemCategory());
+        result.put("itemImages", vintageBoard.getVintageItem().getUploadFiles());
+        result.put("memberId", vintageBoard.getMember().getMemberId());
+        result.put("createdTime", vintageBoard.getCreatedTime());
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    //UPDATE - 중고상품 업데이트
+    @PostMapping("/api/vintage/{vintageBoardId}/edit")
+    public ResponseEntity<?> updateVintage(@ModelAttribute VintageBordForm vintageForm, @PathVariable("vintageBoardId") Long vintageBoardId, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+        Long memberNo = (Long)session.getAttribute("memberNo");
+        VintageBoard updateVintageBoard = vintageService.update(vintageBoardId, vintageForm, memberNo);
+
+        return new ResponseEntity<>(updateVintageBoard, HttpStatus.OK);
+
+    }
+
+    //DELETE - 중고상품 삭제
+    @PostMapping("/api/vintage/{vintageBoardId}/delete")
+    public ResponseEntity<?> deleteVintage(@PathVariable("vintageBoardId") Long vintageBoardId,
+                                           HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        Long memberNo = (Long)session.getAttribute("memberNo");
+
+        vintageService.delete(vintageBoardId, memberNo);
+
+        return new ResponseEntity<>("게시물 삭제 완료", HttpStatus.OK);
     }
 
 }
