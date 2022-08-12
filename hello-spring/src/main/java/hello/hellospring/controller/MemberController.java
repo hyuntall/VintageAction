@@ -1,6 +1,7 @@
 package hello.hellospring.controller;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberDuplicateDto;
 import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.MemberSignupDto;
 import hello.hellospring.dto.MemberUpdateDto;
@@ -39,14 +40,11 @@ public class MemberController {
     }
 
     /**
-     * 회원가입 시 id 중복체크 (작성 중) -> 버튼 클릭 시 중복체크로 생각만 하는 중..
+     * 회원가입 시 id 중복체크 (작성 중) -> 클라이언트에서 중복체크 버튼 클릭 시 중복체크로 구상..  id 존재할시 true/ id 없을시 false
      */
-    @PostMapping ResponseEntity<?> checkId(@RequestParam("memberId") String memberId) throws Exception {
-        if(memberService.existsByMemberId(memberId)){
-            return ResponseEntity.ok("사용 가능한 아이디 입니다.");
-        }else{
-        }
-        return null;
+    @GetMapping("/api/memberid/{memberId}/exists")
+    public ResponseEntity<?> checkMemberIdDuplicate(@PathVariable("memberId") String memberId) throws Exception{
+        return ResponseEntity.ok(memberService.checkMemberIdDuplicate(memberId));
     }
 
     /**

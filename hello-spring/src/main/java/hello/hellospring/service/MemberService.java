@@ -2,6 +2,7 @@ package hello.hellospring.service;
 
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberDuplicateDto;
 import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.MemberSignupDto;
 import hello.hellospring.dto.MemberUpdateDto;
@@ -19,7 +20,7 @@ public interface MemberService{
     Member save(MemberSignupDto memberDto) throws Exception;
 
     //회원가입 시 아이디 중복 체크
-    boolean existsByMemberId(String memberId) throws Exception;
+    boolean checkMemberIdDuplicate(String memberId);
 
     //특정 회원 조회
     Optional<Member> findOne(Long memberNo) throws Exception;

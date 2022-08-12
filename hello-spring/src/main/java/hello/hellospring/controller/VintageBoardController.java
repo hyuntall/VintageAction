@@ -4,10 +4,15 @@ package hello.hellospring.controller;
 import hello.hellospring.domain.Item;
 import hello.hellospring.domain.VintageBoard;
 import hello.hellospring.dto.VintageBordForm;
+import hello.hellospring.dto.VintageSearchDto;
 import hello.hellospring.service.ItemService;
 import hello.hellospring.service.MemberService;
 import hello.hellospring.service.VintageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class VintageBoardController {
 
@@ -103,6 +108,16 @@ public class VintageBoardController {
         vintageService.delete(vintageBoardId, memberNo);
 
         return new ResponseEntity<>("게시물 삭제 완료", HttpStatus.OK);
+    }
+
+    //중고상품 검색
+    @GetMapping("/api/vintages/search/{vintageTitle}") //page:default 페이지, size:한 페이지 게시글 수, sort:정렬기준컬럼, direction:정렬순서
+    public ResponseEntity<?> search(@PathVariable("vintageTitle") String vintageTitle,
+                                    @PageableDefault(page =0, size=10, sort = "vintageId", direction = Sort.Direction.DESC) Pageable pageable){
+        System.out.println(vintageTitle);
+        Page<VintageBoard> vintageBoardList = vintageService.search(vintageTitle, pageable);
+        return new ResponseEntity<>(vintageBoardList,HttpStatus.OK);
+
     }
 
 }

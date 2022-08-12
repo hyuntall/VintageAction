@@ -14,13 +14,13 @@ public class AuctionBoard extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long auction_id;
+    private Long auctionId;
 
-    private String auction_title;
-    private String auction_detail;
+    private String auctionTitle;
+    private String auctionDetail;
 
-    private Date auction_startDay;
-    private Date auction_endDay;
+    private Date auctionStartDay;
+    private Date auctionEndDay;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="memberId")

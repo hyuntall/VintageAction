@@ -6,16 +6,24 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.domain.UploadFile;
 import hello.hellospring.domain.VintageBoard;
 import hello.hellospring.dto.VintageBordForm;
+
 import hello.hellospring.exception.UnauthorizedException;
 import hello.hellospring.file.FileStore;
+
+import hello.hellospring.dto.VintageSearchDto;
+
 import hello.hellospring.repository.ItemRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.UploadFileRepository;
 import hello.hellospring.repository.VintageRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -134,6 +142,7 @@ public class VintageServiceImpl implements VintageService{
         return findVintageBoard;
     }
 
+
     @Override
     public void delete(Long vintageId, Long memberNo) {
 
@@ -143,13 +152,13 @@ public class VintageServiceImpl implements VintageService{
 
         //게시물 작성자 조회
         Optional<VintageBoard> findVintageBoard = vintageRepository.findById(vintageId);
-        if(findVintageBoard.isEmpty()){
+        if (findVintageBoard.isEmpty()) {
             throw new NoSuchElementException("존재 하지 않은 게시물 입니다.");
         }
         VintageBoard vintageBoard = findVintageBoard.get();
 
         //로그인 한 사용와 게시물 작성자가 다르면 예외 발생
-        if(!member.getMemberId().equals(vintageBoard.getMember().getMemberId())){
+        if (!member.getMemberId().equals(vintageBoard.getMember().getMemberId())) {
             throw new UnauthorizedException("상품을 등록한 회원이 아닙니다.");
         }
 
@@ -163,4 +172,14 @@ public class VintageServiceImpl implements VintageService{
         //db 저장정보 삭제
         vintageRepository.delete(vintageBoard);
     }
+
+    //중고게시글 검색 Page로 repository에서 받아와서 return
+    @Transactional
+    public Page<VintageBoard> search(String vintageTitle, Pageable pageable){
+        Page<VintageBoard> vintageBoardList = vintageRepository.findByVintageTitleContaining(vintageTitle, pageable);
+
+        return vintageBoardList;
+
+    }
 }
+

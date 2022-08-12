@@ -2,6 +2,7 @@ package hello.hellospring.service;
 
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberDuplicateDto;
 import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.MemberSignupDto;
 
@@ -39,11 +40,6 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public boolean existsByMemberId(String memberId) throws Exception {
-        return false;
-    }
-
-    @Override
     public Optional<Member> findOne(Long memberNo) throws Exception {
         return Optional.empty();
     }
@@ -73,12 +69,10 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.delete(deleteMember);
     }
 
-
-//    @Override
-//    public MemberInfoDto getMyInfo() throws Exception {
-//        Member findMember = memberRepository.findByMemberId(SecurityUtil.getLoginUsername()).orElseThrow(() -> new Exception("회원이 없습니다"));
-//        return new MemberInfoDto(findMember);
-//    }
+    @Override
+    public boolean checkMemberIdDuplicate(String memberId){
+        return memberRepository.existsByMemberId(memberId);
+    }
 
 
 }

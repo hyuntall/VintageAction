@@ -37,7 +37,7 @@ public class Member {
     @OneToMany(mappedBy = "member", orphanRemoval = true)
     private List<VintageBoard> vintageBoardList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "auction_id")
+    @OneToMany(mappedBy = "auctionId")
     private List<AuctionBoard> auctionBoardList = new ArrayList<>();
 
 

@@ -2,6 +2,9 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.VintageBoard;
 import hello.hellospring.dto.VintageBordForm;
+import hello.hellospring.dto.VintageSearchDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,8 +23,9 @@ public interface VintageService {
     //3. 중고거래 글 전부 다 조회
     List<VintageBoard> findAll();
 
-    //4. 특정 중고거래 글 조회하기
+    //4. 특정 중고거래 글 검색하기
     Optional<VintageBoard> findById(Long vintageBoardId);
+    Page<VintageBoard> search(String vintageTitle, Pageable pageable);
 
     //5. 중고거래 글 특정 단어로 검색
 }
