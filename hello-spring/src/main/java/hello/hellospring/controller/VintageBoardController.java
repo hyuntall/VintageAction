@@ -125,7 +125,6 @@ public class VintageBoardController {
     public ResponseEntity<?> category(@PathVariable("itemCategory") String itemCategory,
                                       @PageableDefault(page=0, size = 10) Pageable pageable, Model model){
         List<Long> itemList = itemService.findByCategory(itemCategory);
-        System.out.println("-----------itemList size: "+itemList.size());
         Page<VintageBoard> vintageBoardList = vintageService.findByItemId(itemList, pageable);
         return new ResponseEntity<>(vintageBoardList, HttpStatus.OK);
 
