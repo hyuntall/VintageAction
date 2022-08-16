@@ -127,3 +127,7 @@
     border-radius: 0.5em;
     font-weight: bold;
 }
+
+.vintage-detail-container img {
+    width: 30px;
+}

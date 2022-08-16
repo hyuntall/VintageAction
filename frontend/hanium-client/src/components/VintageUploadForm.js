@@ -8,9 +8,12 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
     const [itemName, setItemName] = useState("");
     const [price, setPrice] = useState(0);
     const [attachment, setAttachment] = useState(null);
-    const [error, setError] = useState(null)
-
+    const [error, setError] = useState(null);
+    const [file, setFile] = useState(null);
     const fileInput = useRef();
+    const formData = new FormData();
+
+
     const onChange = (event) => {
         const {target: {name, value}} = event;
         if(name === "title"){
@@ -32,9 +35,9 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
         reader.onloadend = (finishEvent) => {
             const {currentTarget: { result }} = finishEvent
             setAttachment(result)
-            console.log(result)
         }
         reader.readAsDataURL(theFile);
+        setFile(theFile);
     }
 
     const onSubmit = async (event) => {
@@ -42,13 +45,16 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
         event.preventDefault();
         // 입력받은 데이터를 객체에 담아
         // 회원가입 api에 post 요청
-        
-        await axios.post('/api/vintage/new/', {
-            vintageTitle: title,
-            vintageDetail: detail,
-            itemName: itemName,
-            itemPrice: price
-        })
+        formData.append("imageFiles", file);
+        formData.append("vintageTitle", JSON.stringify(title));
+        formData.append("itemName", JSON.stringify(itemName));
+        formData.append("itemPrice", Number(price));
+        formData.append("vintageDetail", JSON.stringify(detail));
+
+        await axios.post('/api/vintage/new/', 
+        formData, {headers: {
+            'Content-Type': "multipart/form-data"
+        }})
         .then(response => {
             console.log(response.data);
         })
@@ -65,7 +71,6 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
                     <input 
                     type="file"
                     name="item-image"
-                    required
                     id="item-image"
                     onChange={onFileChange}
                     ref={fileInput}
