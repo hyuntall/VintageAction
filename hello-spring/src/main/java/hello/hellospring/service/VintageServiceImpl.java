@@ -10,8 +10,6 @@ import hello.hellospring.dto.VintageBordForm;
 import hello.hellospring.exception.UnauthorizedException;
 import hello.hellospring.file.FileStore;
 
-import hello.hellospring.dto.VintageSearchDto;
-
 import hello.hellospring.repository.ItemRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.UploadFileRepository;
@@ -179,7 +177,13 @@ public class VintageServiceImpl implements VintageService{
         Page<VintageBoard> vintageBoardList = vintageRepository.findByVintageTitleContaining(vintageTitle, pageable);
 
         return vintageBoardList;
-
     }
+
+    @Override
+    public Page<VintageBoard> findByItemId(List<Long> itemList, Pageable pageable) {
+        Page<VintageBoard> vintageBoardList = vintageRepository.findByVintageItem_ItemId(itemList, pageable);
+        return vintageBoardList;
+    }
+
 }
 
