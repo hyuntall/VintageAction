@@ -35,6 +35,7 @@ import java.util.Optional;
 public class VintageBoardController {
 
     private final VintageService vintageService;
+    private final ItemService itemService;
 
 
     // CREATE - 중고등록 로직 -> 등록이 성공적으로 완료되면 main 페이지로 이동한다.
@@ -117,6 +118,15 @@ public class VintageBoardController {
         System.out.println(vintageTitle);
         Page<VintageBoard> vintageBoardList = vintageService.search(vintageTitle, pageable);
         return new ResponseEntity<>(vintageBoardList,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/api/vintages/category/{itemCategory}")
+    public ResponseEntity<?> category(@PathVariable("itemCategory") String itemCategory,
+                                      @PageableDefault(page=0, size = 10) Pageable pageable, Model model){
+        List<Long> itemList = itemService.findByCategory(itemCategory);
+        Page<VintageBoard> vintageBoardList = vintageService.findByItemId(itemList, pageable);
+        return new ResponseEntity<>(vintageBoardList, HttpStatus.OK);
 
     }
 
