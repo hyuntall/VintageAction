@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/Vintage.css"
 
-const VintageDetail = () => {
+const VintageDetail = ({memberObj}) => {
     const [itemName, setItemName] = useState("");
     const [price, setPrice] = useState(0);
     const [detail, setDetail] = useState("");
@@ -21,8 +21,8 @@ const VintageDetail = () => {
         setImages(response.data.itemImages);
         setImageUrl(response.data.itemImages[0].storeFileName);
         console.log(response.data.itemImages[0].storeFileName);
-
-        })
+        console.log(memberObj)
+    })
     }
     useEffect(getItemInfo, []);
     
