@@ -28,7 +28,6 @@ const VintageDetail = () => {
     
     return (
         <>
-            상품 ID: {vintageId}
             <div className="vintage-detail-container">
                 <div className="item-info">
                     <div className="image-info">
@@ -37,19 +36,19 @@ const VintageDetail = () => {
                     </div>
                     <div className="text-info">
                         <label htmlFor="title-input">상품명</label>
-                        <span>
-                            {itemName}
-                        </span>
+                        <input
+                        value={itemName}
+                        readOnly/>
                         <br/>
                         <label htmlFor="title-input">가격</label>
-                        <span>
-                            {price}
-                        </span>
+                        <input
+                        value={price}
+                        readOnly/>
                         <br/>
                         <label htmlFor="title-input">설명</label>
-                        <span>
-                            {detail}
-                        </span>
+                        <input
+                        value={detail}
+                        readOnly/>
                     </div>
                 </div>
 

@@ -2,7 +2,7 @@ import { React, useState, useRef} from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-const VintageUploadForm =({memberObj, refreshMember}) => {
+const VintageUploadForm =({memberObj}) => {
     const [title, setTitle] = useState("");
     const [detail, setDetail] = useState("");
     const [itemName, setItemName] = useState("");
@@ -12,7 +12,7 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
     const [file, setFile] = useState(null);
     const fileInput = useRef();
     const formData = new FormData();
-
+    const navigate = useNavigate();
 
     const onChange = (event) => {
         const {target: {name, value}} = event;
@@ -47,10 +47,10 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
         // 입력받은 데이터를 객체에 담아
         // 회원가입 api에 post 요청
         formData.append("imageFiles", file);
-        formData.append("vintageTitle", JSON.stringify(title));
-        formData.append("itemName", JSON.stringify(itemName));
+        formData.append("vintageTitle", title);
+        formData.append("itemName", itemName);
         formData.append("itemPrice", Number(price));
-        formData.append("vintageDetail", JSON.stringify(detail));
+        formData.append("vintageDetail", detail);
 
         await axios.post('/api/vintage/new/', 
         formData, {headers: {
@@ -58,6 +58,7 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
         }})
         .then(response => {
             console.log(response.data);
+            navigate("/");
         })
         .catch(error => console.log(error.response.data))
     };

@@ -7,10 +7,13 @@
 .vintage-upload-container {
     position: relative;
     background-color: white;
-    width: 70%;
-    height: 80%;
+    width: 100%;
+    max-width: 900px;
+    min-width: 400px;
+    height: 60vh;
+    min-height: 400px;
     margin: auto;
-    top: 10%;
+    margin-top: 5vh;
     align-content: center;
     border: 0;
     border-radius: 2.5em;
@@ -39,7 +42,7 @@
     margin-left: 5%;
     margin-top: 5vh;
     height: 100%;
-    align-content: center;
+    text-align: center;
 }
 
 .vintage-upload-form img {
@@ -47,13 +50,12 @@
     border-radius: 30%;
     width: 80%;
     height: 30vh;
-    margin-left: 8%;
 }
 .image-form label {
     display: inline-block;
     padding: .5em .75em;
     color: #999;
-    font-size: 1em;
+    font-size: 2.5vmin;
     line-height: normal;
     vertical-align: middle;
     background-color: #fdfdfd;
@@ -61,28 +63,26 @@
     border: 3px solid #ebebeb;
     border-bottom-color: #e2e2e2;
     border-radius: .25em;
-    width: 40%;
-    margin-left: 25%;
+    width: 50%;
     text-align: center;
     vertical-align:middle;
     height: 10%;
 }
 .vintage-upload-form .image-form input[type="file"] {
     position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip:rect(0,0,0,0);
-  border: 0;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
 }
 
 .vintage-upload-form .text-form label {
     font-weight: bolder;
     display: inline-block;
     width: 30%;
-    font-size: 1.2em;
 }
 
 .vintage-upload-form .text-form input {
@@ -108,7 +108,7 @@
 .vintage-upload-form .text-form * {
     margin-top: 1%;
     margin-bottom: 1%;
-    font-size: 1em;
+    font-size: 2.5vmin;
     height: 10%;
 }
 
@@ -128,6 +128,15 @@
     font-weight: bold;
 }
 
+.vintage-detail-container {
+    margin: auto;
+    background-color: white;
+    height: 500px;
+    width: 1500px;
+    border: 0;
+    border-radius: 2em;
+}
+
 .vintage-detail-container img {
-    width: 30px;
+    width: 100px;
 }
