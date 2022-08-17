@@ -38,6 +38,7 @@ const VintageUploadForm =({memberObj, refreshMember}) => {
         }
         reader.readAsDataURL(theFile);
         setFile(theFile);
+        console.log(theFile);
     }
 
     const onSubmit = async (event) => {

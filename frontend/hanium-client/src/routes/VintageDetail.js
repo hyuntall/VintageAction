@@ -19,8 +19,8 @@ const VintageDetail = () => {
         setPrice(response.data.itemPrice);
         setDetail(response.data.detail);
         setImages(response.data.itemImages);
-        setImageUrl(response.data.itemImages[0].fullPath);
-        console.log(response.data.itemImages[0].fullPath);
+        setImageUrl(response.data.itemImages[0].storeFileName);
+        console.log(response.data.itemImages[0].storeFileName);
 
         })
     }
@@ -33,7 +33,7 @@ const VintageDetail = () => {
                 <div className="item-info">
                     <div className="image-info">
                         <img className="item-image"
-                            src={imageUrl ? (imageUrl):(require("../img/temp.png"))}/>
+                            src={imageUrl ? (require(`../img/${imageUrl}`)):(require("../img/temp.png"))}/>
                     </div>
                     <div className="text-info">
                         <label htmlFor="title-input">상품명</label>
