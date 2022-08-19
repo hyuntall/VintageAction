@@ -42,7 +42,7 @@ const VintageUploadForm =({memberObj}) => {
     }
 
     const onSubmit = async (event) => {
-        
+        // 중고 상품을 업로드하는 함수
         event.preventDefault();
         // 입력받은 데이터를 객체에 담아
         // 회원가입 api에 post 요청

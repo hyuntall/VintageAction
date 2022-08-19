@@ -33,8 +33,8 @@ const Navigation = ({  memberObj, refreshMember }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/">
-                    <span className="Home" onClick={SignOut}>
+                    <Link to="/" className="SignOut">
+                    <span onClick={SignOut}>
                         Sign Out
                     </span>
                     </Link>
