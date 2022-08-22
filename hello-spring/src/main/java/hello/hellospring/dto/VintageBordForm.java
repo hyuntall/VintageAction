@@ -32,7 +32,7 @@ public class VintageBordForm {
     private String itemCategory;
 
 
-    private List<MultipartFile> imageFiles; //이미지 파일들
+    //private List<MultipartFile> imageFiles; //이미지 파일들
 
 
     public VintageBoard vintageFormtoEntity(){
