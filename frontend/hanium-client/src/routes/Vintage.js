@@ -9,6 +9,7 @@ const Vintage = () => {
     const getItemList = () => {
         axios.get('/api/vintages?page=0')
         .then(response => {
+        console.log(response.data)
         setItemList(response.data.vintageBoard)
         console.log(response.data.vintageBoard)
         })

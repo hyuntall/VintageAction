@@ -29,7 +29,7 @@
 }
 
 
-.vintage-upload-container .vintage-upload-form {
+.vintage-upload-form {
     position: relative;
     margin: auto;
     display: flex;
@@ -129,14 +129,34 @@
 }
 
 .vintage-detail-container {
-    margin: auto;
+    position: relative;
     background-color: white;
-    height: 500px;
-    width: 1500px;
+    width: 100%;
+    max-width: 900px;
+    min-width: 400px;
+    height: 60vh;
+    min-height: 400px;
+    margin: auto;
+    align-content: center;
     border: 0;
-    border-radius: 2em;
+    border-radius: 2.5em;
 }
 
-.vintage-detail-container img {
+.vintage-detail-container .item-info {
+    position: relative;
+    margin: auto;
+    height: 80%;
+    top: 10%;
+}
+
+.vintage-detail-container .title {
+    position: relative;
+    margin: auto;
+    top: 7%;
+    margin-left: 10%;
+    font-size: 1.2em;
+}
+
+.vintage-detail-container .item-info-container img{
     width: 100px;
 }
