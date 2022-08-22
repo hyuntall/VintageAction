@@ -27,8 +27,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+<<<<<<< HEAD
 import java.io.IOException;
 import java.io.InputStream;
+=======
+>>>>>>> 527e39542fa595c8ada56163a726a9343288e9bb
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -137,9 +140,26 @@ public class VintageBoardController {
     //중고상품 검색
     @GetMapping("/api/vintages/search/{vintageTitle}") //page:default 페이지, size:한 페이지 게시글 수, sort:정렬기준컬럼, direction:정렬순서
     public ResponseEntity<?> search(@PathVariable("vintageTitle") String vintageTitle,
-                                    @PageableDefault(page =0, size=10, sort = "vintageId", direction = Sort.Direction.DESC) Pageable pageable){
+                                    @PageableDefault(page =0, size=10, sort = "createdTime", direction = Sort.Direction.DESC) Pageable pageable){
         System.out.println(vintageTitle);
         Page<VintageBoard> vintageBoardList = vintageService.search(vintageTitle, pageable);
+
+//        Stream<VintageBoard> vintageBoardStream = vintageBoardList.get();
+//        List<VintageSearchDto> s = new ArrayList<>();
+//        for (VintageBoard vintageBoard : vintageBoardList) {
+//            VintageSearchDto tmp = new VintageSearchDto();
+//            tmp.setVintageTitle(vintageBoard.getVintageId());
+//            vintageBoard.getVintageTitle();
+//            vintageBoard.getVintageItem().getUploadFiles();
+//
+//            s.add(s)
+//        }
+//
+//        Map<String, Object> result = new HashMap<>();
+//        result.put()
+//        pageable.previousOrFirst().getPageNumber(); //이전 페이지
+//        pageable.next().getPageNumber(); //다음 페이지
+
         return new ResponseEntity<>(vintageBoardList,HttpStatus.OK);
 
     }

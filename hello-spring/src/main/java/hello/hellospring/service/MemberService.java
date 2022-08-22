@@ -8,6 +8,7 @@ import hello.hellospring.dto.MemberSignupDto;
 import hello.hellospring.dto.MemberUpdateDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -32,7 +33,7 @@ public interface MemberService{
     MemberInfoDto getMyInfo() throws Exception;
 
     //회원 정보 수정(비밀번호 변경)
-    void memberUpdate(String id, MemberUpdateDto memberUpdateDto);
+    void memberUpdate(String id, MemberUpdateDto memberUpdateDto, MultipartFile multipartFile);
 
     //회원 탈퇴
     void withdraw(Member deleteMember) throws Exception;
