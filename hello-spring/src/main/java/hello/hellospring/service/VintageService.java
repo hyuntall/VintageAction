@@ -21,7 +21,7 @@ public interface VintageService {
     void delete(Long vintageId, Long memberNo);
 
     //3. 중고거래 글 전부 다 조회
-    List<VintageBoard> findAll();
+    Page<VintageBoard> findAll(int page);
 
     //4. 특정 중고거래 글 검색하기
     Optional<VintageBoard> findById(Long vintageBoardId);

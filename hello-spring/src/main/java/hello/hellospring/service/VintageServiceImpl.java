@@ -16,7 +16,9 @@ import hello.hellospring.repository.UploadFileRepository;
 import hello.hellospring.repository.VintageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -75,8 +77,10 @@ public class VintageServiceImpl implements VintageService{
 
 
     @Override
-    public List<VintageBoard> findAll() {
-        List<VintageBoard> vintageBoards = vintageRepository.findAll();
+    public Page<VintageBoard> findAll(int page) {
+        Page<VintageBoard> vintageBoards = vintageRepository.findAll(
+                PageRequest.of(page, 2, Sort.by(Sort.Direction.DESC, "createdTime"))
+        );
         return vintageBoards;
     }
 
