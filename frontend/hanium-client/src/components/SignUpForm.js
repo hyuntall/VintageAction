@@ -56,24 +56,29 @@ const AuthForm =({refreshMember}) => {
         .catch(error => console.log(error.response.data))
     };
     return (
-        <>
-            <form onSubmit={onSubmit} className="container">
+        <><div className="signUp-form">
+            <form onSubmit={onSubmit}>
+                <label htmlFor="id-input">아이디</label>
                 <input 
                 name="id"
                 placeholder="id" 
                 required 
                 value={id}
                 onChange={onChange}
-                className="authInput"/>
-
+                className="id-input"
+                id="id-input"/>
+                <br/>
+                <label htmpFor="name-input">이름</label>
                 <input 
                 name="name"
                 placeholder="name" 
                 required 
                 value={name}
                 onChange={onChange}
-                className="authInput"/>
-
+                className="name-input"
+                id="name-input"/>
+                <br/>
+                <label htmlFor="password-input">비밀번호</label>
                 <input 
                 name="password"
                 type="password" 
@@ -81,13 +86,16 @@ const AuthForm =({refreshMember}) => {
                 required 
                 value={password}
                 onChange={onChange}
-                className="authInput"/>
-
+                className="password-input"
+                id="password-input"/>
+                <br/>
+                
                 <input type="submit" 
-                className="authInput authSubmit"
-                value="Create Account"/>
+                className="signUp-submit submit"
+                value="Sign Up"/>
                 {error && <span className="authError">{error}</span>}
             </form>
+            </div>
         </>
     )
 }
