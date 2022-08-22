@@ -10,7 +10,7 @@ const VintageDetail = ({memberObj}) => {
     const [itemName, setItemName] = useState("");
     const [price, setPrice] = useState(0);
     const [category, setCategory] = useState("");
-    const [file, setFile] = useState(null);
+    const [image, setImage] = useState(null);
     const [itemObj, setItemObj] = useState(null);
     const [postMode, setPostMode] = useState(false);
     const vintageId = useParams().vintageId;
