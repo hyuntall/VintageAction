@@ -31,6 +31,8 @@ public class Member {
     @Column(nullable = false)
     private String memberPassword;
 
+    private String memberImgUrl;
+
     private Long memberPoint;
 
     @JsonManagedReference // 양방향 관계에서 json 순화참조 에러 해결하기 위해서 넣었다.
@@ -43,15 +45,20 @@ public class Member {
 
     //DTO 클래스의 toEntity() 에서 사용하기 위해서 선언
     @Builder
-    public Member(String memberId, String memberName, String memberPassword){
+    public Member(String memberId, String memberName, String memberPassword, String memberImgUrl){
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberPassword = memberPassword;
+        this.memberImgUrl = memberImgUrl;
     }
 
     //회원 정보수정을 위한
     public void memberUpdate(String memberPassword){
         this.memberPassword = memberPassword;
+    }
+
+    public void memberImgUrlUpdate(String memberImgUrl) {
+        this.memberImgUrl = memberImgUrl;
     }
 
 }
