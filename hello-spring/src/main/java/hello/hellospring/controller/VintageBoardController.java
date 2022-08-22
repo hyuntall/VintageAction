@@ -90,7 +90,8 @@ public class VintageBoardController {
 
     //UPDATE - 중고상품 업데이트
     @PostMapping("/api/vintage/{vintageBoardId}/edit")
-    public ResponseEntity<?> updateVintage(@ModelAttribute VintageBordForm vintageForm, @PathVariable("vintageBoardId") Long vintageBoardId, HttpServletRequest request) throws Exception {
+    public ResponseEntity<?> updateVintage(@ModelAttribute VintageBordForm vintageForm,
+                                           @PathVariable("vintageBoardId") Long vintageBoardId, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         Long memberNo = (Long)session.getAttribute("memberNo");
         VintageBoard updateVintageBoard = vintageService.update(vintageBoardId, vintageForm, memberNo);
