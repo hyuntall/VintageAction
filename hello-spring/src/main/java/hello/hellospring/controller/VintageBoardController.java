@@ -23,15 +23,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-<<<<<<< HEAD
 import java.io.IOException;
 import java.io.InputStream;
-=======
->>>>>>> 527e39542fa595c8ada56163a726a9343288e9bb
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -47,8 +45,8 @@ public class VintageBoardController {
     @PostMapping("/api/vintage/new")
     public ResponseEntity<?> createVintage(@Valid @ModelAttribute VintageBordForm vintageForm,
                                            BindingResult bindingResult,
+                                           List<MultipartFile> imageFiles,
                                            HttpServletRequest request) throws Exception {
-
         if(bindingResult.hasErrors()){
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
             Map<String, Object> result = new HashMap<>();
@@ -58,11 +56,12 @@ public class VintageBoardController {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
 
+
         //세션에 저장된 로그인 한 회원 정보 가져오기
         HttpSession session = request.getSession();
         Long memberId = (Long)session.getAttribute("memberNo");
 
-        VintageBoard saveVintageBoard = vintageService.save(vintageForm, memberId);
+        VintageBoard saveVintageBoard = vintageService.save(vintageForm, memberId, imageFiles);
         return new ResponseEntity<>(saveVintageBoard,HttpStatus.OK);
     }
 
@@ -116,10 +115,25 @@ public class VintageBoardController {
 
     //UPDATE - 중고상품 업데이트
     @PostMapping("/api/vintage/{vintageBoardId}/edit")
-    public ResponseEntity<?> updateVintage(@ModelAttribute VintageBordForm vintageForm, @PathVariable("vintageBoardId") Long vintageBoardId, HttpServletRequest request) throws Exception {
+    public ResponseEntity<?> updateVintage(@ModelAttribute VintageBordForm vintageForm,
+                                           BindingResult bindingResult,
+                                           @PathVariable("vintageBoardId") Long vintageBoardId,
+                                           List<MultipartFile> imageFiles,
+                                           HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         Long memberNo = (Long)session.getAttribute("memberNo");
-        VintageBoard updateVintageBoard = vintageService.update(vintageBoardId, vintageForm, memberNo);
+
+
+        if(bindingResult.hasErrors()){
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            Map<String, Object> result = new HashMap<>();
+            for (FieldError fieldError : fieldErrors) {
+                result.put(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        }
+
+        VintageBoard updateVintageBoard = vintageService.update(vintageBoardId, vintageForm, memberNo, imageFiles);
 
         return new ResponseEntity<>(updateVintageBoard, HttpStatus.OK);
 

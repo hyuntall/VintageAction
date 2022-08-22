@@ -5,6 +5,7 @@ import hello.hellospring.dto.VintageBordForm;
 import hello.hellospring.dto.VintageSearchDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,10 +13,10 @@ import java.util.Optional;
 
 public interface VintageService {
     //1. 중고거래 글 등록(게시글 내용, 아이템 정보를 받아온다.)
-    VintageBoard save(VintageBordForm vintageForm, Long memberId) throws IOException;
+    VintageBoard save(VintageBordForm vintageForm, Long memberId, List<MultipartFile> imageFiles) throws IOException;
 
     //2. 중고거래 글 수정
-    VintageBoard update(Long vintageId, VintageBordForm vintageForm, Long memberNo) throws IOException;
+    VintageBoard update(Long vintageId, VintageBordForm vintageForm, Long memberNo, List<MultipartFile> imageFiles) throws IOException;
 
     //3. 중고거래 글 삭제
     void delete(Long vintageId, Long memberNo);

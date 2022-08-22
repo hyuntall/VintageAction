@@ -42,8 +42,7 @@ public class VintageServiceImpl implements VintageService{
     private final FileStore fileStore;
 
     @Override
-    public VintageBoard save(VintageBordForm vintageForm,
-                             Long memberId) throws IOException {
+    public VintageBoard save(VintageBordForm vintageForm, Long memberId, List<MultipartFile> imageFiles) throws IOException {
         //DTO -> Entity
         Item item = vintageForm.itemFormtoEntity();
         VintageBoard vintageBoard = vintageForm.vintageFormtoEntity();
@@ -59,13 +58,15 @@ public class VintageServiceImpl implements VintageService{
 
 
         //이미지 파일 저장하기 - 스토리지에 저장
-        List<MultipartFile> imageFiles = vintageForm.getImageFiles();
-        List<UploadFile> uploadFiles = fileStore.storeFiles(imageFiles);
+        //List<MultipartFile> imageFiles = vintageForm.getImageFiles();
+        if(imageFiles != null){
+            List<UploadFile> uploadFiles = fileStore.storeFiles(imageFiles);
 
-        //DB에 이미지 파일이름 저장(UploadFile 은  /올린 파일명/UUID파일명/저장된 fullPath 로 구성
-        for (UploadFile uploadFile : uploadFiles) {
-            uploadFile.setUploadItem(saveItem);
-            uploadFileRepository.save(uploadFile);
+            //DB에 이미지 파일이름 저장(UploadFile 은  /올린 파일명/UUID파일명/저장된 fullPath 로 구성
+            for (UploadFile uploadFile : uploadFiles) {
+                uploadFile.setUploadItem(saveItem);
+                uploadFileRepository.save(uploadFile);
+            }
         }
 
 
@@ -85,7 +86,7 @@ public class VintageServiceImpl implements VintageService{
     }
 
     @Override
-    public VintageBoard update(Long vintageId,VintageBordForm vintageForm, Long memberNo) throws IOException {
+    public VintageBoard update(Long vintageId,VintageBordForm vintageForm, Long memberNo, List<MultipartFile> imageFiles) throws IOException {
 
         //로그인 한 사용자 조회
         Optional<Member> findMember = memberRepository.findById(memberNo);
@@ -111,24 +112,27 @@ public class VintageServiceImpl implements VintageService{
         findItem.setItemName(vintageForm.getItemName());
         findItem.setItemCategory(vintageForm.getItemCategory());
 
-        //기존의 이미지 삭제하기 -> 스토리지, db에서 모두 삭제
-        List<UploadFile> existFiles = vintageBoard.getVintageItem().getUploadFiles();
-        for (UploadFile existFile : existFiles) {
-            fileStore.deleteFile(existFile.getFullPath());
-            uploadFileRepository.deleteById(existFile.getFileId());
-        }
-
-        //Item 에 연결된 이미지 리스트 초기화
-        findItem.getUploadFiles().clear();
 
         //수정 할 이미지 넣기
-        List<MultipartFile> imageFiles = vintageForm.getImageFiles();
-        List<UploadFile> uploadFiles = fileStore.storeFiles(imageFiles);
+        //List<MultipartFile> imageFiles = vintageForm.getImageFiles();
+        if(imageFiles != null) {
+            //기존의 이미지 삭제하기 -> 스토리지, db에서 모두 삭제
+            List<UploadFile> existFiles = vintageBoard.getVintageItem().getUploadFiles();
+            for (UploadFile existFile : existFiles) {
+                fileStore.deleteFile(existFile.getFullPath());
+                uploadFileRepository.deleteById(existFile.getFileId());
+            }
 
-        //DB에 이미지 정보들 저장
-        for (UploadFile updateFile : uploadFiles) {
-            updateFile.setUploadItem(findItem);
-            uploadFileRepository.save(updateFile);
+            //Item 에 연결된 이미지 리스트 초기화
+            findItem.getUploadFiles().clear();
+
+            List<UploadFile> uploadFiles = fileStore.storeFiles(imageFiles);
+
+            //DB에 이미지 정보들 저장
+            for (UploadFile updateFile : uploadFiles) {
+                updateFile.setUploadItem(findItem);
+                uploadFileRepository.save(updateFile);
+            }
         }
 
         return vintageBoard;
