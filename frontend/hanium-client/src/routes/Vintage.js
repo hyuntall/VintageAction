@@ -7,9 +7,10 @@ const Vintage = () => {
     const [itemList, setItemList] = useState(null)
     // 렌더링 시 중고 상품 리스트 정보 요청
     const getItemList = () => {
-        axios.get('/api/vintages/')
+        axios.get('/api/vintages?page=0')
         .then(response => {
-        setItemList(response.data)
+        setItemList(response.data.vintageBoard)
+        console.log(response.data.vintageBoard)
         })
     }
     useEffect(getItemList, [])

@@ -10,6 +10,7 @@ const VintageUploadForm =({memberObj}) => {
     const [attachment, setAttachment] = useState(null);
     const [error, setError] = useState(null);
     const [file, setFile] = useState(null);
+    const [category, setCatecory] = useState("");
     const fileInput = useRef();
     const formData = new FormData();
     const navigate = useNavigate();
@@ -24,9 +25,15 @@ const VintageUploadForm =({memberObj}) => {
             setItemName(value)
         }else if(name === "price"){
             setPrice(value)
+        }else if(name === "catecory"){
+            setCatecory(value);
+            console.log("sdad");
         }
     }
-
+    const handleChange = (e) => {
+        setCatecory(e.target.value);
+        console.log(category);
+      }
     const onFileChange = (event) => {
         // 이미지 입력 시 url을 읽는 함수
         const {target:{files}} = event;
@@ -51,7 +58,8 @@ const VintageUploadForm =({memberObj}) => {
         formData.append("itemName", itemName);
         formData.append("itemPrice", Number(price));
         formData.append("vintageDetail", detail);
-
+        formData.append("itemCategory", category);
+        console.log(category)
         await axios.post('/api/vintage/new/', 
         formData, {headers: {
             'Content-Type': "multipart/form-data"
@@ -120,8 +128,8 @@ const VintageUploadForm =({memberObj}) => {
                     id="detail-input"/>
                     <br/>
                     <label htmlFor="category">카테고리</label>
-                    <select name="category" id="category">
-                        <option value="clothes">의류</option>
+                    <select name="category" id="category" onChange={handleChange}>
+                        <option value="clothes" selected>의류</option>
                         <option value="test1">test1</option>
                         <option value="test2">test2</option>
                         <option value="test3">test3</option>
