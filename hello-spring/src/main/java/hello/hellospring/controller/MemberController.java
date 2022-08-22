@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,13 +51,14 @@ public class MemberController {
     /**
      * 회원정보수정
      */
-    @PostMapping("/api/memberUpdate")
-    public ResponseEntity<?> memberUpdate(HttpServletRequest request, @RequestBody MemberUpdateDto memberUpdateDto) throws Exception {
+    @PostMapping("/api/memberUpdate") //@RequestBody
+    public ResponseEntity<?> memberUpdate(HttpServletRequest request, MemberUpdateDto memberUpdateDto,
+                                          @RequestParam("memberImgUrl") MultipartFile multipartFile) throws Exception {
         HttpSession session = request.getSession(false);
 
         Member updateMember = (Member) session.getAttribute(session.getId());
 
-        memberService.memberUpdate(updateMember.getMemberId(), memberUpdateDto);
+        memberService.memberUpdate(updateMember.getMemberId(), memberUpdateDto, multipartFile);
         return new ResponseEntity<>("회원변경완료",HttpStatus.OK);
 
     }

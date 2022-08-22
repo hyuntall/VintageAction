@@ -4,10 +4,12 @@ import hello.hellospring.interceptor.LogInterceptor;
 import hello.hellospring.interceptor.LoginCheckInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -23,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/api", "/api/members/new", "/api/members/login", "/api/members/logout", "/css/**", "/*.ico",
-                        "/api/vintages", "/api/memberid/{memberId}/exists");
+                        "/api/vintages", "/api/vintage/{vintageBoardId}", "/upload_folder/**", "/api/memberid/{memberId}/exists");
 
     }
 }

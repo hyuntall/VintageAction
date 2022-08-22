@@ -2,6 +2,7 @@ package hello.hellospring.controller;
 
 
 import hello.hellospring.domain.Item;
+import hello.hellospring.domain.UploadFile;
 import hello.hellospring.domain.VintageBoard;
 import hello.hellospring.dto.VintageBordForm;
 import hello.hellospring.dto.VintageSearchDto;
@@ -9,6 +10,7 @@ import hello.hellospring.service.ItemService;
 import hello.hellospring.service.MemberService;
 import hello.hellospring.service.VintageService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.io.IOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,10 +27,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+<<<<<<< HEAD
+import java.io.IOException;
+import java.io.InputStream;
+=======
+>>>>>>> 527e39542fa595c8ada56163a726a9343288e9bb
+import java.util.*;
+import java.util.stream.Stream;
 
 @RestController
 @RequiredArgsConstructor
@@ -63,17 +68,38 @@ public class VintageBoardController {
 
     //READ - 중고상품목록 조회 -> 번호, 제목, 작성자Id 보여지기
     @GetMapping("/api/vintages")
-    public ResponseEntity<?> vintageList(Model model) {
-        List<VintageBoard> vintageBoards = vintageService.findAll();
-        model.addAttribute("vintageBoards", vintageBoards);
-        return new ResponseEntity<>(vintageBoards, HttpStatus.OK);
+    public ResponseEntity<?> vintageList( @RequestParam(value = "page", defaultValue = "0") int page) {
+        Page<VintageBoard> vintageBoards = vintageService.findAll(page);
+
+        if(page >= vintageBoards.getTotalPages()){
+            return new ResponseEntity<>("중고상품이 더 이상 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+        }
+
+        //vintageBoard 의 필요한 정보만 배열로 만들기
+        Stream<VintageBoard> vintageBoardStream = vintageBoards.get();
+        List<VintageSearchDto> searchResult = new ArrayList<>();
+        for (VintageBoard vintageBoard : vintageBoards) {
+            searchResult.add(new VintageSearchDto(
+                    vintageBoard.getVintageId(),
+                    vintageBoard.getVintageTitle(),
+                    vintageBoard.getVintageItem().getUploadFiles()
+            ));
+        }
+
+        //결과값 세팅
+        Map<String, Object> result = new HashMap<>();
+        result.put("vintageBoard", searchResult); // vintageSearchDto 들
+        result.put("totalPage",vintageBoards.getTotalPages()); // 총 페이지 수
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     //READ - 중고상품 상세 조회 -> 제목 / 아이템명, 아이템 가격, 아이템 이미지 / 설명
     @GetMapping("/api/vintage/{vintageBoardId}")
-    public ResponseEntity<?> vintageDetail(@PathVariable("vintageBoardId") Long vintageBoardId) {
+    public ResponseEntity<?> vintageDetail(@PathVariable("vintageBoardId") Long vintageBoardId) throws IOException {
         Optional<VintageBoard> findVintageBoard = vintageService.findById(vintageBoardId);
         VintageBoard vintageBoard = findVintageBoard.get();
+
 
         Map<String, Object> result = new HashMap<>();
         result.put("title", vintageBoard.getVintageTitle());
@@ -115,9 +141,26 @@ public class VintageBoardController {
     //중고상품 검색
     @GetMapping("/api/vintages/search/{vintageTitle}") //page:default 페이지, size:한 페이지 게시글 수, sort:정렬기준컬럼, direction:정렬순서
     public ResponseEntity<?> search(@PathVariable("vintageTitle") String vintageTitle,
-                                    @PageableDefault(page =0, size=10, sort = "vintageId", direction = Sort.Direction.DESC) Pageable pageable){
+                                    @PageableDefault(page =0, size=10, sort = "createdTime", direction = Sort.Direction.DESC) Pageable pageable){
         System.out.println(vintageTitle);
         Page<VintageBoard> vintageBoardList = vintageService.search(vintageTitle, pageable);
+
+//        Stream<VintageBoard> vintageBoardStream = vintageBoardList.get();
+//        List<VintageSearchDto> s = new ArrayList<>();
+//        for (VintageBoard vintageBoard : vintageBoardList) {
+//            VintageSearchDto tmp = new VintageSearchDto();
+//            tmp.setVintageTitle(vintageBoard.getVintageId());
+//            vintageBoard.getVintageTitle();
+//            vintageBoard.getVintageItem().getUploadFiles();
+//
+//            s.add(s)
+//        }
+//
+//        Map<String, Object> result = new HashMap<>();
+//        result.put()
+//        pageable.previousOrFirst().getPageNumber(); //이전 페이지
+//        pageable.next().getPageNumber(); //다음 페이지
+
         return new ResponseEntity<>(vintageBoardList,HttpStatus.OK);
 
     }

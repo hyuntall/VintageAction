@@ -27,6 +27,8 @@ public class VintageBordForm {
     private String itemName;
     @NotNull //NotEmpty 는 String 타입에만 가능하다.
     private Integer itemPrice;
+    @NotEmpty
+    @NotBlank
     private String itemCategory;
 
 

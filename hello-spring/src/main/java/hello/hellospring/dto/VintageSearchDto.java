@@ -1,24 +1,22 @@
 package hello.hellospring.dto;
 
+import hello.hellospring.domain.UploadFile;
 import hello.hellospring.domain.VintageBoard;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 //중고상품 검색시 필요한 Dto
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class VintageSearchDto {
-    @NotEmpty
-    @NotBlank
+    private Long vintageId;
     private String vintageTitle;
-
-    public VintageBoard vintageList(){
-        return VintageBoard.builder()
-                .vintageTitle(vintageTitle)
-                .build();
-    }
-
-
+    private List<UploadFile> uploadFiles;
 }

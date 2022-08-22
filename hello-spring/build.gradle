@@ -26,6 +26,9 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-messaging'
 	implementation'org.springframework.session:spring-session-data-redis'
 
+	//common-io
+	implementation 'commons-io:commons-io:2.6'
+
 
     implementation 'org.projectlombok:lombok:1.18.20'
 
