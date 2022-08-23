@@ -38,13 +38,13 @@ public class ChatController {
     private ChatRoomService chatRoomService;
     private ChatMessageService chatMessageService;
 
-    @GetMapping("/chat/new")
-    public String createChatRoom(Model model, HttpServletRequest request) throws Exception {
+    @GetMapping("/chat/new/{receiverId}")
+    public String createChatForm(@PathVariable String receiverId,
+                                 Model model, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
-        List<Member> members = memberService.findAll();
-        model.addAttribute("members",members);
         String senderId = (String) session.getAttribute("memberId");
         model.addAttribute("senderId",senderId);
+        model.addAttribute("receiverId",receiverId);
 
         return "/chat/chatRoom";
     }

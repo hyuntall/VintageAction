@@ -5,6 +5,7 @@ var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 var currentUser = document.getElementsByTagName("span")[0].innerHTML;
+var receiver = document.getElementsByTagName("span")[1].innerHTML;
 
 var stompClient = null;
 var selectUser = null;

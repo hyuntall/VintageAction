@@ -13,20 +13,7 @@
 
 
 <li>접속 Id: <span th:text="${senderId}"></span></li>
-<div class="memberForm">
-    <form id="memberForm" name="memberFrom" nameForm="memberForm">
-        <p>
-        <label for="member-Select">받는사람:</label>
-        <select id="member-Select" name="memberId">
-            <option value="회원선택">회원선택</option>
-            <option th:each="member : ${members}"
-                    th:value="${member.memberNo}"
-                    th:text="${member.memberId}"></option>
-        </select>
-        </p>
-        <button id="member-submit" type="submit" class="username-submit">선택</button>
-    </form>
-</div>
+<li>수신 Id: <span th:text="${receiverId}"></span></li>
 
 <div id="chat-page" class="hidden">
     <div class="chat-container">
