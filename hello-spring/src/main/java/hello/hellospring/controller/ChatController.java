@@ -86,9 +86,4 @@ public class ChatController {
                 .ok(chatMessageService.findChatMessages(senderId, receiverId));
     }
 
-    @GetMapping("/messages/{id}")
-    public ResponseEntity<?> findMessage ( @PathVariable String id) {
-        return ResponseEntity
-                .ok(chatMessageService.findById(id));
-    }
 }
