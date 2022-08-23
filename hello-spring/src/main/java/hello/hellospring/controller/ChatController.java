@@ -39,7 +39,7 @@ public class ChatController {
     private ChatMessageService chatMessageService;
 
     @GetMapping("/chat/new")
-    public String createChatForm(Model model, HttpServletRequest request) throws Exception {
+    public String createChatRoom(Model model, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         List<Member> members = memberService.findAll();
         model.addAttribute("members",members);
@@ -53,9 +53,7 @@ public class ChatController {
 
     @MessageMapping("/chat")
     public void processMessage(@Payload ChatMessage chatMessage) {
-        var chatId = chatRoomService
-                .getChatId(chatMessage.getSenderId(), chatMessage.getReceiverId(), true);
-        chatMessage.setChatId(chatId.get());
+        setChatroomId(chatMessage);
 
         ChatMessage saved = chatMessageService.save(chatMessage);
         messagingTemplate.convertAndSendToUser(
@@ -63,6 +61,13 @@ public class ChatController {
                 new ChatNotification(
                         saved.getId(),
                         saved.getSenderId()));
+    }
+
+    private void setChatroomId(ChatMessage chatMessage) {
+        Optional<ChatRoom> chatRoom = chatRoomService
+                .findChatRoom(chatMessage.getItemId(), chatMessage.getSenderId(), true);
+        Long chatRoomId = chatRoom.get().getId();
+        chatMessage.setId(chatRoomId);
     }
 
     @GetMapping("/messages/{senderId}/{receiverId}/count")

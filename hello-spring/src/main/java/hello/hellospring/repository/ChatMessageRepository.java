@@ -12,6 +12,6 @@ public interface ChatMessageRepository extends JpaRepository<ChatMessage, String
     long countBySenderIdAndReceiverIdAndStatus(
             String senderId, String receiverId, ChatMessage.MessageStatus status);
 
-    List<ChatMessage> findByChatId(Object chatId);
+    List<ChatMessage> findByChatroomId(Long id);
 
 }

@@ -1,7 +1,10 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.ChatRoom;
+import hello.hellospring.domain.Member;
+import hello.hellospring.domain.VintageBoard;
 import hello.hellospring.repository.ChatRoomRepository;
+import hello.hellospring.repository.VintageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,36 +14,31 @@ import java.util.Optional;
 public class ChatRoomServiceImpl implements ChatRoomService {
 
     private ChatRoomRepository chatRoomRepository;
+    private VintageRepository vintageRepository;
 
-    public Optional<String> getChatId(String senderId, String receiverId, boolean createIfNotExist) {
+    public Optional<ChatRoom> findChatRoom(Long itemId, String senderId, boolean createIfNotExist) {
 
         return chatRoomRepository
-                .findBySenderIdAndReceiverId(senderId, receiverId)
-                .map(ChatRoom::getChatId)
-                .or(() -> { //없을 시 생성(2명 사용자 각각)
-                    if(!createIfNotExist) {
+                .findByItemIdAndBuyerId(itemId, senderId)
+                .or(() -> { //없을 시 생성
+                    if(!createIfNotExist) {  //채팅 생성은 구매자(sender)->판매자(receiver)만 가능
                         return  Optional.empty();
                     }
-                    String chatId =
-                            String.format("%s_%s", senderId, receiverId); //보낸사람_받는사람 형태의 chatId
+                    VintageBoard vintageBoard = vintageRepository.findByVintageItem(itemId);
+                    Member seller = vintageBoard.getMember();
+                    String sellerId = seller.getMemberId();
+                    String buyerId = senderId;
 
-                    ChatRoom senderReceiver = ChatRoom
+                    ChatRoom newChatRoom = ChatRoom
                             .builder()
-                            .chatId(chatId)
-                            .senderId(senderId)
-                            .receiverId(receiverId)
+                            .itemId(itemId)
+                            .buyerId(senderId)
+                            .sellerId(sellerId)
                             .build();
 
-                    ChatRoom receiverSender = ChatRoom
-                            .builder()
-                            .chatId(chatId)
-                            .senderId(receiverId)
-                            .receiverId(senderId)
-                            .build();
-                    chatRoomRepository.save(senderReceiver);
-                    chatRoomRepository.save(receiverSender);
+                    chatRoomRepository.save(newChatRoom);
 
-                    return Optional.of(chatId);
+                    return Optional.of(newChatRoom);
                 });
     }
 }

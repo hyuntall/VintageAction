@@ -9,27 +9,22 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@NoArgsConstructor@Table(name="chatmessage")
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
-    private MessageType type;
     private String content;
     private String senderId;
     private String receiverId;
-    private String chatId;
+    private Long chatroomId;
+    private Long itemId;
     private MessageStatus status;
 
 //    @OneToOne(mappedBy = "chatMessage")
 //    private
 
-    public enum MessageType {
-        CHAT,
-        JOIN,
-        LEAVE
-    }
 
     public enum MessageStatus{
         RECEIVED, DELIVERED

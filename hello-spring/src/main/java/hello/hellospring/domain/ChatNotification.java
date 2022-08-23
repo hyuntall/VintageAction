@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder
 public class ChatNotification {
-    private String id;
+    private Long id;
     private String senderId;
 
 }

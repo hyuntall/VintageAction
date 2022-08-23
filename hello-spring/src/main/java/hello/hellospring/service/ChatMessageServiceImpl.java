@@ -18,19 +18,19 @@ import java.util.List;
 
 @Service
 public class ChatMessageServiceImpl implements ChatMessageService{
-    private ChatMessageRepository repository;
+    private ChatMessageRepository chatMessageRepository;
     private ChatRoomServiceImpl chatRoomServiceImpl;
 
     //수신한 채팅 저장
     public ChatMessage save(ChatMessage chatMessage) {
         chatMessage.setStatus(ChatMessage.MessageStatus.RECEIVED);
-        repository.save(chatMessage);
+        chatMessageRepository.save(chatMessage);
         return chatMessage;
     }
 
     //안 읽은 채팅 개수 표시
     public long countNewMessages(String senderId, String receiverId) {
-        return repository.countBySenderIdAndReceiverIdAndStatus(
+        return chatMessageRepository.countBySenderIdAndReceiverIdAndStatus(
                 senderId, receiverId, ChatMessage.MessageStatus.RECEIVED);
     }
 
@@ -51,16 +51,6 @@ public class ChatMessageServiceImpl implements ChatMessageService{
         return messages;
     }
 
-    public ChatMessage findById(String id) {
-        return repository
-                .findById(id)
-                .map(chatMessage -> {
-                    chatMessage.setStatus(ChatMessage.MessageStatus.DELIVERED);
-                    return repository.save(chatMessage);
-                })
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("can't find message (" + id + ")"));
-    }
 
     @Query
     public void updateStatuses(String senderId, String receiverId, ChatMessage.MessageStatus status) {

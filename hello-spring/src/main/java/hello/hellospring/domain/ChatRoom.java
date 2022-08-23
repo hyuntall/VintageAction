@@ -2,8 +2,7 @@ package hello.hellospring.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -11,11 +10,14 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="chatroom")
 public class ChatRoom {
     @Id
-    private String id;
-    private String chatId;
-    private String senderId;
-    private String receiverId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private Long itemId;
+    private String sellerId;
+    private String buyerId;
 
 }

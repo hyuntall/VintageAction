@@ -15,4 +15,6 @@ public interface VintageRepository extends JpaRepository<VintageBoard, Long> {
 
     @Query(value="select * from vintageboard where vintageboard.item_id in (:itemList)", nativeQuery = true)
     Page<VintageBoard> findByVintageItem_ItemId(List<Long> itemList, Pageable pageable);
+
+    VintageBoard findByVintageItem(Long itemId);
 }
