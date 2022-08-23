@@ -30,6 +30,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
+
+
+import java.io.IOException;
+import java.io.InputStream;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -77,6 +82,7 @@ public class VintageBoardController {
         //vintageBoard 의 필요한 정보만 배열로 만들기
         Stream<VintageBoard> vintageBoardStream = vintageBoards.get();
         List<VintageSearchDto> searchResult = new ArrayList<>();
+
         for (VintageBoard vintageBoard : vintageBoards) {
             searchResult.add(new VintageSearchDto(
                     vintageBoard.getVintageId(),
@@ -154,27 +160,27 @@ public class VintageBoardController {
     //중고상품 검색
     @GetMapping("/api/vintages/search/{vintageTitle}") //page:default 페이지, size:한 페이지 게시글 수, sort:정렬기준컬럼, direction:정렬순서
     public ResponseEntity<?> search(@PathVariable("vintageTitle") String vintageTitle,
-                                    @PageableDefault(page =0, size=10, sort = "createdTime", direction = Sort.Direction.DESC) Pageable pageable){
+                                    @RequestParam(value = "page", defaultValue = "0") int page){
         System.out.println(vintageTitle);
-        Page<VintageBoard> vintageBoardList = vintageService.search(vintageTitle, pageable);
+        Page<VintageBoard> vintageBoardList = vintageService.search(vintageTitle, page);
 
-//        Stream<VintageBoard> vintageBoardStream = vintageBoardList.get();
-//        List<VintageSearchDto> s = new ArrayList<>();
-//        for (VintageBoard vintageBoard : vintageBoardList) {
-//            VintageSearchDto tmp = new VintageSearchDto();
-//            tmp.setVintageTitle(vintageBoard.getVintageId());
-//            vintageBoard.getVintageTitle();
-//            vintageBoard.getVintageItem().getUploadFiles();
-//
-//            s.add(s)
-//        }
-//
-//        Map<String, Object> result = new HashMap<>();
-//        result.put()
-//        pageable.previousOrFirst().getPageNumber(); //이전 페이지
-//        pageable.next().getPageNumber(); //다음 페이지
+        Stream<VintageBoard> vintageBoardStream = vintageBoardList.get();
+        List<VintageSearchDto> searchResult = new ArrayList<>();
 
-        return new ResponseEntity<>(vintageBoardList,HttpStatus.OK);
+        for (VintageBoard vintageBoard : vintageBoardList) {
+            searchResult.add(new VintageSearchDto(
+                    vintageBoard.getVintageId(),
+                    vintageBoard.getVintageTitle(),
+                    vintageBoard.getVintageItem().getUploadFiles()
+            ));
+        }
+
+        //결과값 세팅
+        Map<String, Object> result = new HashMap<>();
+        result.put("vintageBoard", searchResult); // vintageSearchDto 들
+        result.put("totalPage",vintageBoardList.getTotalPages()); // 총 페이지 수
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 

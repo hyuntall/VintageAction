@@ -181,8 +181,8 @@ public class VintageServiceImpl implements VintageService{
 
     //중고게시글 검색 Page로 repository에서 받아와서 return
     @Transactional
-    public Page<VintageBoard> search(String vintageTitle, Pageable pageable){
-        Page<VintageBoard> vintageBoardList = vintageRepository.findByVintageTitleContaining(vintageTitle, pageable);
+    public Page<VintageBoard> search(String vintageTitle, int page){
+        Page<VintageBoard> vintageBoardList = vintageRepository.findByVintageTitleContaining(vintageTitle, PageRequest.of(page, 2, Sort.by(Sort.Direction.DESC, "createdTime")));
 
         return vintageBoardList;
     }

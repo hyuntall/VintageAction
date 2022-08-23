@@ -26,7 +26,7 @@ public interface VintageService {
 
     //4. 특정 중고거래 글 검색하기
     Optional<VintageBoard> findById(Long vintageBoardId);
-    Page<VintageBoard> search(String vintageTitle, Pageable pageable);
+    Page<VintageBoard> search(String vintageTitle, int page);
     Page<VintageBoard> findByItemId(List<Long> itemList, Pageable pageable);
 
     //5. 중고거래 글 특정 단어로 검색
