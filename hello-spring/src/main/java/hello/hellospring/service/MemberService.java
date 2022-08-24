@@ -30,7 +30,7 @@ public interface MemberService{
     List<Member> findAll() throws Exception;
 
     //내 정보 조회
-    MemberInfoDto getMyInfo() throws Exception;
+    Optional<Member> getMyInfo(String memberId) throws Exception;
 
     //회원 정보 수정(비밀번호 변경)
     void memberUpdate(String id, MemberUpdateDto memberUpdateDto, MultipartFile multipartFile);
