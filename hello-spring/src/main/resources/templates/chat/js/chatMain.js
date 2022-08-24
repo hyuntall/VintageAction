@@ -1,5 +1,4 @@
-
-var formGroup = document.querySelector('#memberForm');
+var enterForm = document.querySelector('#enterForm');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
@@ -8,8 +7,6 @@ var currentUser = document.getElementsByTagName("span")[0].innerHTML;
 var receiver = document.getElementsByTagName("span")[1].innerHTML;
 
 var stompClient = null;
-var selectUser = null;
-var receiver = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -21,11 +18,9 @@ var colors = [
 function connect(event) {
     event.preventDefault();
 
-    selectUser = document.querySelector("#member-Select");
-    receiver = selectUser.options[selectUser.selectedIndex].text;
-
     console.log("connected");
-    console.log(currentUser);
+    console.log("보내는 이(현재 유저):", currentUser);
+    console.log("받는 이:", receiver);
 
     if(currentUser) {
 
@@ -39,7 +34,7 @@ function connect(event) {
 
 function onConnected() {
     // user 개인 구독
-    stompClient.subscribe('/user'+ currentUser +'/queue/messages', onMessageReceived);
+    stompClient.subscribe('/user/'+ currentUser +'/queue/messages', onMessageReceived);
 
 
     //connectingElement.classList.add('hidden');
@@ -63,34 +58,66 @@ function sendMessage(event) {
             type: 'CHAT'
         };
 
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        stompClient.send('/user/'+ receiver +'/queue/messages', {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
+
+    /*
+    내가 쓴 메시지 표시
+     */
+    var message = chatMessage;
+
+    var messageElement = document.createElement('li');
+    messageElement.classList.add('chat-message');
+
+    //뷰에 유저 아이콘 표시하기
+    var avatarElement = document.createElement('i');
+    var avatarText = document.createTextNode(message.sender[0]);
+    avatarElement.appendChild(avatarText);
+    avatarElement.style['background-color'] = getAvatarColor(message.sender);
+
+    messageElement.appendChild(avatarElement);
+
+    var currentUserElement = document.createElement('span');
+    var currentUserText = document.createTextNode(message.sender);
+    currentUserElement.appendChild(currentUserText);
+    messageElement.appendChild(currentUserElement);
+
+    //뷰에 채팅 내용 표시하기
+    var textElement = document.createElement('p');
+    var messageText = document.createTextNode(message.content);
+    textElement.appendChild(messageText);
+
+    messageElement.appendChild(textElement);
+
+    messageArea.appendChild(messageElement);
+    messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 
 function onMessageReceived(payload) {
+    //구독한 destination으로 수신한 메시지 파싱
     var message = JSON.parse(payload.body);
 
     var messageElement = document.createElement('li');
 
-    if(message.type === 'JOIN') {
-    } else {
-        messageElement.classList.add('chat-message');
 
-        var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+    messageElement.classList.add('chat-message');
 
-        messageElement.appendChild(avatarElement);
+    //뷰에 유저 아이콘 표시하기
+    var avatarElement = document.createElement('i');
+    var avatarText = document.createTextNode(message.sender[0]);
+    avatarElement.appendChild(avatarText);
+    avatarElement.style['background-color'] = getAvatarColor(message.sender);
 
-        var currentUserElement = document.createElement('span');
-        var currentUserText = document.createTextNode(message.sender);
-        currentUserElement.appendChild(currentUserText);
-        messageElement.appendChild(currentUserElement);
-    }
+    messageElement.appendChild(avatarElement);
 
+    var currentUserElement = document.createElement('span');
+    var currentUserText = document.createTextNode(message.sender);
+    currentUserElement.appendChild(currentUserText);
+    messageElement.appendChild(currentUserElement);
+
+    //뷰에 채팅 내용 표시하기
     var textElement = document.createElement('p');
     var messageText = document.createTextNode(message.content);
     textElement.appendChild(messageText);
@@ -112,5 +139,5 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-formGroup.addEventListener('submit', connect, true);
+enterForm.addEventListener('submit', connect, true);
 messageForm.addEventListener('submit', sendMessage, true);

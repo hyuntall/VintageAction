@@ -16,10 +16,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/ws").withSockJS();
     }
 
-    @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
+    @Override   public void configureMessageBroker(MessageBrokerRegistry registry) {
+        //클라이언트->서버 엔드포인트
         registry.setApplicationDestinationPrefixes("/app");
-        registry.enableSimpleBroker("/topic");
+
+        //서버->클라이언트 엔드포인트
+        registry.enableSimpleBroker("/user");
+        registry.setUserDestinationPrefix("/user");
     }
 
 }
