@@ -1,10 +1,10 @@
-var enterForm = document.querySelector('#enterForm');
-var messageForm = document.querySelector('#messageForm');
-var messageInput = document.querySelector('#message');
-var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('.connecting');
-var currentUser = document.getElementsByTagName("span")[0].innerHTML;
-var receiver = document.getElementsByTagName("span")[1].innerHTML;
+var enterForm = document.querySelector('#enterForm');  //채팅 입장(웹소켓 연결) 버튼
+var messageForm = document.querySelector('#messageForm');  //채팅 보내기 버튼
+var messageInput = document.querySelector('#message');  //채팅 내용 입력 공간
+var messageArea = document.querySelector('#messageArea');  //채팅 표시할 공간
+var currentUser = document.getElementsByTagName("span")[0].innerHTML;  //현재 유저
+var receiver = document.getElementsByTagName("span")[1].innerHTML;  //채팅 받을 유저
+var chatroomId = document.getElementsByTagName("span")[2].innerHTML;  //채팅방Id
 
 var stompClient = null;
 
@@ -21,30 +21,26 @@ function connect(event) {
     console.log("connected");
     console.log("보내는 이(현재 유저):", currentUser);
     console.log("받는 이:", receiver);
+    console.log("현재 채팅방:", chatroomId);
 
     if(currentUser) {
 
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
 
-        stompClient.connect({}, onConnected, onError);
+        stompClient.connect({}, onConnected);
     }
 }
 
 
 function onConnected() {
     // user 개인 구독
-    stompClient.subscribe('/user/'+ currentUser +'/queue/messages', onMessageReceived);
+    stompClient.subscribe('/room/' + chatroomId + '/queue/messages', onMessageReceived);
 
 
     //connectingElement.classList.add('hidden');
 }
 
-
-function onError(error) {
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-    connectingElement.style.color = 'red';
-}
 
 
 function sendMessage(event) {
@@ -58,40 +54,11 @@ function sendMessage(event) {
             type: 'CHAT'
         };
 
-        stompClient.send('/user/'+ receiver +'/queue/messages', {}, JSON.stringify(chatMessage));
+        stompClient.send('/room/'+chatroomId+'/queue/messages', {}, JSON.stringify(chatMessage));
         messageInput.value = '';
     }
 
-    /*
-    내가 쓴 메시지 표시
-     */
-    var message = chatMessage;
 
-    var messageElement = document.createElement('li');
-    messageElement.classList.add('chat-message');
-
-    //뷰에 유저 아이콘 표시하기
-    var avatarElement = document.createElement('i');
-    var avatarText = document.createTextNode(message.sender[0]);
-    avatarElement.appendChild(avatarText);
-    avatarElement.style['background-color'] = getAvatarColor(message.sender);
-
-    messageElement.appendChild(avatarElement);
-
-    var currentUserElement = document.createElement('span');
-    var currentUserText = document.createTextNode(message.sender);
-    currentUserElement.appendChild(currentUserText);
-    messageElement.appendChild(currentUserElement);
-
-    //뷰에 채팅 내용 표시하기
-    var textElement = document.createElement('p');
-    var messageText = document.createTextNode(message.content);
-    textElement.appendChild(messageText);
-
-    messageElement.appendChild(textElement);
-
-    messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 

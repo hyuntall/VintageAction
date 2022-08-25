@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ChatMessageService {
-    //수신한 채팅 저장s
+    //수신한 채팅 저장
     public ChatMessage save(ChatMessage chatMessage);
 
     //안 읽은 채팅 개수 표시

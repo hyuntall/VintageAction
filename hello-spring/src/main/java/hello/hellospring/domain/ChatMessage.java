@@ -3,8 +3,10 @@ package hello.hellospring.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,9 +20,21 @@ public class ChatMessage {
     private String content;
     private String senderId;
     private String receiverId;
-    private Long chatroomId;
-    private Long itemId;
+
+    @ManyToOne
+    @JoinColumn(name = "chatroomId")
+    private ChatRoom chatroom;
+
+
+    @ManyToOne
+    @JoinColumn(name = "itemId")
+    private Item item;
+
     private MessageStatus status;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime sendDate;
 
 //    @OneToOne(mappedBy = "chatMessage")
 //    private
