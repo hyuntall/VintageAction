@@ -117,7 +117,7 @@ const VintageInfo =({ vintageId }) => {
                     
                     <div className="image-info">
                         <img className="item-image"
-                            src={itemObj.itemImages[0].storeFileName ? (require(`../itemImages/${itemObj.itemImages[0].storeFileName}`)):(require("../img/temp.png"))}/>
+                            src={itemObj.itemImages[0] ? (require(`../itemImages/${itemObj.itemImages[0].storeFileName}`)):(require("../img/temp.png"))}/>
                     </div>
                     <div className="text-info">
                         <label htmlFor="category">카테고리</label>
