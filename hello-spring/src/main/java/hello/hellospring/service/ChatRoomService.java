@@ -8,4 +8,5 @@ public interface ChatRoomService {
 
     //채팅방 가져오기, 없을 시 신규 생성
     public Optional<ChatRoom> findChatRoom(Long itemId, String senderId, boolean createIfNotExist);
+
 }

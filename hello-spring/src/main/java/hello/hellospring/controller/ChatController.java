@@ -4,8 +4,7 @@ package hello.hellospring.controller;
 import hello.hellospring.domain.ChatMessage;
 import hello.hellospring.domain.ChatNotification;
 import hello.hellospring.domain.ChatRoom;
-import hello.hellospring.domain.Member;
-import hello.hellospring.repository.MemberRepository;
+import hello.hellospring.dto.ChatRequestDto;
 import hello.hellospring.service.ChatMessageService;
 import hello.hellospring.service.ChatRoomService;
 import hello.hellospring.service.MemberService;
@@ -17,14 +16,11 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -34,38 +30,51 @@ public class ChatController {
     private final MemberService memberService;
 
     @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+    private SimpMessagingTemplate simpMessagingTemplate;
     private ChatRoomService chatRoomService;
     private ChatMessageService chatMessageService;
 
-    @GetMapping("/chat/new/{receiverId}")
-    public String createChatForm(@PathVariable String receiverId,
+    @GetMapping("/chat/new/{receiverId}/{chatroomId}/{itemId}")
+    public String createChatForm(@PathVariable Map<String, String> pathVarsMap,
                                  Model model, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         String senderId = (String) session.getAttribute("memberId");
         model.addAttribute("senderId",senderId);
-        model.addAttribute("receiverId",receiverId);
+
+        String receiverId = pathVarsMap.get("receiverId");
+        String chatroomId = pathVarsMap.get("chatroomId");
+        String itemId = pathVarsMap.get("itemId");
+        model.addAttribute("receiverId", receiverId);
+        model.addAttribute("chatroomId", chatroomId);
+        model.addAttribute("itemId", itemId);
 
         return "/chat/chatRoom";
     }
 
 
 
-    @MessageMapping("/chat")
-    public void processMessage(@Payload ChatMessage chatMessage) {
-        setChatroomId(chatMessage);
+    @MessageMapping("/chat")  //여기로 전송되면 메서드 호출
+    public void processMessage(ChatRequestDto chatRequestDto) {
+        System.out.print("메시지 저장/수신자:"+chatRequestDto.getReceiverId());
+        System.out.println(" 메시지 저장/채팅방아이디:"+chatRequestDto.getChatroomId());
 
-        ChatMessage saved = chatMessageService.save(chatMessage);
-        messagingTemplate.convertAndSendToUser(
-                chatMessage.getReceiverId(),"/queue/messages",
+
+        //메시지 저장하기
+        ChatMessage saved = chatMessageService.save(chatRequestDto);
+
+        //수신 유저에게 메시지 수신 알림 보내기
+        simpMessagingTemplate.convertAndSendToUser(
+                String.valueOf(chatRequestDto.getReceiverId()),"/user/{receiverId}/queue/messages",
                 new ChatNotification(
                         saved.getId(),
                         saved.getSenderId()));
     }
 
     private void setChatroomId(ChatMessage chatMessage) {
+        //chatroomId 클라이언트에서 받아서 서버 연결
         Optional<ChatRoom> chatRoom = chatRoomService
-                .findChatRoom(chatMessage.getItemId(), chatMessage.getSenderId(), true);
+                .findChatRoom(chatMessage.getItem().getItemId(),
+                        chatMessage.getSenderId(), true);
         Long chatRoomId = chatRoom.get().getId();
         chatMessage.setId(chatRoomId);
     }

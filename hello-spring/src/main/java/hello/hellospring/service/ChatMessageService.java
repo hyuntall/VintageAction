@@ -1,6 +1,8 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.ChatMessage;
+import hello.hellospring.domain.ChatRoom;
+import hello.hellospring.dto.ChatRequestDto;
 import hello.hellospring.exception.ResourceNotFoundException;
 import org.hibernate.Criteria;
 import org.hibernate.sql.Update;
@@ -10,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ChatMessageService {
-    //수신한 채팅 저장s
-    public ChatMessage save(ChatMessage chatMessage);
+    //수신한 채팅 저장
+    public ChatMessage save(ChatRequestDto chatRequestDto);
 
     //안 읽은 채팅 개수 표시
     public long countNewMessages(String senderId, String receiverId);

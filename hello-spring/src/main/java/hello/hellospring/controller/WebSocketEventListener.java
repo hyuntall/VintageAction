@@ -1,6 +1,6 @@
 package hello.hellospring.controller;
 
-import hello.hellospring.domain.ChatMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ public class WebSocketEventListener {
         logger.info("Received a new web socket connection");
     }
 
+    //유저 웹소켓 연결 끊길 시 로깅
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
@@ -32,10 +33,13 @@ public class WebSocketEventListener {
         if(username != null) {
             logger.info("User Disconnected : " + username);
 
-            ChatMessage chatMessage = new ChatMessage();
-            chatMessage.setSenderId(username);
-
-            messagingTemplate.convertAndSend("/topic/public", chatMessage);
+/*
+TODO: 채팅 상대 방 나갈 시 나갔다는 알림메시지 띄워주나?
+ */
+//            ChatMessage chatMessage = new ChatMessage();
+//            chatMessage.setSenderId(username);
+//
+//            messagingTemplate.convertAndSend("/topic/public", chatMessage);
         }
     }
 }

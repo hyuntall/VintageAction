@@ -16,8 +16,16 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long itemId;
-    private String sellerId;
-    private String buyerId;
+    @OneToOne
+    @JoinColumn(name = "itemId")
+    private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "sellerId")
+    private Member seller;
+
+    @ManyToOne
+    @JoinColumn(name = "buyerId")
+    private Member buyer;
 
 }

@@ -1,15 +1,18 @@
 package hello.hellospring.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor@Table(name="chatmessage")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="chatmessage")
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +21,21 @@ public class ChatMessage {
     private String content;
     private String senderId;
     private String receiverId;
-    private Long chatroomId;
-    private Long itemId;
+
+    @ManyToOne
+    @JoinColumn(name = "chatroomId")
+    private ChatRoom chatroom;
+
+
+    @ManyToOne
+    @JoinColumn(name = "itemId")
+    private Item item;
+
     private MessageStatus status;
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime sendDateTime;
 
 //    @OneToOne(mappedBy = "chatMessage")
 //    private

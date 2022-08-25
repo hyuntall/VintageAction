@@ -57,8 +57,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public MemberInfoDto getMyInfo() throws Exception {
-        return null;
+    public Optional<Member> getMyInfo(String memberId) throws Exception {
+        return memberRepository.findByMemberId(memberId);
     }
 
     @Value("${memberImg.path}")

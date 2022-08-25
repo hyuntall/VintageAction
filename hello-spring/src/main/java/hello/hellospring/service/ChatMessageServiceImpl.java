@@ -1,6 +1,7 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.ChatMessage;
+import hello.hellospring.dto.ChatRequestDto;
 import hello.hellospring.exception.ResourceNotFoundException;
 import hello.hellospring.repository.ChatMessageRepository;
 import org.hibernate.Criteria;
@@ -22,7 +23,8 @@ public class ChatMessageServiceImpl implements ChatMessageService{
     private ChatRoomServiceImpl chatRoomServiceImpl;
 
     //수신한 채팅 저장
-    public ChatMessage save(ChatMessage chatMessage) {
+    public ChatMessage save(ChatRequestDto chatRequestDto){
+        ChatMessage chatMessage = chatRequestDto.toEntity();
         chatMessage.setStatus(ChatMessage.MessageStatus.RECEIVED);
         chatMessageRepository.save(chatMessage);
         return chatMessage;

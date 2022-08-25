@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,7 +52,7 @@ public class MemberController {
     /**
      * 회원정보수정
      */
-    @PostMapping("/api/memberUpdate") //@RequestBody
+    @PostMapping("/api/memberUpdate")
     public ResponseEntity<?> memberUpdate(HttpServletRequest request, MemberUpdateDto memberUpdateDto,
                                           @RequestParam("memberImgUrl") MultipartFile multipartFile) throws Exception {
         HttpSession session = request.getSession(false);
@@ -77,10 +78,12 @@ public class MemberController {
      * 내정보조회
      */
     @GetMapping("/api/member")
-    public MemberInfoDto getMyInfo(
-            HttpServletResponse response) throws Exception {
+    public Optional<Member> getMyInfo(HttpServletRequest request) throws Exception {
 
-        MemberInfoDto info = memberService.getMyInfo();
+        HttpSession session = request.getSession(false);
+        Member member = (Member) session.getAttribute(session.getId());
+
+        Optional<Member> info = memberService.getMyInfo(member.getMemberId());
 
         return info;
     }
