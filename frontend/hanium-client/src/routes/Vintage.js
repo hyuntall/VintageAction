@@ -2,19 +2,25 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Item from "../components/Item";
 import "../css/Vintage.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import Pagination from "react-js-pagination";
 import Top from "../components/Top";
 const Vintage = () => {
   const [itemList, setItemList] = useState(null);
+  const [totalPage, setTotalPage] = useState(0);
+  const [page, setPage] = useState(0);
   // 렌더링 시 중고 상품 리스트 정보 요청
   const getItemList = () => {
-    axios.get("/api/vintages?page=0").then((response) => {
-      console.log(response.data);
+    axios.get(`/api/vintages?page=${page}`).then((response) => {
       setItemList(response.data.vintageBoard);
-      console.log(response.data.vintageBoard);
+      setTotalPage(response.data.totalPage);
     });
   };
   useEffect(getItemList, []);
+  const handlePageChange = (page) => {
+    setPage(page);
+    getItemList();
+  };
   return (
     <>
       <Top></Top>
@@ -31,6 +37,16 @@ const Vintage = () => {
               </Link>
             ))}
       </div>
+      <Pagination
+      activePage={page}
+      itemsCountPerPage={10}
+      totalItemsCount={450}
+      pageRangeDisplayed={10}
+      prevPageText={"‹"}
+      nextPageText={"›"}
+      onChange={handlePageChange}
+      className="pagenation"
+    />
     </>
   );
 };

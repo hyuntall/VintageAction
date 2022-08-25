@@ -6,7 +6,7 @@ const ItemNavigation = () => (
     <ul className="item-navigator">
       <li>
         <img className="icon1" src={require("../img/icon1.png")} />
-        <Link to="/vintage" className="vintage">
+        <Link to="/vintages" className="vintage">
           일반 거래
         </Link>
       </li>

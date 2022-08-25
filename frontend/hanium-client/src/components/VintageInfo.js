@@ -91,10 +91,22 @@ const VintageInfo =({ vintageId }) => {
         })
         .catch(error => console.log(error.response.data))
     };
+    const deal = () => {
+        axios.post(`/api/vintage/deal`, 
+        {
+            vintageId: vintageId,
+        })
+        .then(response => {
+        console.log(response.data);
+    })
+    }
     return (
         <>
             {itemObj ?
                 (<div className="item-info-container">
+                <button onclick={deal}>
+                    구매
+                </button>
                 <input
                     className="title readOnly"
                     value={title}

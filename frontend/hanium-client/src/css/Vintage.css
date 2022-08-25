@@ -160,3 +160,7 @@
 .vintage-detail-container .item-info-container img{
     width: 100px;
 }
+
+.vintage-detail-container #modeButton {
+    margin-top: 100px;
+}
