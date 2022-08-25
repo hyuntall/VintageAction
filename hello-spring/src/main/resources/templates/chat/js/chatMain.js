@@ -50,11 +50,15 @@ function sendMessage(event) {
     if(messageContent && stompClient) {
         var chatMessage = {
             sender: currentUser,
+            receiver: receiver,
             content: messageInput.value,
+            chatroom: chatroomId,
             type: 'CHAT'
         };
 
-        stompClient.send('/room/'+chatroomId+'/queue/messages', {}, JSON.stringify(chatMessage));
+        stompClient.send('/room/'+chatroomId+'/queue/messages', {}, JSON.stringify(chatMessage)); //json 직렬화해서 보내기
+        stompClient.send('/app/chat', {}, JSON.stringify({'content': messageInput.value,'senderId':currentUser,
+            'receiverId': receiver, 'chatroomId': chatroomId}));
         messageInput.value = '';
     }
 

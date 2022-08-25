@@ -1,8 +1,6 @@
 package hello.hellospring.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -11,7 +9,10 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor@Table(name="chatmessage")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name="chatmessage")
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +35,7 @@ public class ChatMessage {
 
     @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime sendDate;
+    private LocalDateTime sendDateTime;
 
 //    @OneToOne(mappedBy = "chatMessage")
 //    private
