@@ -2,6 +2,7 @@ package hello.hellospring.controller;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.dto.request.MemberSigninDto;
+import hello.hellospring.dto.response.LoginMemberDto;
 import hello.hellospring.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +62,9 @@ public class LoginController {
         로그인을 하면 /items 페이지로 이동할 것이다. 반면에 로그인을 했으면 defaultvalue 인 "/"가
         적용되어서 home 으로 돌아갈 것이다.
          */
-        return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
+        Member member = loginMember.get();
+        LoginMemberDto loginMemberDto = new LoginMemberDto(member);
+        return new ResponseEntity<>(loginMemberDto, HttpStatus.OK);
     }
 
 
