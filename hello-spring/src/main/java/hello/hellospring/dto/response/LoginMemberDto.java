@@ -8,12 +8,13 @@ public class LoginMemberDto {
     private Long memberNo;
     private String memberId;
     private String memberName;
+    private Long point;
 
     public LoginMemberDto(Member member) {
         memberNo = member.getMemberNo();
         memberId = member.getMemberId();
         memberName = member.getMemberName();
-
+        point = member.getMemberPoint();
     }
 
 }
