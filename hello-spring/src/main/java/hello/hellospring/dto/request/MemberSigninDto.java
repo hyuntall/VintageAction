@@ -1,4 +1,4 @@
-package hello.hellospring.dto;
+package hello.hellospring.dto.request;
 
 import lombok.Data;
 

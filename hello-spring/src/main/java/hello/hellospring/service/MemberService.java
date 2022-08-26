@@ -2,15 +2,11 @@ package hello.hellospring.service;
 
 
 import hello.hellospring.domain.Member;
-import hello.hellospring.dto.MemberDuplicateDto;
-import hello.hellospring.dto.MemberInfoDto;
-import hello.hellospring.dto.MemberSignupDto;
-import hello.hellospring.dto.MemberUpdateDto;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import hello.hellospring.dto.request.MemberSignupDto;
+import hello.hellospring.dto.request.MemberUpdateDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 

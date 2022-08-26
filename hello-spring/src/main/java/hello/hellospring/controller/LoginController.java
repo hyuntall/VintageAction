@@ -1,7 +1,7 @@
 package hello.hellospring.controller;
 
 import hello.hellospring.domain.Member;
-import hello.hellospring.dto.MemberSigninDto;
+import hello.hellospring.dto.request.MemberSigninDto;
 import hello.hellospring.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -56,14 +56,12 @@ public class LoginController {
         session.setAttribute("memberId",loginMember.get().getMemberId());
 
 
-        System.out.println(session.getId());
-
         /*filter 에서 넘겨받은 redirecURL을 적용 시키기 위해서 이렇게 바꾸었다.
         로그인을 하지 않고 /items 로 갔다가 로그인 페이지로 리다이렉트 되었다가
         로그인을 하면 /items 페이지로 이동할 것이다. 반면에 로그인을 했으면 defaultvalue 인 "/"가
         적용되어서 home 으로 돌아갈 것이다.
          */
-        return new ResponseEntity<>(loginMember.get(), HttpStatus.OK);
+        return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
     }
 
 

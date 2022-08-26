@@ -2,33 +2,22 @@ package hello.hellospring.service;
 
 
 import hello.hellospring.domain.Member;
-import hello.hellospring.dto.MemberDuplicateDto;
-import hello.hellospring.dto.MemberInfoDto;
-import hello.hellospring.dto.MemberSignupDto;
+import hello.hellospring.dto.request.MemberSignupDto;
 
-import hello.hellospring.dto.MemberUpdateDto;
+import hello.hellospring.dto.request.MemberUpdateDto;
 import hello.hellospring.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

@@ -22,4 +22,16 @@ public class ExceptionHandler {
     public String NoSuchElementExHandler(NoSuchElementException e){
         return e.getMessage();
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = PointLackException.class)
+    public String PointLackExHandler(PointLackException e) {
+        return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @org.springframework.web.bind.annotation.ExceptionHandler(value = BadRequestException.class)
+    public String BadRequestExHandler(BadRequestException e){
+        return e.getMessage();
+    }
 }

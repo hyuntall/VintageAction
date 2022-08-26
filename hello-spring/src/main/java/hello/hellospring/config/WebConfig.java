@@ -25,7 +25,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(1)
                 .addPathPatterns("/**")
                 .excludePathPatterns("/api", "/api/members/new", "/api/members/login", "/api/members/logout", "/css/**", "/*.ico",
-                        "/api/vintages", "/api/vintage/{vintageBoardId}", "/upload_folder/**", "/api/memberid/{memberId}/exists");
+                        "/api/vintages", "/api/vintage/{vintageBoardId}", "/api/vintages/search","/api/vintages/itemCategory",
+                        "/api/memberid/{memberId}/exists");
 
     }
 }

@@ -17,4 +17,7 @@ public interface VintageRepository extends JpaRepository<VintageBoard, Long> {
     Page<VintageBoard> findByVintageItem_ItemId(List<Long> itemList, Pageable pageable);
 
     VintageBoard findByVintageItem(Long itemId);
+
+    @Query("select v from VintageBoard v join v.vintageItem vi where vi.itemCategory =:itemCategory")
+    Page<VintageBoard> findVintageBoardsByItemCategory(@Param("itemCategory") String itemCategory, Pageable pageable);
 }

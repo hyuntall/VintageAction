@@ -3,7 +3,7 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.domain.Role;
 import hello.hellospring.dto.MemberInfoDto;
-import hello.hellospring.dto.MemberSignupDto;
+import hello.hellospring.dto.request.MemberSignupDto;
 import hello.hellospring.repository.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

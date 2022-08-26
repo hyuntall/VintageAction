@@ -1,27 +1,19 @@
 package hello.hellospring.controller;
 
 
-import hello.hellospring.domain.Item;
-import hello.hellospring.domain.UploadFile;
 import hello.hellospring.domain.VintageBoard;
-import hello.hellospring.dto.VintageBordForm;
-import hello.hellospring.dto.VintageSearchDto;
+import hello.hellospring.dto.request.VintageBordForm;
+import hello.hellospring.dto.response.Result;
+import hello.hellospring.dto.response.VintageBoardDetailDto;
+import hello.hellospring.dto.response.VintageBoardDto;
 import hello.hellospring.service.ItemService;
-import hello.hellospring.service.MemberService;
 import hello.hellospring.service.VintageService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.io.IOUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,14 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.io.InputStream;
 
-
-import java.io.IOException;
-import java.io.InputStream;
 
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -64,10 +52,10 @@ public class VintageBoardController {
 
         //세션에 저장된 로그인 한 회원 정보 가져오기
         HttpSession session = request.getSession();
-        Long memberId = (Long)session.getAttribute("memberNo");
+        Long memberNo = (Long)session.getAttribute("memberNo");
 
-        VintageBoard saveVintageBoard = vintageService.save(vintageForm, memberId, imageFiles);
-        return new ResponseEntity<>(saveVintageBoard,HttpStatus.OK);
+        VintageBoard saveVintageBoard = vintageService.save(vintageForm, memberNo, imageFiles);
+        return new ResponseEntity<>("중고 상품 등록 완료",HttpStatus.OK);
     }
 
     //READ - 중고상품목록 조회 -> 번호, 제목, 작성자Id 보여지기
@@ -75,28 +63,17 @@ public class VintageBoardController {
     public ResponseEntity<?> vintageList( @RequestParam(value = "page", defaultValue = "0") int page) {
         Page<VintageBoard> vintageBoards = vintageService.findAll(page);
 
-        if(page >= vintageBoards.getTotalPages()){
-            return new ResponseEntity<>("중고상품이 더 이상 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+        if(page != 0 && page >= vintageBoards.getTotalPages()){
+            return new ResponseEntity<>("해당 페이지는 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
 
-        //vintageBoard 의 필요한 정보만 배열로 만들기
-        Stream<VintageBoard> vintageBoardStream = vintageBoards.get();
-        List<VintageSearchDto> searchResult = new ArrayList<>();
+        //프록시 객체 초기화 + DTO 로 변환
+        List<VintageBoard> content = vintageBoards.getContent();
+        List<VintageBoardDto> result = content.stream()
+                .map(v -> new VintageBoardDto(v))
+                .collect(Collectors.toList());
 
-        for (VintageBoard vintageBoard : vintageBoards) {
-            searchResult.add(new VintageSearchDto(
-                    vintageBoard.getVintageId(),
-                    vintageBoard.getVintageTitle(),
-                    vintageBoard.getVintageItem().getUploadFiles()
-            ));
-        }
-
-        //결과값 세팅
-        Map<String, Object> result = new HashMap<>();
-        result.put("vintageBoard", searchResult); // vintageSearchDto 들
-        result.put("totalPage",vintageBoards.getTotalPages()); // 총 페이지 수
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(new Result<>(page+1,vintageBoards.getTotalPages(),result), HttpStatus.OK);
     }
 
     //READ - 중고상품 상세 조회 -> 제목 / 아이템명, 아이템 가격, 아이템 이미지 / 설명
@@ -105,25 +82,15 @@ public class VintageBoardController {
         Optional<VintageBoard> findVintageBoard = vintageService.findById(vintageBoardId);
         VintageBoard vintageBoard = findVintageBoard.get();
 
-
-        Map<String, Object> result = new HashMap<>();
-        result.put("title", vintageBoard.getVintageTitle());
-        result.put("detail", vintageBoard.getVintageDetail());
-        result.put("itemName", vintageBoard.getVintageItem().getItemName());
-        result.put("itemPrice", vintageBoard.getVintageItem().getItemPrice());
-        result.put("itemCategory", vintageBoard.getVintageItem().getItemCategory());
-        result.put("itemImages", vintageBoard.getVintageItem().getUploadFiles());
-        result.put("memberId", vintageBoard.getMember().getMemberId());
-        result.put("createdTime", vintageBoard.getCreatedTime());
-
+        VintageBoardDetailDto result = new VintageBoardDetailDto(vintageBoard);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     //UPDATE - 중고상품 업데이트
     @PostMapping("/api/vintage/{vintageBoardId}/edit")
-    public ResponseEntity<?> updateVintage(@ModelAttribute VintageBordForm vintageForm,
+    public ResponseEntity<?> updateVintage(@PathVariable("vintageBoardId") Long vintageBoardId,
+                                           @Valid @ModelAttribute VintageBordForm vintageForm,
                                            BindingResult bindingResult,
-                                           @PathVariable("vintageBoardId") Long vintageBoardId,
                                            List<MultipartFile> imageFiles,
                                            HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
@@ -141,7 +108,8 @@ public class VintageBoardController {
 
         VintageBoard updateVintageBoard = vintageService.update(vintageBoardId, vintageForm, memberNo, imageFiles);
 
-        return new ResponseEntity<>(updateVintageBoard, HttpStatus.OK);
+
+        return new ResponseEntity<>("중고 상품 게시물 업데이트 완료", HttpStatus.OK);
 
     }
 
@@ -157,39 +125,44 @@ public class VintageBoardController {
         return new ResponseEntity<>("게시물 삭제 완료", HttpStatus.OK);
     }
 
-    //중고상품 검색
-    @GetMapping("/api/vintages/search/{vintageTitle}") //page:default 페이지, size:한 페이지 게시글 수, sort:정렬기준컬럼, direction:정렬순서
-    public ResponseEntity<?> search(@PathVariable("vintageTitle") String vintageTitle,
+    //READ - 중고상품 검색(vintageTitle 검색)
+    @GetMapping("/api/vintages/search") //page:default 페이지, size:한 페이지 게시글 수, sort:정렬기준컬럼, direction:정렬순서
+    public ResponseEntity<?> search(@RequestParam("vintageTitle") String vintageTitle,
                                     @RequestParam(value = "page", defaultValue = "0") int page){
-        System.out.println(vintageTitle);
-        Page<VintageBoard> vintageBoardList = vintageService.search(vintageTitle, page);
 
-        Stream<VintageBoard> vintageBoardStream = vintageBoardList.get();
-        List<VintageSearchDto> searchResult = new ArrayList<>();
+        Page<VintageBoard> vintageBoards = vintageService.searchTitle(vintageTitle, page);
 
-        for (VintageBoard vintageBoard : vintageBoardList) {
-            searchResult.add(new VintageSearchDto(
-                    vintageBoard.getVintageId(),
-                    vintageBoard.getVintageTitle(),
-                    vintageBoard.getVintageItem().getUploadFiles()
-            ));
+        if(page != 0 && page >= vintageBoards.getTotalPages()){
+            return new ResponseEntity<>("해당 페이지는 존재하지 않습니다.", HttpStatus.NOT_FOUND);
         }
 
-        //결과값 세팅
-        Map<String, Object> result = new HashMap<>();
-        result.put("vintageBoard", searchResult); // vintageSearchDto 들
-        result.put("totalPage",vintageBoardList.getTotalPages()); // 총 페이지 수
+        //프록시 객체 초기화 + DTO 로 변환
+        List<VintageBoard> content = vintageBoards.getContent();
+        List<VintageBoardDto> result = content.stream()
+                .map(v -> new VintageBoardDto(v))
+                .collect(Collectors.toList());
 
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(new Result<>(page+1,vintageBoards.getTotalPages(),result), HttpStatus.OK);
 
     }
 
-    @GetMapping("/api/vintages/category/{itemCategory}")
-    public ResponseEntity<?> category(@PathVariable("itemCategory") String itemCategory,
-                                      @PageableDefault(page=0, size = 10) Pageable pageable, Model model){
-        List<Long> itemList = itemService.findByCategory(itemCategory);
-        Page<VintageBoard> vintageBoardList = vintageService.findByItemId(itemList, pageable);
-        return new ResponseEntity<>(vintageBoardList, HttpStatus.OK);
+    //READ - 중고상품 검색(ItemCategory 검색)
+    @GetMapping("/api/vintages/category")
+    public ResponseEntity<?> category(@RequestParam("itemCategory") String itemCategory,
+                                      @RequestParam(value = "page", defaultValue = "0") int page){
+        Page<VintageBoard> vintageBoards = vintageService.searchItemCategory(itemCategory, page);
+
+        if(page != 0 && page >= vintageBoards.getTotalPages()){
+            return new ResponseEntity<>("해당 페이지는 존재하지 않습니다.", HttpStatus.NOT_FOUND);
+        }
+
+        //프록시 객체 초기화 + DTO 로 변환
+        List<VintageBoard> content = vintageBoards.getContent();
+        List<VintageBoardDto> result = content.stream()
+                .map(v -> new VintageBoardDto(v))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(new Result<>(page+1,vintageBoards.getTotalPages(),result), HttpStatus.OK);
 
     }
 

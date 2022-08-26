@@ -1,8 +1,7 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.VintageBoard;
-import hello.hellospring.dto.VintageBordForm;
-import hello.hellospring.dto.VintageSearchDto;
+import hello.hellospring.dto.request.VintageBordForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,8 +25,8 @@ public interface VintageService {
 
     //4. 특정 중고거래 글 검색하기
     Optional<VintageBoard> findById(Long vintageBoardId);
-    Page<VintageBoard> search(String vintageTitle, int page);
-    Page<VintageBoard> findByItemId(List<Long> itemList, Pageable pageable);
+    Page<VintageBoard> searchTitle(String vintageTitle, int page);
+    Page<VintageBoard> searchItemCategory(String itemCategory, int page);
 
     //5. 중고거래 글 특정 단어로 검색
 }

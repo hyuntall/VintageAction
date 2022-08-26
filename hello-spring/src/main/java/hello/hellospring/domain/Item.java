@@ -30,6 +30,10 @@ public class Item {
     private Integer itemStartPrice;
     private Integer itemCurPrice;
 
+    //판매중, 판매완료 -> 채팅창에서 한 기억이...
+    @Enumerated(EnumType.STRING)
+    private ItemStatus itemStatus;
+
     @JsonManagedReference
     @OneToOne(mappedBy = "vintageItem", fetch = FetchType.LAZY)
     private VintageBoard vintageBoard;
@@ -43,10 +47,12 @@ public class Item {
     private List<UploadFile> uploadFiles = new ArrayList<>();
 
 
+
     @Builder
     public Item(String itemName, Integer itemPrice, String itemCategory) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemCategory = itemCategory;
+        this.itemStatus = ItemStatus.PROGRESSING;
     }
 }

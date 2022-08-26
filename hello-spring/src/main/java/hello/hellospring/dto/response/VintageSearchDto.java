@@ -1,4 +1,4 @@
-package hello.hellospring.dto;
+package hello.hellospring.dto.response;
 
 import hello.hellospring.domain.UploadFile;
 import hello.hellospring.domain.VintageBoard;

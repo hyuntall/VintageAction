@@ -1,5 +1,6 @@
 package hello.hellospring;
 
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -19,17 +20,11 @@ public class HelloSpringApplication {
 	}
 
 
-//	//테스트 데이터 삽입
-//	@Bean
-//	public CommandLineRunner runner(MemberRepository memberRepository) throws Exception {
-//		return (args) -> {
-//			IntStream.rangeClosed(1, 10).forEach(index -> memberRepository.save(Member.builder()
-//					.memberId("admin"+index)
-//					.memberName("관리자"+index)
-//					.memberPassword("admin123"+index)
-//					.build())
-//			);
-//		};
-//	}
+	@Bean
+	Hibernate5Module hibernate5Module(){
+		return new Hibernate5Module();
+	}
+
+
 
 }

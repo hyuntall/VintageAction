@@ -5,7 +5,7 @@ import hello.hellospring.domain.Item;
 import hello.hellospring.domain.Member;
 import hello.hellospring.domain.UploadFile;
 import hello.hellospring.domain.VintageBoard;
-import hello.hellospring.dto.VintageBordForm;
+import hello.hellospring.dto.request.VintageBordForm;
 
 import hello.hellospring.exception.UnauthorizedException;
 import hello.hellospring.file.FileStore;
@@ -181,16 +181,18 @@ public class VintageServiceImpl implements VintageService{
 
     //중고게시글 검색 Page로 repository에서 받아와서 return
     @Transactional
-    public Page<VintageBoard> search(String vintageTitle, int page){
-        Page<VintageBoard> vintageBoardList = vintageRepository.findByVintageTitleContaining(vintageTitle, PageRequest.of(page, 2, Sort.by(Sort.Direction.DESC, "createdTime")));
-
-        return vintageBoardList;
+    @Override
+    public Page<VintageBoard> searchTitle(String vintageTitle, int page){
+        PageRequest pageRequest = PageRequest.of(page, 2, Sort.by("createdTime").descending());
+        Page<VintageBoard> vintageBoards = vintageRepository.findByVintageTitleContaining(vintageTitle, pageRequest);
+        return vintageBoards;
     }
 
     @Override
-    public Page<VintageBoard> findByItemId(List<Long> itemList, Pageable pageable) {
-        Page<VintageBoard> vintageBoardList = vintageRepository.findByVintageItem_ItemId(itemList, pageable);
-        return vintageBoardList;
+    public Page<VintageBoard> searchItemCategory(String itemCategory, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 2, Sort.by("createdTime").descending());
+        Page<VintageBoard> vintageBoards = vintageRepository.findVintageBoardsByItemCategory(itemCategory, pageRequest);
+        return vintageBoards;
     }
 
 }
