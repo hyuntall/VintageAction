@@ -12,8 +12,9 @@ const Vintage = () => {
   // 렌더링 시 중고 상품 리스트 정보 요청
   const getItemList = () => {
     axios.get(`/api/vintages?page=${page}`).then((response) => {
-      setItemList(response.data.vintageBoard);
+      setItemList(response.data.vintageBaordList);
       setTotalPage(response.data.totalPage);
+      //console.log(response.data.vintageBaordList);
     });
   };
   useEffect(getItemList, []);
