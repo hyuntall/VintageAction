@@ -22,10 +22,9 @@ public class ChatMessage {
     private String senderId;
     private String receiverId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "chatroomId")
-//    private ChatRoom chatroom;
-    private Long chatroomId;
+    @ManyToOne
+    @JoinColumn(name = "chatroomId")
+    private ChatRoom chatroom;
 
 
     @ManyToOne

@@ -2,13 +2,17 @@ package hello.hellospring.dto;
 
 import com.sun.istack.NotNull;
 import hello.hellospring.domain.ChatMessage;
+import hello.hellospring.repository.ChatRoomRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor
+@Component
 public class ChatRequestDto {
     /**
      * 송신자 id
@@ -40,16 +44,16 @@ public class ChatRequestDto {
         this.chatroomId = chatroomId;
         this.content = content;
     }
-/*TODO: 순환참조 해결, chatroomId chatroom으로 정상매핑*/
-//    private ChatRoomRepository chatRoomRepository;
-//    private ChatRoom chatRoom =  chatRoomRepository.findById(chatroomId);
+
+    @Autowired
+    private ChatRoomRepository chatRoomRepository;
 
     public ChatMessage toEntity() {
         return ChatMessage.builder()
                 .senderId(senderId)
                 .receiverId(receiverId)
                 .content(content)
-                .chatroomId(chatroomId)
+                .chatroom(chatRoomRepository.findById(chatroomId))
                 .build();
     }
 }
