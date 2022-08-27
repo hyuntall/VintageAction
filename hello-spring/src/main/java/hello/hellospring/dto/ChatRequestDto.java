@@ -5,7 +5,6 @@ import hello.hellospring.domain.ChatMessage;
 import hello.hellospring.repository.ChatRoomRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
@@ -45,15 +44,13 @@ public class ChatRequestDto {
         this.content = content;
     }
 
-    @Autowired
-    private ChatRoomRepository chatRoomRepository;
+
 
     public ChatMessage toEntity() {
         return ChatMessage.builder()
                 .senderId(senderId)
                 .receiverId(receiverId)
                 .content(content)
-                .chatroom(chatRoomRepository.findById(chatroomId))
                 .build();
     }
 }
