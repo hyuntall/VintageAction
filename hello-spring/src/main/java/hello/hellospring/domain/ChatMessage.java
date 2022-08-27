@@ -22,9 +22,10 @@ public class ChatMessage {
     private String senderId;
     private String receiverId;
 
-    @ManyToOne
-    @JoinColumn(name = "chatroomId")
-    private ChatRoom chatroom;
+//    @ManyToOne
+//    @JoinColumn(name = "chatroomId")
+//    private ChatRoom chatroom;
+    private Long chatroomId;
 
 
     @ManyToOne
@@ -37,8 +38,7 @@ public class ChatMessage {
     @Column(updatable = false)
     private LocalDateTime sendDateTime;
 
-//    @OneToOne(mappedBy = "chatMessage")
-//    private
+
 
 
     public enum MessageStatus{

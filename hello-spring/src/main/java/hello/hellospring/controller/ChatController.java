@@ -1,6 +1,8 @@
 package hello.hellospring.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.hellospring.domain.ChatMessage;
 import hello.hellospring.domain.ChatNotification;
 import hello.hellospring.domain.ChatRoom;
@@ -27,12 +29,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChatController {
 
-    private final MemberService memberService;
 
-    @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-    private ChatRoomService chatRoomService;
-    private ChatMessageService chatMessageService;
+    private final ChatRoomService chatRoomService;
+    private final ChatMessageService chatMessageService;
 
     @GetMapping("/chat/new/{receiverId}/{chatroomId}/{itemId}")
     public String createChatForm(@PathVariable Map<String, String> pathVarsMap,
@@ -54,9 +54,14 @@ public class ChatController {
 
 
     @MessageMapping("/chat")  //여기로 전송되면 메서드 호출
-    public void processMessage(ChatRequestDto chatRequestDto) {
-        System.out.print("메시지 저장/수신자:"+chatRequestDto.getReceiverId());
-        System.out.println(" 메시지 저장/채팅방아이디:"+chatRequestDto.getChatroomId());
+    public void processMessage(@Payload String msg) throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        ChatRequestDto chatRequestDto = mapper.readValue(msg, ChatRequestDto.class);
+
+        System.out.print("메시지 저장  (수신자):"+chatRequestDto.getReceiverId());
+        System.out.print(" / (채팅방아이디):"+chatRequestDto.getChatroomId());
+        System.out.println(" / (content):"+chatRequestDto.getContent());
 
 
         //메시지 저장하기

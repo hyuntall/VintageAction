@@ -8,18 +8,20 @@ import hello.hellospring.repository.ChatRoomRepository;
 import hello.hellospring.repository.ItemRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.VintageRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ChatRoomServiceImpl implements ChatRoomService {
 
-    private ChatRoomRepository chatRoomRepository;
-    private VintageRepository vintageRepository;
-    private ItemRepository itemRepository;
-    private MemberRepository memberRepository;
+    private final ChatRoomRepository chatRoomRepository;
+    private final VintageRepository vintageRepository;
+    private final ItemRepository itemRepository;
+    private final MemberRepository memberRepository;
 
     public Optional<ChatRoom> findChatRoom(Long itemId, String senderId, boolean createIfNotExist) {
 

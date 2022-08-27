@@ -2,10 +2,6 @@ package hello.hellospring.dto;
 
 import com.sun.istack.NotNull;
 import hello.hellospring.domain.ChatMessage;
-import hello.hellospring.domain.ChatRoom;
-import hello.hellospring.domain.Member;
-import hello.hellospring.repository.ChatRoomRepository;
-import hello.hellospring.service.ChatRoomService;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -44,16 +40,16 @@ public class ChatRequestDto {
         this.chatroomId = chatroomId;
         this.content = content;
     }
-
-    private ChatRoomRepository chatRoomRepository;
-    private ChatRoom chatRoom =  chatRoomRepository.findById(chatroomId);
+/*TODO: 순환참조 해결, chatroomId chatroom으로 정상매핑*/
+//    private ChatRoomRepository chatRoomRepository;
+//    private ChatRoom chatRoom =  chatRoomRepository.findById(chatroomId);
 
     public ChatMessage toEntity() {
         return ChatMessage.builder()
                 .senderId(senderId)
                 .receiverId(receiverId)
                 .content(content)
-                .chatroom(chatRoom)
+                .chatroomId(chatroomId)
                 .build();
     }
 }
