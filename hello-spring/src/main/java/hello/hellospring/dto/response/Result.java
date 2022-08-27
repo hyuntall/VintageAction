@@ -8,5 +8,5 @@ import lombok.Data;
 public class Result<T> {
     private int curPage;
     private int totalPage;
-    private T vintageBaordList;
+    private T vintageBoardList;
 }
