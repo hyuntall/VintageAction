@@ -24,9 +24,10 @@ const Profile = ({ memberObj, refreshMember }) => {
         <div className="profile-container">
             <div>
                 이름: {memberObj.memberName}
-            </div>
-            <div>
+                <br/>
                 ID: {memberObj.memberId}
+                <br/>
+                point: {memberObj.point}
             </div>
             <Link to='/vintage-upload'>중고 상품 등록</Link>
             <button onClick={goBack}>Home</button>

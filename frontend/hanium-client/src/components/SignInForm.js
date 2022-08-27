@@ -33,9 +33,12 @@ const SignInForm =({ refreshMember }) => {
             // 로그인 성공 시
             // App.js의 유저 정보 갱신 함수 호출
             // 전달받은 유저 정보를 갱신하여 홈으로 이동
+            console.log(response.data);
             refreshMember(response.data)
             navigate("/")
-            })
+            }).then(
+                
+            )
         .catch(error => alert(error.response.data))
     };
 

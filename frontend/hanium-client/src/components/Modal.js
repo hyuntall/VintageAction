@@ -2,6 +2,9 @@ import React from "react";
 import "../css/Modal.css";
 
 function Modal({ setOpenModal }) {
+  const sendMessage = (event) => {
+    event.preventDefault();
+  }
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -26,7 +29,7 @@ function Modal({ setOpenModal }) {
           <br />
           <div>채팅2</div>
         </div>
-        <div className="footer">
+        <form className="footer" onSubmit={sendMessage}>
           <input
             name="text"
             placeholder="메시지를 입력하세요."
@@ -34,8 +37,8 @@ function Modal({ setOpenModal }) {
             className="message-input"
             id="message-input"
           />
-          <button>전송</button>
-        </div>
+          <button type="submit">전송</button>
+        </form>
       </div>
     </div>
   );

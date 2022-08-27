@@ -29,11 +29,7 @@ function App() {
         // 재 랜더링 하는 함수
         if (memberObj){
             // 로그인 시 로컬스토리지에 유저정보 저장
-            setMemberObj({
-                memberId: memberObj.memberId,
-                memberName: memberObj.memberName,
-                memberPassword: memberObj.memberPassword
-              });
+            setMemberObj(memberObj);
             localStorage.setItem('memberObj', JSON.stringify(memberObj))
         }else{
             // 로그아웃 시 로컬스토리지에서 유저정보 삭제

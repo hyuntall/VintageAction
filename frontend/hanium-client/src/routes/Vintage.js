@@ -5,13 +5,11 @@ import "../css/Vintage.css";
 import { Link, useLocation } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Top from "../components/Top";
-import Modal from "../components/Modal";
 
 const Vintage = () => {
   const [itemList, setItemList] = useState(null);
   const [totalPage, setTotalPage] = useState(0);
   const [page, setPage] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
 
   // 렌더링 시 중고 상품 리스트 정보 요청
   const getItemList = () => {
@@ -29,17 +27,6 @@ const Vintage = () => {
   return (
     <>
       <Top></Top>
-      <div className="modal-container">
-        <button
-          className="openModalBtn"
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          채팅
-        </button>
-        {modalOpen && <Modal setOpenModal={setModalOpen} />}
-      </div>{" "}
       <h1>중고 상품 리스트</h1>
       <div className="vintage-container">
         {/*setItemList 배열의 갯수만큼 Item 컴포넌트 생성 및 해당 컴포넌트에 아이템 정보 전달 */}
