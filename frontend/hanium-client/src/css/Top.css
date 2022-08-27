@@ -1,5 +1,10 @@
-.slider {
-  border: 3px solid black;
-  width: 80%;
-  height: 300px;
+.search-input {
+  border: 5px solid #c1daf0;
+  border-radius: 10px 10px 10px 10px;
+  height: 30px;
+}
+
+.search-btn {
+  background-color: #c1daf0;
+  border: 5px solid #c1daf0;
 }

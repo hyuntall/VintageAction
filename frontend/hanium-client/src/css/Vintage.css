@@ -1,166 +1,185 @@
 .vintage-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    grid-gap: 35px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 35px;
 }
 
 .vintage-upload-container {
-    position: relative;
-    background-color: white;
-    width: 100%;
-    max-width: 900px;
-    min-width: 400px;
-    height: 60vh;
-    min-height: 400px;
-    margin: auto;
-    margin-top: 5vh;
-    align-content: center;
-    border: 0;
-    border-radius: 2.5em;
+  position: relative;
+  background-color: white;
+  width: 100%;
+  max-width: 900px;
+  min-width: 400px;
+  height: 60vh;
+  min-height: 400px;
+  margin: auto;
+  margin-top: 5vh;
+  align-content: center;
+  border: 0;
+  border-radius: 2.5em;
 }
 
 .vintage-upload-container h3 {
-    position: relative;
-    margin: auto;
-    top: 7%;
-    margin-left: 10%;
-    font-size: 1.2em;
-    height: 1%;
+  position: relative;
+  margin: auto;
+  top: 7%;
+  margin-left: 10%;
+  font-size: 1.2em;
+  height: 1%;
 }
-
 
 .vintage-upload-form {
-    position: relative;
-    margin: auto;
-    display: flex;
-    height: 80%;
-    top: 10%;
+  position: relative;
+  margin: auto;
+  display: flex;
+  height: 80%;
+  top: 10%;
 }
 
-.vintage-upload-form .image-form{
-    width: 30%;
-    margin-left: 5%;
-    margin-top: 5vh;
-    height: 100%;
-    text-align: center;
+.vintage-upload-form .image-form {
+  width: 30%;
+  margin-left: 5%;
+  margin-top: 5vh;
+  height: 100%;
+  text-align: center;
 }
 
 .vintage-upload-form img {
-    border: 5px solid lightgray;
-    border-radius: 30%;
-    width: 80%;
-    height: 30vh;
+  border: 5px solid lightgray;
+  border-radius: 30%;
+  width: 80%;
+  height: 30vh;
 }
 .image-form label {
-    display: inline-block;
-    padding: .5em .75em;
-    color: #999;
-    font-size: 2.5vmin;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 3px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .25em;
-    width: 50%;
-    text-align: center;
-    vertical-align:middle;
-    height: 10%;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  color: #999;
+  font-size: 2.5vmin;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 3px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: 0.25em;
+  width: 50%;
+  text-align: center;
+  vertical-align: middle;
+  height: 10%;
 }
 .vintage-upload-form .image-form input[type="file"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 .vintage-upload-form .text-form label {
-    font-weight: bolder;
-    display: inline-block;
-    width: 30%;
+  font-weight: bolder;
+  display: inline-block;
+  width: 30%;
 }
 
 .vintage-upload-form .text-form input {
-    display: inline-block;
-    border: 3px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .25em;
+  display: inline-block;
+  border: 3px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: 0.25em;
 }
 .vintage-upload-form .text-form select {
-    display: inline-block;
-    border: 3px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .25em;
+  display: inline-block;
+  border: 3px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: 0.25em;
 }
 
 .vintage-upload-form .text-form {
-    margin-top: 1vh;
-    width: 50%;
-    margin-left: 5%;
-    height: 100%;
+  margin-top: 1vh;
+  width: 50%;
+  margin-left: 5%;
+  height: 100%;
 }
 
 .vintage-upload-form .text-form * {
-    margin-top: 1%;
-    margin-bottom: 1%;
-    font-size: 2.5vmin;
-    height: 10%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  font-size: 2.5vmin;
+  height: 10%;
 }
 
 .vintage-upload-form .text-form .detail-input {
-    height: 20%;
+  height: 20%;
 }
 
 .vintage-upload-form .vintage-submit {
-    position: absolute;
-    height: 10%;
-    width: 10%;
-    bottom: 0;
-    right: 5%;
-    background-color: orange;
-    border: 0;
-    border-radius: 0.5em;
-    font-weight: bold;
+  position: absolute;
+  height: 10%;
+  width: 10%;
+  bottom: 0;
+  right: 5%;
+  background-color: orange;
+  border: 0;
+  border-radius: 0.5em;
+  font-weight: bold;
 }
 
 .vintage-detail-container {
-    position: relative;
-    background-color: white;
-    width: 100%;
-    max-width: 900px;
-    min-width: 400px;
-    height: 60vh;
-    min-height: 400px;
-    margin: auto;
-    align-content: center;
-    border: 0;
-    border-radius: 2.5em;
+  position: relative;
+  background-color: white;
+  width: 100%;
+  max-width: 900px;
+  min-width: 400px;
+  height: 60vh;
+  min-height: 400px;
+  margin: auto;
+  align-content: center;
+  border: 0;
+  border-radius: 2.5em;
 }
 
 .vintage-detail-container .item-info {
-    position: relative;
-    margin: auto;
-    height: 80%;
-    top: 10%;
+  position: relative;
+  margin: auto;
+  height: 80%;
+  top: 10%;
 }
 
 .vintage-detail-container .title {
-    position: relative;
-    margin: auto;
-    top: 7%;
-    margin-left: 10%;
-    font-size: 1.2em;
+  position: relative;
+  margin: auto;
+  top: 7%;
+  margin-left: 10%;
+  font-size: 1.2em;
 }
 
-.vintage-detail-container .item-info-container img{
-    width: 100px;
+.vintage-detail-container .item-info-container img {
+  width: 100px;
 }
 
 .vintage-detail-container #modeButton {
-    margin-top: 100px;
+  margin-top: 100px;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
+.modal-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Nunito", sans-serif;
+}
+
+.modal-container .openModalBtn {
+  width: 200px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  background-color: white;
+  color: bleack;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
 }
