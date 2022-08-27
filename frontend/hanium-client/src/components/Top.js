@@ -25,12 +25,13 @@ const Top = () => {
 
     event.preventDefault();
     // 입력받은 데이터를 객체에 담아
-    // 로그인 api에 post 요청
+    // 로그인 api에 post 요청 // /search?page=0&vintageTitle=${search}
     axios
-      .get("/api/vintages/search/" + search)
+      .get(`/api/vintages/search?page=0&vintageTitle=${search}`)
       .then((response) => {
         //response
-        setItemList(response.data.vintageBoard);
+        console.log(response.data.vintageBaordList);
+        setItemList(response.data.vintageBaordList);
         console.log("성공");
       })
       .catch((error) => alert(error.response.data));
