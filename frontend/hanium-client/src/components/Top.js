@@ -30,8 +30,8 @@ const Top = () => {
       .get(`/api/vintages/search?page=0&vintageTitle=${search}`)
       .then((response) => {
         //response
-        console.log(response.data.vintageBaordList);
-        setItemList(response.data.vintageBaordList);
+        console.log(response.data.vintageBoardList);
+        setItemList(response.data.vintageBoardList);
         console.log("성공");
       })
       .catch((error) => alert(error.response.data));
