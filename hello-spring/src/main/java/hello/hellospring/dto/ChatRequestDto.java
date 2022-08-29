@@ -1,15 +1,18 @@
 package hello.hellospring.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.istack.NotNull;
 import hello.hellospring.domain.ChatMessage;
-import hello.hellospring.repository.ChatRoomRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Component
 public class ChatRequestDto {
@@ -37,11 +40,15 @@ public class ChatRequestDto {
     @NotBlank
     private String content;
 
-    public ChatRequestDto(String senderId, String receiverId, Long chatroomId, String content) {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+    private LocalDateTime sendDateTime;
+
+    public ChatRequestDto(String senderId, String receiverId, Long chatroomId, String content, LocalDateTime sendDateTime) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.chatroomId = chatroomId;
         this.content = content;
+        this.sendDateTime = sendDateTime;
     }
 
 
@@ -51,6 +58,7 @@ public class ChatRequestDto {
                 .senderId(senderId)
                 .receiverId(receiverId)
                 .content(content)
+                .sendDateTime(sendDateTime)
                 .build();
     }
 }

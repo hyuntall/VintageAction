@@ -7,6 +7,7 @@ import hello.hellospring.domain.ChatMessage;
 import hello.hellospring.domain.ChatNotification;
 import hello.hellospring.domain.ChatRoom;
 import hello.hellospring.dto.ChatRequestDto;
+import hello.hellospring.repository.ChatMessageRepository;
 import hello.hellospring.service.ChatMessageService;
 import hello.hellospring.service.ChatRoomService;
 import hello.hellospring.service.MemberService;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,9 +33,10 @@ import java.util.Optional;
 public class ChatController {
 
 
-    private SimpMessagingTemplate simpMessagingTemplate;
+    private final SimpMessagingTemplate simpMessagingTemplate;
     private final ChatRoomService chatRoomService;
     private final ChatMessageService chatMessageService;
+    private final ChatMessageRepository chatMessageRepository;
 
     @GetMapping("/chat/new/{receiverId}/{chatroomId}/{itemId}")
     public String createChatForm(@PathVariable Map<String, String> pathVarsMap,
@@ -48,6 +52,9 @@ public class ChatController {
         model.addAttribute("chatroomId", chatroomId);
         model.addAttribute("itemId", itemId);
 
+        List<ChatMessage> chatMessageList =  chatMessageRepository.findBySenderIdAndReceiverId(senderId,receiverId);
+        model.addAttribute("chatMessageList", chatMessageList);
+
         return "/chat/chatRoom";
     }
 
@@ -58,6 +65,7 @@ public class ChatController {
 
         ObjectMapper mapper = new ObjectMapper();
         ChatRequestDto chatRequestDto = mapper.readValue(msg, ChatRequestDto.class);
+        chatRequestDto.setSendDateTime(LocalDateTime.now());
 
         System.out.print("메시지 저장  (수신자):"+chatRequestDto.getReceiverId());
         System.out.print(" / (채팅방아이디):"+chatRequestDto.getChatroomId());
