@@ -38,11 +38,7 @@ public class ChatMessage {
     private LocalDateTime sendDateTime;
 
 
-
-
     public enum MessageStatus{
         RECEIVED, DELIVERED
     }
-
-
 }

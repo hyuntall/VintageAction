@@ -86,7 +86,8 @@ public class VintageServiceImpl implements VintageService{
     }
 
     @Override
-    public VintageBoard update(Long vintageId,VintageBordForm vintageForm, Long memberNo, List<MultipartFile> imageFiles) throws IOException {
+    public VintageBoard update(Long vintageId,VintageBordForm vintageForm,
+                               Long memberNo, List<MultipartFile> imageFiles) throws IOException {
 
         //로그인 한 사용자 조회
         Optional<Member> findMember = memberRepository.findById(memberNo);

@@ -9,7 +9,6 @@ import hello.hellospring.repository.ItemRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.VintageRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,11 +23,15 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     private final MemberRepository memberRepository;
 
     public Optional<ChatRoom> findChatRoom(Long itemId, String senderId, boolean createIfNotExist) {
+        /*
+        *채팅 시작은 구매자(sender)->판매자(receiver)만 가능
+        *채팅메시지가 들어오면 채팅방을 찾아서 리턴/ 없을 시
+        */
 
         return chatRoomRepository
                 .findByItemAndBuyer(itemId, senderId)
                 .or(() -> { //없을 시 생성
-                    if(!createIfNotExist) {  //채팅 생성은 구매자(sender)->판매자(receiver)만 가능
+                    if(!createIfNotExist) {
                         return  Optional.empty();
                     }
                     VintageBoard vintageBoard = vintageRepository.findByVintageItem(itemId);

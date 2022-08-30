@@ -28,14 +28,14 @@ public class MemberController {
      * 회원 가입
      */
     @PostMapping(value = "/api/members/new")
-    public ResponseEntity<?> create(@Valid @RequestBody MemberSignupDto memberSignupDto, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<?> create(@Valid @RequestBody MemberSignupDto memberSignupDto,
+                                    BindingResult bindingResult) throws Exception {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
         memberService.save(memberSignupDto);
         return new ResponseEntity<>("회원가입 성공", HttpStatus.OK);
     }
-
     /**
      * 회원가입 시 id 중복체크 (작성 중) -> 클라이언트에서 중복체크 버튼 클릭 시 중복체크로 구상..  id 존재할시 true/ id 없을시 false
      */
@@ -48,7 +48,8 @@ public class MemberController {
      * 회원정보수정
      */
     @PostMapping("/api/memberUpdate")
-    public ResponseEntity<?> memberUpdate(HttpServletRequest request, MemberUpdateDto memberUpdateDto,
+    public ResponseEntity<?> memberUpdate(HttpServletRequest request,
+                                          MemberUpdateDto memberUpdateDto,
                                           @RequestParam("memberImgUrl") MultipartFile multipartFile) throws Exception {
         HttpSession session = request.getSession(false);
 

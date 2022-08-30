@@ -10,25 +10,25 @@ import hello.hellospring.dto.ChatRequestDto;
 import hello.hellospring.repository.ChatMessageRepository;
 import hello.hellospring.service.ChatMessageService;
 import hello.hellospring.service.ChatRoomService;
-import hello.hellospring.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 public class ChatController {
 
@@ -38,24 +38,18 @@ public class ChatController {
     private final ChatMessageService chatMessageService;
     private final ChatMessageRepository chatMessageRepository;
 
-    @GetMapping("/chat/new/{receiverId}/{chatroomId}/{itemId}")
-    public String createChatForm(@PathVariable Map<String, String> pathVarsMap,
-                                 Model model, HttpServletRequest request) throws Exception {
+    @GetMapping("/api/chat/new/{receiverId}/{chatroomId}/{itemId}")
+    public ResponseEntity<?> createChatForm(@PathVariable Map<String, String> pathVarsMap,
+                                  HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         String senderId = (String) session.getAttribute("memberId");
-        model.addAttribute("senderId",senderId);
-
         String receiverId = pathVarsMap.get("receiverId");
         String chatroomId = pathVarsMap.get("chatroomId");
         String itemId = pathVarsMap.get("itemId");
-        model.addAttribute("receiverId", receiverId);
-        model.addAttribute("chatroomId", chatroomId);
-        model.addAttribute("itemId", itemId);
 
         List<ChatMessage> chatMessageList =  chatMessageRepository.findBySenderIdAndReceiverId(senderId,receiverId);
-        model.addAttribute("chatMessageList", chatMessageList);
 
-        return "/chat/chatRoom";
+        return new ResponseEntity<>(chatMessageList, HttpStatus.OK);
     }
 
 
@@ -74,6 +68,7 @@ public class ChatController {
 
         //메시지 저장하기
         ChatMessage saved = chatMessageService.save(chatRequestDto);
+        saved = chatMessageService.setChatroomId(saved.getId(), chatRequestDto.getChatroomId());
 
         //수신 유저에게 메시지 수신 알림 보내기
         simpMessagingTemplate.convertAndSendToUser(

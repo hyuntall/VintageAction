@@ -1,3 +1,10 @@
+/*
+TODO:
+ 1)클라이언트 단에서 이 스크립트를 호출
+ 2)호출하는 쪽에서 아래의 데이터/이벤트 가져오기
+ -> 가져올 데이터: 로그인 유저 id, 수신할 유저 id, 채팅방 id
+ */
+
 var enterForm = document.querySelector('#enterForm');  //채팅 입장(웹소켓 연결) 버튼
 var messageForm = document.querySelector('#messageForm');  //채팅 보내기 버튼
 var messageInput = document.querySelector('#message');  //채팅 내용 입력 공간

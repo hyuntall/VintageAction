@@ -1,14 +1,8 @@
 package hello.hellospring.service;
 
 import hello.hellospring.domain.ChatMessage;
-import hello.hellospring.domain.ChatRoom;
 import hello.hellospring.dto.ChatRequestDto;
-import hello.hellospring.exception.ResourceNotFoundException;
-import org.hibernate.Criteria;
-import org.hibernate.sql.Update;
-import org.springframework.data.jpa.repository.Query;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ChatMessageService {
@@ -23,4 +17,5 @@ public interface ChatMessageService {
 
     //채팅 status update
     public void updateStatuses(String senderId, String receiverId, ChatMessage.MessageStatus status);
+
 }
