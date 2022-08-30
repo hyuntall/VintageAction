@@ -13,6 +13,7 @@ const Vintage = () => {
 
   // 렌더링 시 중고 상품 리스트 정보 요청
   const getItemList = (currentPage) => {
+    if(currentPage) currentPage--;
     axios.get(`/api/vintages?page=${currentPage ?? page}`).then((response) => {
       setItemList(response.data.vintageBoardList);
       setTotalPage(response.data.totalPage);
