@@ -71,7 +71,7 @@ const VintageUpdateForm =({itemInfo, vintageId}) => {
             <form onSubmit={editPost} className="vintage-upload-form">
                 <div className="image-form">
                     <img className="item-image"
-                    src={attachment ? (attachment):require(`../itemImages/${itemInfo.storeFileName[0]}`)}/>
+                    src={itemInfo.storeFileName[0] ? require(`../itemImages/${itemInfo.storeFileName[0]}`):require('../img/temp.png')}/>
                     <br/>
                     <label htmlFor="item-image">이미지 등록</label>
                     <input 

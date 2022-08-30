@@ -12,17 +12,17 @@ const Vintage = () => {
   const [page, setPage] = useState(0);
 
   // 렌더링 시 중고 상품 리스트 정보 요청
-  const getItemList = () => {
-    axios.get(`/api/vintages?page=${page}`).then((response) => {
+  const getItemList = (currentPage) => {
+    axios.get(`/api/vintages?page=${currentPage ?? page}`).then((response) => {
       setItemList(response.data.vintageBoardList);
       setTotalPage(response.data.totalPage);
-      //console.log(response.data.vintageBoordList);
+      //console.log(response.data);
     });
   };
   useEffect(getItemList, []);
   const handlePageChange = (page) => {
     setPage(page);
-    getItemList();
+    getItemList(page);
   };
   return (
     <>
@@ -42,8 +42,8 @@ const Vintage = () => {
       </div>
       <Pagination
         activePage={page}
-        itemsCountPerPage={10}
-        totalItemsCount={450}
+        itemsCountPerPage={1}
+        totalItemsCount={totalPage}
         pageRangeDisplayed={10}
         prevPageText={"‹"}
         nextPageText={"›"}
