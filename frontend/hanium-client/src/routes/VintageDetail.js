@@ -9,6 +9,7 @@ const VintageDetail = ({memberObj}) => {
     const [itemObj, setItemObj] = useState(null);
     const [postMode, setPostMode] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
+    const [chatObj, setChatObj] = useState(null);
     const vintageId = useParams().vintageId;
 
     const getItemInfo = () => {
@@ -31,19 +32,32 @@ const VintageDetail = ({memberObj}) => {
     }
 
     const deal = () => {
-        axios.post(`/api/vintage/deal?vintageBoardId=${vintageId}`)
-        .then(response => {
-        console.log(response.data);
-    }).catch(error => {
-        alert(error.response.data);
-    })
+        if(memberObj){
+            axios.post(`/api/vintage/deal?vintageBoardId=${vintageId}`)
+            .then(response => {
+                console.log(response.data);
+            }).catch(error => {
+                alert(error.response.data);
+            })
+        } else {
+            alert("로그인이 필요합니다.")
+        }
     }
     const chat =() => {
-        axios.get(`/api/chat/new/${itemObj.memberId}/${0}/${vintageId}`)
-        .then(response => {
-            console.log(response.data);
-            setModalOpen(true);
-        })
+        if (memberObj) {
+            axios.get(`/api/chat/new/${itemObj.memberId}/${0}/${vintageId}`)
+            .then(response => {
+                setChatObj({
+                    "sender": memberObj.memberId,
+                    "receiver": itemObj.memberId,
+                    "chatRoom": 0
+                })
+                console.log(response.data);
+                setModalOpen(true);
+            })
+        } else {
+            alert("로그인이 필요합니다.")
+        }
     }
     return (
         <>
@@ -51,14 +65,14 @@ const VintageDetail = ({memberObj}) => {
                     {postMode ? 
                         <VintageUpdateForm vintageId={vintageId} itemInfo={itemObj}/>
                          : <VintageInfo vintageId={vintageId}/> }
-                    {memberObj.memberId === itemObj.memberId ? 
+                    {memberObj?.memberId === itemObj.memberId ? 
                     <button id="modeButton"onClick={changeMode}>수정</button> : 
                     <div>
                         <button onClick={deal}>구매</button>
                         <button className="openModalBtn" onClick={chat}>
                             채팅
                         </button>
-                        {modalOpen && <Modal setOpenModal={setModalOpen}/>}
+                        {modalOpen && <Modal chatObj={chatObj} setOpenModal={setModalOpen}/>}
                     </div>}
                     </div> : null}
                     
