@@ -27,10 +27,6 @@ public class ChatMessage {
     private ChatRoom chatroom;
 
 
-    @ManyToOne
-    @JoinColumn(name = "itemId")
-    private Item item;
-
     private MessageStatus status;
 
     @CreatedDate

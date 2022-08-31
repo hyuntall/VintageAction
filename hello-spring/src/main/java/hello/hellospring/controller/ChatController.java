@@ -38,16 +38,29 @@ public class ChatController {
     private final ChatMessageService chatMessageService;
     private final ChatMessageRepository chatMessageRepository;
 
-    @GetMapping("/api/chat/new/{receiverId}/{chatroomId}/{itemId}")
-    public ResponseEntity<?> createChatForm(@PathVariable Map<String, String> pathVarsMap,
+    //판매자에게 채팅 처음 생성 시 채팅방 생성,저장
+    @PostMapping("/api/chat/new")
+    public ResponseEntity<?> createChatRoom(@RequestParam("receiverNo") int receiverNo,
+                                            @RequestParam("itemId") int itemId,
+                                            HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        Long senderNo = (Long) session.getAttribute("memberNo");
+
+        Optional<ChatRoom> chatRoom = chatRoomService.findChatRoom(Long.valueOf(itemId),senderNo, true);
+
+        return new ResponseEntity<>(chatRoom, HttpStatus.OK);
+    }
+
+    //생성된 채팅에 진입, 채팅 기록 불러오기
+    @GetMapping("/api/chat/{receiverId}/{chatroomId}")
+    public ResponseEntity<?> enterChatRoom(@PathVariable Map<String, String> pathVarsMap,
                                   HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         String senderId = (String) session.getAttribute("memberId");
         String receiverId = pathVarsMap.get("receiverId");
         String chatroomId = pathVarsMap.get("chatroomId");
-        String itemId = pathVarsMap.get("itemId");
 
-        List<ChatMessage> chatMessageList =  chatMessageRepository.findBySenderIdAndReceiverId(senderId,receiverId);
+        List<ChatMessage> chatMessageList =  chatMessageRepository.findByChatroomId(Long.valueOf(chatroomId));
 
         return new ResponseEntity<>(chatMessageList, HttpStatus.OK);
     }
@@ -68,7 +81,6 @@ public class ChatController {
 
         //메시지 저장하기
         ChatMessage saved = chatMessageService.save(chatRequestDto);
-        saved = chatMessageService.setChatroomId(saved.getId(), chatRequestDto.getChatroomId());
 
         //수신 유저에게 메시지 수신 알림 보내기
         simpMessagingTemplate.convertAndSendToUser(
@@ -78,14 +90,6 @@ public class ChatController {
                         saved.getSenderId()));
     }
 
-    private void setChatroomId(ChatMessage chatMessage) {
-        //chatroomId 클라이언트에서 받아서 서버 연결
-        Optional<ChatRoom> chatRoom = chatRoomService
-                .findChatRoom(chatMessage.getItem().getItemId(),
-                        chatMessage.getSenderId(), true);
-        Long chatRoomId = chatRoom.get().getId();
-        chatMessage.setId(chatRoomId);
-    }
 
     @GetMapping("/messages/{senderId}/{receiverId}/count")
     public ResponseEntity<Long> countNewMessages(

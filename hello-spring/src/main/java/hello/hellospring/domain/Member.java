@@ -52,6 +52,16 @@ public class Member {
     @OneToMany(mappedBy = "buyer", orphanRemoval = true)
     private List<ItemDealHistory> buyHistory = new ArrayList<>();
 
+    //구매자로서 채팅방 기록
+    @JsonManagedReference
+    @OneToMany(mappedBy = "buyerNo", orphanRemoval = true)
+    private List<ChatRoom> buyChatRoomList = new ArrayList<>();
+
+    //판매자로서 채팅방 기록
+    @JsonManagedReference
+    @OneToMany(mappedBy = "sellerNo", orphanRemoval = true)
+    private List<ChatRoom> sellChatRoomList = new ArrayList<>();
+
 
 
 

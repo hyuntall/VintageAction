@@ -57,7 +57,7 @@ public class LoginController {
         session.setAttribute("memberId",loginMember.get().getMemberId());
 
 
-        /*filter 에서 넘겨받은 redirecURL을 적용 시키기 위해서 이렇게 바꾸었다.
+        /*filter 에서 넘겨받은 redirectURL을 적용 시키기 위해서 이렇게 바꾸었다.
         로그인을 하지 않고 /items 로 갔다가 로그인 페이지로 리다이렉트 되었다가
         로그인을 하면 /items 페이지로 이동할 것이다. 반면에 로그인을 했으면 defaultvalue 인 "/"가
         적용되어서 home 으로 돌아갈 것이다.

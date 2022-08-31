@@ -24,12 +24,12 @@ public class ChatRoom {
     private Item item;
 
     @ManyToOne
-    @JoinColumn(name = "sellerId")
-    private Member seller;
+    @JoinColumn(name = "sellerNo")
+    private Member sellerNo;
 
     @ManyToOne
-    @JoinColumn(name = "buyerId")
-    private Member buyer;
+    @JoinColumn(name = "buyerNo")
+    private Member buyerNo;
 
     @OneToMany(mappedBy = "chatroom",cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

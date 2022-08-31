@@ -69,4 +69,9 @@ public class ChatMessageServiceImpl implements ChatMessageService{
 //        Update update = Update.update("status", status);
     }
 
+    @Override
+    public ChatMessage addChatroomId(Long id, Long chatroomId) {
+        return null;
+    }
+
 }

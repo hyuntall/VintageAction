@@ -18,4 +18,5 @@ public interface ChatMessageService {
     //채팅 status update
     public void updateStatuses(String senderId, String receiverId, ChatMessage.MessageStatus status);
 
+    ChatMessage addChatroomId(Long id, Long chatroomId);
 }
