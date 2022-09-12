@@ -49,6 +49,7 @@ const VintageDetail = ({memberObj}) => {
             .then(response => {
                 setChatObj(response.data)
                 setModalOpen(true);
+                console.log(response.data);
             })
         } else {
             alert("로그인이 필요합니다.")

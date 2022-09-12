@@ -74,12 +74,34 @@
   border-radius: 10px 10px 10px 10px;
   margin: 0;
 }
+
 .proimg {
   padding: 0;
   margin-top: 5px;
   background-color: white;
 }
 
+.body {
+  max-height: 400px;
+  overflow-y:scroll;
+  width: 100%;
+}
+
 .chat {
   font-size: 15px;
+  list-style: none;
+  position: relative;
+}
+
+.messageList {
+  width: 100%;
+  position: relative;
+}
+
+.me {
+  text-align: right;
+}
+
+.other {
+  text-align: left;
 }

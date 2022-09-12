@@ -3,16 +3,29 @@ import "../css/Modal.css";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import axios from "axios";
+
 function Modal({ chatObj, setOpenModal }) {
   let stompClient = useRef({});
   const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
+  const scrollRef = useRef();
 
   useEffect(() => {
+    scrollToBottom();
     connect();
     enterChatRoom();
-    //return () => disconnect();
+    
+    //return () => disconnect()
   }, []);
+
+  const scrollToBottom = () => {
+    //this.scrollRef.scrollIntoView({ behavior: "smooth" });
+    scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+  }
+
+  const scroll = (event) => {
+  }
+
   const connect = (event) => {
   
     if(1) {//'ws://localhost:8080/ws'
@@ -29,8 +42,6 @@ function Modal({ chatObj, setOpenModal }) {
 function onConnected() {
   // user 개인 구독
   stompClient.current.subscribe('/user/' + chatObj.sellerNo.memberNo + '/queue/messages', onMessageReceived);
-  console.log("구독중");
-  //connectingElement.classList.add('hidden');
 }
 
 
@@ -62,8 +73,12 @@ const sendMessage = (event) => {
 
 function onMessageReceived(payload) {
   //구독한 destination으로 수신한 메시지 파싱
-  var message = JSON.parse(payload.body);
-  console.log(message);
+  var newMessage = JSON.parse(payload.body);
+  console.log(newMessage);
+  setChatMessages((chatMessages) => {
+    return [...chatMessages, newMessage];
+  })
+  console.log(chatMessages);
 }
 
 
@@ -86,16 +101,10 @@ function onMessageReceived(payload) {
 
   const publish = (event) => {
     event.preventDefault();
-    /*
-    stompClient.current.connect({}, () => {
-      console.log("뭐냐?")
-      sendMessage();
-    })*/
-    if (!stompClient.current.connected || !message) {
+    if (!stompClient.current.connected || !message) 
       return;
-    }
-    else
-      sendMessage();
+
+    sendMessage();
   };
   return (
     <div className="modalBackground">
@@ -112,8 +121,9 @@ function onMessageReceived(payload) {
         <div className="title">
 
         </div>
-        <div className="body">
-          <ul>
+        <div className="body" onScroll={scroll}
+        ref={scrollRef}>
+          <ul className="messageList">
           {chatMessages &&
           chatMessages.map((m)=>{
             if (m.senderId == chatObj.buyerNo.memberNo)
