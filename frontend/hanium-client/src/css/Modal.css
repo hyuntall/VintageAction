@@ -22,7 +22,6 @@
 .modalContainer .title {
   display: inline-block;
   text-align: center;
-  margin-top: 10px;
 }
 
 .titleCloseBtn {
@@ -73,8 +72,14 @@
 .title {
   border: 5px solid #c1daf0;
   border-radius: 10px 10px 10px 10px;
+  margin: 0;
 }
 .proimg {
+  padding: 0;
   margin-top: 5px;
   background-color: white;
+}
+
+.chat {
+  font-size: 15px;
 }

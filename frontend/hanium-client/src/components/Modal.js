@@ -1,50 +1,101 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../css/Modal.css";
-import * as StompJs from "@stomp/stompjs";
-import * as SockJS from "sockjs-client";
+import SockJS from "sockjs-client";
+import { Stomp } from "@stomp/stompjs";
+import axios from "axios";
 function Modal({ chatObj, setOpenModal }) {
-  const client = useRef({});
+  let stompClient = useRef({});
   const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
 
   useEffect(() => {
     connect();
-    console.log(client.current.connected)
-    return () => disconnect();
+    enterChatRoom();
+    //return () => disconnect();
   }, []);
-  const connect = () => {
-    client.current = new StompJs.Client({
-      brokerURL: 'ws://localhost:8080/ws',
-      onConnect: () => {
-        subscribe();
-      },
-    })
+  const connect = (event) => {
+  
+    if(1) {//'ws://localhost:8080/ws'
+      var socket = new SockJS('http://localhost:8080/ws');
+      stompClient.current = Stomp.over(socket);
+      stompClient.current.connect({}, () => {
+        setTimeout(function() {
+          onConnected()
+        }, 500)
+      })
+    }
+}
+
+function onConnected() {
+  // user 개인 구독
+  stompClient.current.subscribe('/user/' + chatObj.sellerNo.memberNo + '/queue/messages', onMessageReceived);
+  console.log("구독중");
+  //connectingElement.classList.add('hidden');
+}
+
+
+
+const sendMessage = (event) => {
+    
+  //event.preventDefault();
+  var messageContent = message.trim();
+  if(messageContent && stompClient) {
+      var chatMessage = {
+          sender: chatObj.sellerNo.memberNo,
+          receiver: chatObj.buyerNo.memberNo,
+          content: message,
+          chatroom: chatObj.id,
+          type: 'CHAT'
+      };
+      
+      console.log(chatMessage)
+      stompClient.current.send('/room/'+chatObj.id+'/queue/messages', {}, JSON.stringify(chatMessage)); //json 직렬화해서 보내기
+      stompClient.current.send('/app/chat', {}, JSON.stringify({'content': message,'senderId':chatObj.buyerNo.memberNo,
+          'receiverId': chatObj.sellerNo.memberNo, 'chatroomId': chatObj.id}));
+
+      setMessage("");
   }
+
+
+}
+
+
+function onMessageReceived(payload) {
+  //구독한 destination으로 수신한 메시지 파싱
+  var message = JSON.parse(payload.body);
+  console.log(message);
+}
+
+
+
+  const enterChatRoom =() => {
+    if (chatObj) {
+      axios.get(`/api/chat/${chatObj.buyerNo.memberId}/${chatObj.id}`)
+      .then(response => {
+          console.log(response.data)
+          setChatMessages(response.data);
+      })
+    } else {
+      alert("로그인이 필요합니다.")
+    }
+  }
+  
   const onChange = (event) => {
     setMessage(event.target.value);
   }
 
-  const disconnect = () => {
-    client.current.deactivate();
-  };
-  const subscribe = () => {
-    client.current.subscribe(`/room/chat/${0}`, ({ body }) => {
-      setChatMessages((_chatMessages) => [..._chatMessages, JSON.parse(body)]);
-    });
-  };
-
   const publish = (event) => {
     event.preventDefault();
-    if (!client.current.connected) {
+    /*
+    stompClient.current.connect({}, () => {
+      console.log("뭐냐?")
+      sendMessage();
+    })*/
+    if (!stompClient.current.connected || !message) {
       return;
     }
-
-    client.current.publish({
-      destination: "/app/api/chat",
-      body: JSON.stringify({ roomSeq: 0, message }),
-    });
-
-    setMessage("");
+    else
+      sendMessage();
   };
   return (
     <div className="modalBackground">
@@ -59,16 +110,18 @@ function Modal({ chatObj, setOpenModal }) {
           </button>
         </div>
         <div className="title">
-          <div className="profile">
-            <img src={require("../img/icon1.png")} className="proimg" />
-            <h3>닉네임</h3>
-            <h3>아이디</h3>
-          </div>
+
         </div>
         <div className="body">
-          <div>채팅1</div>
-          <br />
-          <div>채팅2</div>
+          <ul>
+          {chatMessages &&
+          chatMessages.map((m)=>{
+            if (m.senderId == chatObj.buyerNo.memberNo)
+              return <li className="chat me">{m.content}</li>
+            else
+              return <li className="chat other">{m.content}</li>
+          })}
+          </ul>
         </div>
         <form className="footer">
           <input

@@ -45,14 +45,9 @@ const VintageDetail = ({memberObj}) => {
     }
     const chat =() => {
         if (memberObj) {
-            axios.get(`/api/chat/new/${itemObj.memberId}/${0}/${vintageId}`)
+            axios.post(`/api/chat/new?receiverNo=${itemObj.memberNo}&itemId=${vintageId}`)
             .then(response => {
-                setChatObj({
-                    "sender": memberObj.memberId,
-                    "receiver": itemObj.memberId,
-                    "chatRoom": 0
-                })
-                console.log(response.data);
+                setChatObj(response.data)
                 setModalOpen(true);
             })
         } else {
