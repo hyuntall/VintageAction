@@ -16,6 +16,7 @@ public class VintageBoardDetailDto {
     private List<String> storeFileName;
     private String memberId;
 
+    private Long memberNo;
 
     public VintageBoardDetailDto(VintageBoard vintageBoard) {
         title = vintageBoard.getVintageTitle();
@@ -27,5 +28,6 @@ public class VintageBoardDetailDto {
                 .map(storeFileName -> storeFileName.getStoreFileName())
                 .collect(Collectors.toList());
         memberId = vintageBoard.getMember().getMemberName();
+        memberNo = vintageBoard.getMember().getMemberNo();
     }
 }
