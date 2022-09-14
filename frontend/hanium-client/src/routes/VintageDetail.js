@@ -4,7 +4,8 @@ import axios from "axios";
 import "../css/Vintage.css"
 import VintageInfo from "../components/VintageInfo";
 import VintageUpdateForm from "../components/VintageUpdateForm";
-import Modal from "../components/Modal";
+import ChattingRoom from "../components/ChattingRoom";
+
 const VintageDetail = ({memberObj}) => {
     const [itemObj, setItemObj] = useState(null);
     const [postMode, setPostMode] = useState(false);
@@ -49,7 +50,6 @@ const VintageDetail = ({memberObj}) => {
             .then(response => {
                 setChatObj(response.data)
                 setModalOpen(true);
-                console.log(response.data);
             })
         } else {
             alert("로그인이 필요합니다.")
@@ -68,7 +68,7 @@ const VintageDetail = ({memberObj}) => {
                         <button className="openModalBtn" onClick={chat}>
                             채팅
                         </button>
-                        {modalOpen && <Modal chatObj={chatObj} setOpenModal={setModalOpen}/>}
+                        {modalOpen && <ChattingRoom chatObj={chatObj} setOpenModal={setModalOpen}/>}
                     </div>}
                     </div> : null}
                     

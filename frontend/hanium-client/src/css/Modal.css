@@ -85,10 +85,10 @@
   max-height: 400px;
   overflow-y:scroll;
   width: 100%;
+  background-color: gray;
 }
 
 .chat {
-  font-size: 15px;
   list-style: none;
   position: relative;
 }
@@ -96,12 +96,35 @@
 .messageList {
   width: 100%;
   position: relative;
+  left: -20px;
 }
 
 .me {
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
 
 .other {
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.message-container {
+  margin: 2px 0 2px 0;
+}
+
+.message-content {
+  background-color: aliceblue;
+  border-radius: 8px;
+  padding: 3px;
+  font-size: 20px;
+}
+
+.message-time {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }

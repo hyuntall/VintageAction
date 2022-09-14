@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../css/Profile.css"
-import Modal from "../components/Modal";
+import ChattingRoom from "../components/ChattingRoom";
 import { useState } from "react";
 const Profile = ({ memberObj, refreshMember }) => {
     const navigate = useNavigate();
@@ -55,7 +55,7 @@ const Profile = ({ memberObj, refreshMember }) => {
                 sign out
             </button>
             <button onClick={click}>채팅확인용</button>
-            {modalOpen && <Modal chatObj={chatObj} setOpenModal={setModalOpen}/>}
+            {modalOpen && <ChattingRoom chatObj={chatObj} setOpenModal={setModalOpen}/>}
         </div>
         </>
     )

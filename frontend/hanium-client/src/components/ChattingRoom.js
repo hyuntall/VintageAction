@@ -3,8 +3,9 @@ import "../css/Modal.css";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
 import axios from "axios";
+import Message from "./Message";
 
-function Modal({ chatObj, setOpenModal }) {
+function ChattingRoom({ chatObj, setOpenModal }) {
   let stompClient = useRef({});
   const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -119,7 +120,6 @@ function onMessageReceived(payload) {
           </button>
         </div>
         <div className="title">
-
         </div>
         <div className="body" onScroll={scroll}
         ref={scrollRef}>
@@ -127,9 +127,9 @@ function onMessageReceived(payload) {
           {chatMessages &&
           chatMessages.map((m)=>{
             if (m.senderId == chatObj.buyerNo.memberNo)
-              return <li className="chat me">{m.content}</li>
+              return <li className="chat me"><Message messageObj={m}/></li>
             else
-              return <li className="chat other">{m.content}</li>
+              return <li className="chat other"><Message messageObj={m}/></li>
           })}
           </ul>
         </div>
@@ -152,4 +152,4 @@ function onMessageReceived(payload) {
   );
 }
 
-export default Modal;
+export default ChattingRoom;
