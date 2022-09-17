@@ -12,20 +12,22 @@ function ChattingRoom({ chatObj, setOpenModal }) {
   const scrollRef = useRef();
 
   useEffect(() => {
-    scrollToBottom();
     connect();
     enterChatRoom();
-    
+    scrollToBottom();
     //return () => disconnect()
   }, []);
 
   const scrollToBottom = () => {
-    //this.scrollRef.scrollIntoView({ behavior: "smooth" });
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }
 
-  const scroll = (event) => {
-  }
+  const chatMessage = chatMessages && chatMessages.map((m)=>{
+    if (m.senderId == chatObj.buyerNo.memberNo)
+      return <li className="chat me"><Message messageObj={m}/></li>
+    else
+      return <li className="chat other"><Message messageObj={m}/></li>
+  })
 
   const connect = (event) => {
   
@@ -42,13 +44,12 @@ function ChattingRoom({ chatObj, setOpenModal }) {
 
 function onConnected() {
   // user 개인 구독
-  stompClient.current.subscribe('/user/' + chatObj.sellerNo.memberNo + '/queue/messages', onMessageReceived);
+  stompClient.current.subscribe('/room/' + chatObj.sellerNo.memberNo + '/queue/messages', onMessageReceived);
 }
 
 
 
 const sendMessage = (event) => {
-    
   //event.preventDefault();
   var messageContent = message.trim();
   if(messageContent && stompClient) {
@@ -64,7 +65,16 @@ const sendMessage = (event) => {
       stompClient.current.send('/room/'+chatObj.id+'/queue/messages', {}, JSON.stringify(chatMessage)); //json 직렬화해서 보내기
       stompClient.current.send('/app/chat', {}, JSON.stringify({'content': message,'senderId':chatObj.buyerNo.memberNo,
           'receiverId': chatObj.sellerNo.memberNo, 'chatroomId': chatObj.id}));
-
+      /**setChatMessages((chatMessages) => {
+        return [...chatMessages, {
+          content: message,
+          id: chatMessages.length,
+          receiverId: chatObj.sellerNo.memberNo.toString(),
+          sendDateTime: Date.now(),
+          senderId: chatObj.buyerNo.memberNo.toString(),
+          status: "RECEIVED"
+        }];
+      })*/
       setMessage("");
   }
 
@@ -72,24 +82,24 @@ const sendMessage = (event) => {
 }
 
 
-function onMessageReceived(payload) {
+const onMessageReceived = (payload) => {
   //구독한 destination으로 수신한 메시지 파싱
   var newMessage = JSON.parse(payload.body);
-  console.log(newMessage);
-  setChatMessages((chatMessages) => {
-    return [...chatMessages, newMessage];
-  })
-  console.log(chatMessages);
+  //setChatMessages((chatMessages) => {
+  //  return [...chatMessages, newMessage];
+  //})
+  enterChatRoom();
 }
 
 
 
-  const enterChatRoom =() => {
+  const enterChatRoom = async() => {
     if (chatObj) {
-      axios.get(`/api/chat/${chatObj.buyerNo.memberId}/${chatObj.id}`)
+      await axios.get(`/api/chat/${chatObj.buyerNo.memberId}/${chatObj.id}`)
       .then(response => {
-          console.log(response.data)
           setChatMessages(response.data);
+          console.log(chatMessages);
+          scrollToBottom();
       })
     } else {
       alert("로그인이 필요합니다.")
@@ -104,8 +114,8 @@ function onMessageReceived(payload) {
     event.preventDefault();
     if (!stompClient.current.connected || !message) 
       return;
-
     sendMessage();
+    enterChatRoom();
   };
   return (
     <div className="modalBackground">
@@ -121,16 +131,10 @@ function onMessageReceived(payload) {
         </div>
         <div className="title">
         </div>
-        <div className="body" onScroll={scroll}
+        <div className="body"
         ref={scrollRef}>
           <ul className="messageList">
-          {chatMessages &&
-          chatMessages.map((m)=>{
-            if (m.senderId == chatObj.buyerNo.memberNo)
-              return <li className="chat me"><Message messageObj={m}/></li>
-            else
-              return <li className="chat other"><Message messageObj={m}/></li>
-          })}
+          {chatMessage}
           </ul>
         </div>
         <form className="footer">
