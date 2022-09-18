@@ -143,11 +143,13 @@
 
 .vintage-detail-container .item-info {
   position: relative;
-  margin: auto;
+  margin-top: 50px;
   height: 80%;
   top: 10%;
 }
-
+.vintage-detail-container div {
+  float: left;
+}
 .vintage-detail-container .title {
   position: relative;
   margin: auto;
@@ -155,9 +157,70 @@
   margin-left: 10%;
   font-size: 1.2em;
 }
+.vintage-detail-container .text-info {
+  margin-top: 15px;
+  margin-left: 75px;
+  font-size: 20px;
+}
+.vintage-detail-container .text-info label {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.vintage-detail-container .text-info .detail-input1 {
+  margin-left: 25px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 330px;
+}
+.vintage-detail-container .text-info input {
+  border: solid 2px;
+  border-radius: 9px;
+  border-color: darkgray;
+  height: 25px;
+  padding-left: 10px;
+}
+.vintage-detail-container .text-info .detail-input2 {
+  margin-left: 45px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width: 160px;
+  text-align: right;
+  padding-right: 19px;
+}
+.vintage-detail-container .text-info .detail-input3 {
+  margin-left: 45px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 100px;
+  width: 300px;
+}
+.vintage-detail-container .category-detail {
+  margin-left: 15px;
+  font-size: 20px;
+  border: none;
+}
+.content-title {
+  margin-top: 30px;
+  margin-left: 20px;
+  font-size: 30px;
+  border: none;
+}
 
 .vintage-detail-container .item-info-container img {
   width: 100px;
+}
+.vintage-detail-container .item-info-container .item-info {
+  padding-left: 100px;
+  float: left;
+}
+.vintage-detail-container .item-info-container .item-image {
+  padding: 10px;
+  border: solid 5px;
+  border-radius: 20px;
+  border-color: darkgrey;
+}
+.vintage-detail-container .item-info-container .text-info {
+  float: left;
 }
 
 .vintage-detail-container #modeButton {
