@@ -1,5 +1,6 @@
 package hello.hellospring.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -22,6 +23,7 @@ public class ChatMessage {
     private String senderId;
     private String receiverId;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "chatroomId")
     private ChatRoom chatroom;

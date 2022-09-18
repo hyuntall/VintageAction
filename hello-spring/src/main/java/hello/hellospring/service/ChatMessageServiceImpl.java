@@ -41,22 +41,7 @@ public class ChatMessageServiceImpl implements ChatMessageService{
                 senderId, receiverId, ChatMessage.MessageStatus.RECEIVED);
     }
 
-    //안 읽은 채팅 가져오기
-    public List<ChatMessage> findChatMessages(String senderId, String receiverId) {
-//        String chatId = String.valueOf(chatRoomServiceImpl.getChatId(senderId, receiverId, false));
-//
-//        List<ChatMessage> messages =
-//                chatId.map(cId -> repository.findByChatId(cId)).orElse(new ArrayList<>());
-//
-//        if(messages.size() > 0) {
-//            updateStatuses(senderId, receiverId, ChatMessage.MessageStatus.DELIVERED);
-//        }
-//
-//        return messages;
 
-        List<ChatMessage> messages = null;
-        return messages;
-    }
 
 
     @Query
