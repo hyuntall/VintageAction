@@ -52,18 +52,10 @@ const VintageInfo = ({ vintageId }) => {
     <>
       {itemObj ? (
         <div className="item-info-container">
-          <input
-            className="category-detail"
-            value={category}
-            name="price"
-            readOnly
-          />
-          <input
-            className="content-title"
-            value={title}
-            name="title"
-            readOnly
-          />
+          <div className="category-detail" >
+            {category}</div>
+          <div className="content-title">
+            {title}</div>
           <div className="item-info">
             <div className="image-info">
               <img
@@ -79,32 +71,21 @@ const VintageInfo = ({ vintageId }) => {
               <label htmlFor="title-input" className="detail">
                 상품명
               </label>
-              <input
-                className="detail-input1"
-                value={itemName}
-                name="item-name"
-                readOnly
-              />
+              <div className="detail-input1">{itemName}</div>
               <br />
               <label htmlFor="title-input" className="detail">
                 가격
               </label>
-              <input
-                className="detail-input2"
-                value={price + " 원"}
-                name="price"
-                readOnly
-              />
+              <div
+                className="detail-input2">
+                  {price + " 원"}</div>
               <br />
               <label htmlFor="title-input" className="detail">
                 설명
               </label>
-              <input
-                className="detail-input3"
-                value={detail}
-                name="detail"
-                readOnly
-              />
+              <div
+                className="detail-input3">
+                  {detail}</div>
             </div>
           </div>
         </div>

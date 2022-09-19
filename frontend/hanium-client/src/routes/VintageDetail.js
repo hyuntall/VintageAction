@@ -33,15 +33,20 @@ const VintageDetail = ({memberObj}) => {
     }
 
     const deal = () => {
-        if(memberObj){
+        if(!memberObj){
+            alert("로그인이 필요합니다.")
+            return
+        }
+        if(window.confirm("구매하시겠습니까?")){
             axios.post(`/api/vintage/deal?vintageBoardId=${vintageId}`)
             .then(response => {
                 console.log(response.data);
+                alert("구매가 완료되었습니다.");
             }).catch(error => {
                 alert(error.response.data);
             })
-        } else {
-            alert("로그인이 필요합니다.")
+        } else{
+            return
         }
     }
     const chat =() => {
@@ -68,7 +73,7 @@ const VintageDetail = ({memberObj}) => {
                         <button className="openModalBtn" onClick={chat}>
                             채팅
                         </button>
-                        {modalOpen && <ChattingRoom chatObj={chatObj} setOpenModal={setModalOpen}/>}
+                        {modalOpen && <ChattingRoom deal={deal}chatObj={chatObj} setOpenModal={setModalOpen}/>}
                     </div>}
                     </div> : null}
                     

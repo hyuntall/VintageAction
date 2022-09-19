@@ -19,11 +19,6 @@
   padding: 25px;
 }
 
-.modalContainer .title {
-  display: inline-block;
-  text-align: center;
-}
-
 .titleCloseBtn {
   display: flex;
   justify-content: flex-end;
@@ -35,18 +30,30 @@
   font-size: 25px;
   cursor: pointer;
 }
+.modalContainer .chat-title {
+  display: inline-block;
+  text-align: center;
+  width: fit-content;
+  margin-top: -30px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
 
 .modalContainer .body {
-  flex: 50%;
+  flex: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.7rem;
   text-align: center;
+  overflow-y:scroll;
+  width: 100%;
+  background-color: gray;
 }
 
 .modalContainer .footer {
-  flex: 20%;
+  flex: 5%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,23 +76,10 @@
   height: 30px;
 }
 
-.title {
-  border: 5px solid #c1daf0;
-  border-radius: 10px 10px 10px 10px;
-  margin: 0;
-}
-
 .proimg {
   padding: 0;
   margin-top: 5px;
   background-color: white;
-}
-
-.body {
-  max-height: 400px;
-  overflow-y:scroll;
-  width: 100%;
-  background-color: gray;
 }
 
 .chat {
@@ -120,11 +114,23 @@
   border-radius: 8px;
   padding: 3px;
   font-size: 20px;
+  width: 100%;
 }
 
-.message-time {
+.me .message-time {
   font-size: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: left;
+  width: 100%;
+  text-align: right;
+}
+
+.other .message-time {
+  font-size: 10px;
+}
+
+.deal-button {
+  background-color: #C1DAF0;
+  color: white;
+  font-size: 20px;
+  border-radius: 0 0 10px 10px;
+  border: 0;
 }

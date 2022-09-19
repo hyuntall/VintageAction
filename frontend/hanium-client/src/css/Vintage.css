@@ -143,12 +143,9 @@
 
 .vintage-detail-container .item-info {
   position: relative;
-  margin-top: 50px;
   height: 80%;
-  top: 10%;
-}
-.vintage-detail-container div {
-  float: left;
+  display: flex;
+  margin: 0;
 }
 .vintage-detail-container .title {
   position: relative;
@@ -170,9 +167,8 @@
   margin-left: 25px;
   margin-top: 15px;
   margin-bottom: 15px;
-  width: 330px;
 }
-.vintage-detail-container .text-info input {
+.vintage-detail-container .text-info div {
   border: solid 2px;
   border-radius: 9px;
   border-color: darkgray;
@@ -183,7 +179,6 @@
   margin-left: 45px;
   margin-top: 15px;
   margin-bottom: 15px;
-  width: 160px;
   text-align: right;
   padding-right: 19px;
 }
@@ -224,7 +219,6 @@
 }
 
 .vintage-detail-container #modeButton {
-  margin-top: 100px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");

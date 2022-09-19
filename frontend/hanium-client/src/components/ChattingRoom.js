@@ -5,7 +5,7 @@ import { Stomp } from "@stomp/stompjs";
 import axios from "axios";
 import Message from "./Message";
 
-function ChattingRoom({ chatObj, setOpenModal }) {
+function ChattingRoom({ deal, chatObj, setOpenModal }) {
   let stompClient = useRef({});
   const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -16,6 +16,7 @@ function ChattingRoom({ chatObj, setOpenModal }) {
     enterChatRoom();
     scrollToBottom();
     //return () => disconnect()
+    console.log(chatObj)
   }, []);
 
   const scrollToBottom = () => {
@@ -65,16 +66,6 @@ const sendMessage = (event) => {
       stompClient.current.send('/room/'+chatObj.id+'/queue/messages', {}, JSON.stringify(chatMessage)); //json 직렬화해서 보내기
       stompClient.current.send('/app/chat', {}, JSON.stringify({'content': message,'senderId':chatObj.buyerNo.memberNo,
           'receiverId': chatObj.sellerNo.memberNo, 'chatroomId': chatObj.id}));
-      /**setChatMessages((chatMessages) => {
-        return [...chatMessages, {
-          content: message,
-          id: chatMessages.length,
-          receiverId: chatObj.sellerNo.memberNo.toString(),
-          sendDateTime: Date.now(),
-          senderId: chatObj.buyerNo.memberNo.toString(),
-          status: "RECEIVED"
-        }];
-      })*/
       setMessage("");
   }
 
@@ -98,7 +89,7 @@ const onMessageReceived = (payload) => {
       await axios.get(`/api/chat/${chatObj.buyerNo.memberId}/${chatObj.id}`)
       .then(response => {
           setChatMessages(response.data);
-          console.log(chatMessages);
+          //console.log(chatMessages);
           scrollToBottom();
       })
     } else {
@@ -129,7 +120,8 @@ const onMessageReceived = (payload) => {
             X
           </button>
         </div>
-        <div className="title">
+        <div className="chat-title">
+        {chatObj.item.vintageBoard.vintageTitle}
         </div>
         <div className="body"
         ref={scrollRef}>
@@ -137,6 +129,7 @@ const onMessageReceived = (payload) => {
           {chatMessage}
           </ul>
         </div>
+        <button className="deal-button" onClick={deal}>구매</button>
         <form className="footer">
           <input
             name="text"
@@ -150,8 +143,6 @@ const onMessageReceived = (payload) => {
           <button onClick={publish}>전송</button>
         </form>
       </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     </div>
   );
 }
