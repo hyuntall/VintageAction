@@ -5,7 +5,7 @@ import { Stomp } from "@stomp/stompjs";
 import axios from "axios";
 import Message from "./Message";
 
-function ChattingRoom({ deal, chatObj, setOpenModal }) {
+function ChattingRoom({ memberObj, deal, chatObj, setOpenModal }) {
   let stompClient = useRef({});
   const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
@@ -24,7 +24,9 @@ function ChattingRoom({ deal, chatObj, setOpenModal }) {
   }
 
   const chatMessage = chatMessages && chatMessages.map((m)=>{
-    if (m.senderId == chatObj.buyerNo.memberNo)
+    console.log(m);
+    console.log(m.senderId, chatObj)
+    if (m.senderId == memberObj.memberNo)
       return <li className="chat me"><Message messageObj={m}/></li>
     else
       return <li className="chat other"><Message messageObj={m}/></li>
@@ -86,10 +88,10 @@ const onMessageReceived = (payload) => {
 
   const enterChatRoom = async() => {
     if (chatObj) {
-      await axios.get(`/api/chat/${chatObj.buyerNo.memberId}/${chatObj.id}`)
+      await axios.get(`/api/chat/${chatObj.id}`)
       .then(response => {
           setChatMessages(response.data);
-          //console.log(chatMessages);
+          console.log(chatMessages);
           scrollToBottom();
       })
     } else {
@@ -121,7 +123,7 @@ const onMessageReceived = (payload) => {
           </button>
         </div>
         <div className="chat-title">
-        {chatObj.item.vintageBoard.vintageTitle}
+        
         </div>
         <div className="body"
         ref={scrollRef}>

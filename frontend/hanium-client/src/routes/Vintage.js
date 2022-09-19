@@ -34,7 +34,6 @@ const Vintage = () => {
         {itemList &&
           itemList
             .slice(0)
-            .reverse()
             .map((item) => (
               <Link key={item.vintageId} to={`/vintage/${item.vintageId}`}>
                 <Item itemInfo={item} />

@@ -73,7 +73,7 @@ const VintageDetail = ({memberObj}) => {
                         <button className="openModalBtn" onClick={chat}>
                             채팅
                         </button>
-                        {modalOpen && <ChattingRoom deal={deal}chatObj={chatObj} setOpenModal={setModalOpen}/>}
+                        {modalOpen && <ChattingRoom memberObj={memberObj} deal={deal}chatObj={chatObj} setOpenModal={setModalOpen}/>}
                     </div>}
                     </div> : null}
                     
