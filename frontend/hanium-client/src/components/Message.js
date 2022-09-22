@@ -11,7 +11,6 @@ const Message =(messageObj) => {
     return (
         <div className="message-container">
             <div className="message-content">{m.content}</div>
-            <br/>
             <div className="message-time">{date}</div>
         </div>
     )
