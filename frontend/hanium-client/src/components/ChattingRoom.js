@@ -92,11 +92,12 @@ const onMessageReceived = (payload) => {
 
 
   const enterChatRoom = async () => {
+    console.log(chatObj)
     if (chatObj) {
       await axios.get(`/api/chat/${chatObj.id}`)
       .then(response => {
           setChatMessages(response.data);
-          console.log(chatMessages);
+          console.log(response.data);
           scrollToBottom();
       })
     } else {

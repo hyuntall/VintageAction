@@ -1,8 +1,9 @@
 .modalBackground {
   background-color: rgba(200, 200, 200);
   position: absolute;
-  right: 0px;
-  top: 10px;
+  left: 50%;
+  top: 50%;
+  transform: translate(0%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +35,7 @@
   display: inline-block;
   text-align: center;
   width: fit-content;
-  margin-top: -30px;
+  margin-top: -10px;
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: bold;

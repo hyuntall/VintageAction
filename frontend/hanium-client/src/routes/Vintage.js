@@ -17,7 +17,7 @@ const Vintage = () => {
     axios.get(`/api/vintages?page=${currentPage ?? page}`).then((response) => {
       setItemList(response.data.vintageBoardList);
       setTotalPage(response.data.totalPage);
-      //console.log(response.data);
+      console.log(response.data);
     });
   };
   useEffect(getItemList, []);
