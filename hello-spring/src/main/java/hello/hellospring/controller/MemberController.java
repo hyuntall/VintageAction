@@ -50,7 +50,7 @@ public class MemberController {
     @PostMapping("/api/memberUpdate")
     public ResponseEntity<?> memberUpdate(HttpServletRequest request,
                                           MemberUpdateDto memberUpdateDto,
-                                          @RequestParam("memberImgUrl") MultipartFile multipartFile) throws Exception {
+                                          @RequestParam(value="memberImgUrl", required = false) MultipartFile multipartFile) throws Exception {
         HttpSession session = request.getSession(false);
 
         Member updateMember = (Member) session.getAttribute(session.getId());
