@@ -20,13 +20,13 @@ public class ChatRequestDto {
      * 송신자 id
      */
     @NotNull
-    private String senderId;
+    private Long senderNo;
 
     /**
      * 수신자 id
      */
     @NotNull
-    private String receiverId;
+    private Long receiverNo;
 
     /**
      * 채팅방 id
@@ -43,9 +43,9 @@ public class ChatRequestDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime sendDateTime;
 
-    public ChatRequestDto(String senderId, String receiverId, Long chatroomId, String content, LocalDateTime sendDateTime) {
-        this.senderId = senderId;
-        this.receiverId = receiverId;
+    public ChatRequestDto(Long senderNo, Long receiverNo, Long chatroomId, String content, LocalDateTime sendDateTime) {
+        this.senderNo = senderNo;
+        this.receiverNo = receiverNo;
         this.chatroomId = chatroomId;
         this.content = content;
         this.sendDateTime = sendDateTime;
@@ -55,8 +55,8 @@ public class ChatRequestDto {
 
     public ChatMessage toEntity() {
         return ChatMessage.builder()
-                .senderId(senderId)
-                .receiverId(receiverId)
+                .senderNo(senderNo)
+                .receiverNo(receiverNo)
                 .content(content)
                 .sendDateTime(sendDateTime)
                 .build();

@@ -92,10 +92,10 @@ public class ChatController {
 
         //수신 유저에게 메시지 수신 알림 보내기
         simpMessagingTemplate.convertAndSendToUser(
-                String.valueOf(chatRequestDto.getReceiverId()),"/user/{receiverId}/queue/messages",
+                String.valueOf(chatRequestDto.getReceiverNo()),"/user/{receiverNo}/queue/messages",
                 new ChatNotification(
                         saved.getId(),
-                        saved.getSenderId()));
+                        saved.getSenderNo()));
     }
 
 

@@ -20,8 +20,8 @@ public class ChatMessage {
     private Long id;
 
     private String content;
-    private String senderId;
-    private String receiverId;
+    private Long senderNo;
+    private Long receiverNo;
 
     @JsonBackReference
     @ManyToOne
