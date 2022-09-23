@@ -141,84 +141,69 @@
   border-radius: 2.5em;
 }
 
-.vintage-detail-container .item-info {
-  position: relative;
-  height: 80%;
-  display: flex;
-  margin: 0;
-}
-.vintage-detail-container .title {
-  position: relative;
-  margin: auto;
-  top: 7%;
-  margin-left: 10%;
-  font-size: 1.2em;
-}
-.vintage-detail-container .text-info {
-  margin-top: 15px;
-  margin-left: 75px;
-  font-size: 20px;
-}
-.vintage-detail-container .text-info label {
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-.vintage-detail-container .text-info .detail-input1 {
-  margin-left: 25px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-.vintage-detail-container .text-info div {
-  border: solid 2px;
-  border-radius: 9px;
-  border-color: darkgray;
-  height: 25px;
-  padding-left: 10px;
-}
-.vintage-detail-container .text-info .detail-input2 {
-  margin-left: 45px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  text-align: right;
-  padding-right: 19px;
-}
-.vintage-detail-container .text-info .detail-input3 {
-  margin-left: 45px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  height: 100px;
-  width: 300px;
-}
 .vintage-detail-container .category-detail {
-  margin-left: 15px;
+  padding-top: 3%;
+  padding-left: 8%;
+  font-weight: bold;
   font-size: 20px;
-  border: none;
-}
-.content-title {
-  margin-top: 30px;
-  margin-left: 20px;
-  font-size: 30px;
   border: none;
 }
 
-.vintage-detail-container .item-info-container img {
-  width: 100px;
+.vintage-detail-container .content-title {
+  font-size: 30px;
+  border: none;
+  margin-top: 2%;
+  margin-left: 8%;
+  margin-bottom: 5%;
 }
-.vintage-detail-container .item-info-container .item-info {
-  padding-left: 100px;
-  float: left;
+
+.item-info {
+  display: flex;
+  margin-left: 15%;
 }
-.vintage-detail-container .item-info-container .item-image {
-  padding: 10px;
-  border: solid 5px;
-  border-radius: 20px;
-  border-color: darkgrey;
+
+.image-info img {
+  width: 70%;
+  height: 70%;
+  border: 5px solid lightgray;
+  border-radius: 30%;
 }
-.vintage-detail-container .item-info-container .text-info {
-  float: left;
+.text-info div {
+  border: 3px solid #ebebeb;
+  border-bottom-color: #e2e2e2;
+  border-radius: 0.25em;
+  display: inline-block;
+  margin-top: 20px;
+  margin-left: 25px;
+  font-size: 18px;
+}
+.text-info .detail-input1 {
+  padding-left: 5px;
+  width: 245px;
+}
+.text-info .detail-input2 {
+  margin-left: 41px;
+  padding-right: 10px;
+  width: 145px;
+  text-align: right;
+}
+.text-info .detail-input3 {
+  padding-left: 5px;
+  margin-left: 41px;
+  width: 245px;
+  height: 40%;
 }
 
 .vintage-detail-container #modeButton {
+  position: absolute;
+  height: 8%;
+  width: 8%;
+  bottom: 15px;
+  right: 5%;
+  background-color: orange;
+  border: 0;
+  border-radius: 0.5em;
+  font-weight: bold;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
