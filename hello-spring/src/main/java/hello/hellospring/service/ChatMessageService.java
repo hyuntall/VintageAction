@@ -10,10 +10,10 @@ public interface ChatMessageService {
     public ChatMessage save(ChatRequestDto chatRequestDto);
 
     //안 읽은 채팅 개수 표시
-    public long countNewMessages(String senderId, String receiverId);
+    public long countNewMessages(Long senderNo, Long receiverNo);
 
     //채팅 status update
-    public void updateStatuses(String senderId, String receiverId, ChatMessage.MessageStatus status);
+    public void updateStatuses(Long senderNo, Long receiverNo, ChatMessage.MessageStatus status);
 
     ChatMessage addChatroomId(Long id, Long chatroomId);
 }

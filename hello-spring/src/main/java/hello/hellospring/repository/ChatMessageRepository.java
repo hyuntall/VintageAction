@@ -14,14 +14,14 @@ import java.util.Optional;
 @Repository
 @Component
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, String> {
-    long countBySenderIdAndReceiverIdAndStatus(
-            String senderId, String receiverId, ChatMessage.MessageStatus status);
+    long countBySenderNoAndReceiverNoAndStatus(
+            Long senderNo, Long receiverNo, ChatMessage.MessageStatus status);
 
     @Query("select c from ChatMessage c where " +
-            "(c.senderId=:senderId or c.senderId=:receiverId) " +
-            "and (c.receiverId=:receiverId or c.receiverId=:senderId)")
-    List<ChatMessage> findBySenderIdAndReceiverId(
-            String senderId, String receiverId);
+            "(c.senderNo=:senderNo or c.senderNo=:receiverNo) " +
+            "and (c.receiverNo=:receiverNo or c.receiverNo=:senderNo)")
+    List<ChatMessage> findBySenderNoAndReceiverNo(
+            Long senderNo, Long receiverNo);
 
     List<ChatMessage> findByChatroomId(Long id);
 

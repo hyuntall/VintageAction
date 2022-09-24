@@ -99,13 +99,13 @@ public class ChatController {
     }
 
 
-    @GetMapping("/messages/{senderId}/{receiverId}/count")
+    @GetMapping("/messages/{senderNo}/{receiverNo}/count")
     public ResponseEntity<Long> countNewMessages(
-            @PathVariable String senderId,
-            @PathVariable String receiverId) {
+            @PathVariable Long senderNo,
+            @PathVariable Long receiverNo) {
 
         return ResponseEntity
-                .ok(chatMessageService.countNewMessages(senderId, receiverId));
+                .ok(chatMessageService.countNewMessages(senderNo, receiverNo));
     }
 
 

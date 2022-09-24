@@ -36,16 +36,16 @@ public class ChatMessageServiceImpl implements ChatMessageService{
     }
 
     //안 읽은 채팅 개수 표시
-    public long countNewMessages(String senderId, String receiverId) {
-        return chatMessageRepository.countBySenderIdAndReceiverIdAndStatus(
-                senderId, receiverId, ChatMessage.MessageStatus.RECEIVED);
+    public long countNewMessages(Long senderNo, Long receiverNo) {
+        return chatMessageRepository.countBySenderNoAndReceiverNoAndStatus(
+                senderNo, receiverNo, ChatMessage.MessageStatus.RECEIVED);
     }
 
 
 
 
     @Query
-    public void updateStatuses(String senderId, String receiverId, ChatMessage.MessageStatus status) {
+    public void updateStatuses(Long senderNo, Long receiverNo, ChatMessage.MessageStatus status) {
         //UPDATE jpadb SET STATUS = status where senderId = senderId and receiverId = receiverId
 //        Query query = new Query(
 //                Criteria

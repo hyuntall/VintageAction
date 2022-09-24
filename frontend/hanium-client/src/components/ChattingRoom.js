@@ -52,27 +52,26 @@ function onConnected() {
 
 
 const sendMessage = (event) => {
-  //event.preventDefault();
+ //event.preventDefault();
   var messageContent = message.trim();
   if (chatObj.sellerNo.memberNo == memberObj.memberNo)
     var otherNo = chatObj.buyerNo.memberNo;
   else
     var otherNo = chatObj.sellerNo.memberNo;
   if(messageContent && stompClient) {
-      var chatMessage = {
-          sender: memberObj.memberNo,
-          receiver: otherNo,
-          content: message,
-          chatroom: chatObj.id,
-          type: 'CHAT'
-      };
-      stompClient.current.send('/room/'+chatObj.id+'/queue/messages', {}, JSON.stringify(chatMessage)); //json 직렬화해서 보내기
-      stompClient.current.send('/app/chat', {}, JSON.stringify({'content': message,'senderId':chatMessage.sender,
-          'receiverId': chatMessage.receiver, 'chatroomId': chatObj.id}));
-      console.log("메시지 전송 완료");
-      setMessage("");
+    var chatMessage = {
+      sender: memberObj.memberNo,
+      receiver: otherNo,
+      content: message,
+      chatroom: chatObj.id,
+      type: 'CHAT'
+    };
+    stompClient.current.send('/room/'+chatObj.id+'/queue/messages', {}, JSON.stringify(chatMessage)); //json 직렬화해서 보내기
+    stompClient.current.send('/app/chat', {}, JSON.stringify({'content': message,'senderNo':chatMessage.sender,
+      'receiverNo': chatMessage.receiver, 'chatroomId': chatObj.id}));
+    console.log("메시지 전송 완료");
+    setMessage("");
   }
-
 
 }
 
