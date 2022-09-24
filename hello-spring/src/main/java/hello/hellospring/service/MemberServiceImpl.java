@@ -58,23 +58,27 @@ public class MemberServiceImpl implements MemberService{
     public void memberUpdate(String id, MemberUpdateDto memberUpdateDto, MultipartFile multipartFile){
         Member member = memberRepository.findByMemberId(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다."));
 
-        String imageFileName = member.getMemberId() + "_" + multipartFile.getOriginalFilename();
-        Path imageFIlePath = Paths.get(uploadFolder + imageFileName);
+        if(multipartFile != null ){
+            String imageFileName = member.getMemberId() + "_" + multipartFile.getOriginalFilename();
+            Path imageFIlePath = Paths.get(uploadFolder + imageFileName);
 
-        if(multipartFile.getSize() != 0) {//파일이 업로드 되었는지 확인
-            try {
-                if (member.getMemberImgUrl() != null) {//이미 프로필 사진이 있을경우
-                    File file = new File(uploadFolder + member.getMemberImgUrl());
-                    file.delete(); // 원래파일 삭제
+            if(multipartFile.getSize() != 0) {//파일이 업로드 되었는지 확인
+                try {
+                    if (member.getMemberImgUrl() != null) {//이미 프로필 사진이 있을경우
+                        File file = new File(uploadFolder + member.getMemberImgUrl());
+                        file.delete(); // 원래파일 삭제
+                    }
+                    Files.write(imageFIlePath, multipartFile.getBytes());
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                Files.write(imageFIlePath, multipartFile.getBytes());
-            } catch (Exception e) {
-                e.printStackTrace();
+                member.memberImgUrlUpdate(imageFileName);
             }
-            member.memberImgUrlUpdate(imageFileName);
         }
 
-        member.memberUpdate(memberUpdateDto.getPassword());
+
+        if(memberUpdateDto.getPassword()!=null)
+            member.memberUpdate(memberUpdateDto.getPassword());
 
     }
 

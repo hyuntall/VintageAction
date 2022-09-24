@@ -14,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class MemberUpdateDto {
     //회원정보수정 Dto
-    @NotEmpty
+
     private String password;
 
 
