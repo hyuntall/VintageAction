@@ -24,7 +24,7 @@ function ChattingRoom({ memberObj, deal, chatObj, setOpenModal }) {
   }
 
   const chatMessage = chatMessages && chatMessages.map((m)=>{
-    if (m.senderId == memberObj.memberNo || m.sender == memberObj.memberNo)
+    if (m.senderNo == memberObj.memberNo || m.sender == memberObj.memberNo)
       return <li className="chat me"><Message messageObj={m}/></li>
     else
       return <li className="chat other"><Message messageObj={m}/></li>

@@ -54,13 +54,13 @@ const Profile = ({ memberObj, refreshMember }) => {
         })
     }
     const chatList = chatRoomList && chatRoomList.map((item)=>{
-        console.log(item.buyerNo.memberId,  memberObj.memberId)
         if (item.buyerNo.memberId === memberObj.memberId)
             return <button onClick={(e) => {chat(item, item.id, e)}}>{item.sellerNo.memberId}</button>
         else
             return <button onClick={(e) => {chat(item, item.id, e)}}>{item.buyerNo.memberId}</button>
       })
     const getChatRoomList = () => {
+        console.log(memberObj)
         if (memberObj) {
             axios.get(`/api/chatroom`)
             .then(response => {
@@ -95,6 +95,7 @@ const Profile = ({ memberObj, refreshMember }) => {
                 </div>
                 <div className="user-text">
                     <div className="user-name">{memberObj?.memberName}님</div>
+                    <div className="user-poing">{memberObj?.point}</div>
                 </div>
             </div>
             <Link to='/vintage-upload'>중고 상품 등록</Link>

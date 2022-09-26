@@ -36,12 +36,12 @@ const SignInForm =({ refreshMember }) => {
             console.log(response.data);
             refreshMember(response.data)
             navigate("/")
-            }).then(
-                
-            )
+            })
         .catch(error => alert(error.response.data))
     };
-
+    const goToSignUp = () => {
+        navigate("/sign-up")
+    }
     return (
         <>
         <div className="signIn-form">
@@ -67,10 +67,10 @@ const SignInForm =({ refreshMember }) => {
                 className="password-input"
                 id="password-input"/>
                 <br/>
-                <input type="submit" 
-                className="signUp-submit submit"
-                value="Sign Up"/>
-
+                <button onClick={goToSignUp}
+                className="signUp-submit">
+                Sign Up
+                </button>
                 <input type="submit" 
                 className="signIn-submit submit"
                 value="Sign In"/>

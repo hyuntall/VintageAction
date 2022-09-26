@@ -55,6 +55,9 @@ const AuthForm =({refreshMember}) => {
         })
         .catch(error => console.log(error.response.data))
     };
+    const goToSignIn = () => {
+        navigate("/sign-in")
+    }
     return (
         <><div className="signUp-form">
             <form onSubmit={onSubmit}>
@@ -89,7 +92,10 @@ const AuthForm =({refreshMember}) => {
                 className="password-input"
                 id="password-input"/>
                 <br/>
-                
+                <button onClick={goToSignIn}
+                className="signIn-submit">
+                Sign In
+                </button>
                 <input type="submit" 
                 className="signUp-submit submit"
                 value="Sign Up"/>
