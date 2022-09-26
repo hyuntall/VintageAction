@@ -159,14 +159,16 @@
 
 .item-info {
   display: flex;
-  margin-left: 15%;
+  margin-left: 10%;
 }
-
+.text-info {
+  margin-left: 10%;
+}
 .image-info img {
-  width: 70%;
-  height: 70%;
   border: 5px solid lightgray;
   border-radius: 30%;
+  width: 250px;
+  height: 250px;
 }
 .text-info div {
   border: 3px solid #ebebeb;
