@@ -37,8 +37,11 @@ public class ChatRoomServiceImpl implements ChatRoomService {
                     }
                     VintageBoard vintageBoard = vintageRepository.findByVintageItem(itemId);
                     Item item = itemRepository.findByItemId(itemId);
-                    Member buyer = memberRepository.findByMemberNo(senderNo).orElseThrow(() -> new IllegalArgumentException("보내는 이가 등록되지 않은 사용자입니다."));;
+                    Member buyer = memberRepository.findByMemberNo(senderNo).orElseThrow(() -> new IllegalArgumentException("보내는 이가 등록되지 않은 사용자입니다."));
                     Member seller = vintageBoard.getMember();
+                    System.out.println(" ");
+                    System.out.println("seller : " + seller);
+                    System.out.println(" ");
 
                     ChatRoom newChatRoom = ChatRoom
                             .builder()
@@ -49,7 +52,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
                     chatRoomRepository.save(newChatRoom);
 
-                    return Optional.of(newChatRoom);
+                    return chatRoomRepository.findByItemAndBuyer(itemId, senderNo);
                 });
     }
 }
