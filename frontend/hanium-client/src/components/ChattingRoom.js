@@ -5,11 +5,12 @@ import { Stomp } from "@stomp/stompjs";
 import axios from "axios";
 import Message from "./Message";
 
-function ChattingRoom({ memberObj, deal, chatObj, setOpenModal }) {
+function ChattingRoom({ refreshMember, memberObj, chatObj, chat, setOpenModal }) {
   let stompClient = useRef({});
   const [message, setMessage] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
   const scrollRef = useRef();
+  let memObj = memberObj;
 
   useEffect(() => {
     connect();
@@ -24,11 +25,36 @@ function ChattingRoom({ memberObj, deal, chatObj, setOpenModal }) {
   }
 
   const chatMessage = chatMessages && chatMessages.map((m)=>{
-    if (m.senderNo == memberObj.memberNo || m.sender == memberObj.memberNo)
+    if (m.senderNo === memberObj.memberNo || m.sender === memberObj.memberNo)
       return <li className="chat me"><Message messageObj={m}/></li>
     else
       return <li className="chat other"><Message messageObj={m}/></li>
   })
+
+  const deal = () => {
+    if(!memberObj){
+        alert("로그인이 필요합니다.")
+        return
+    }
+    if (memObj.point < chatObj.item.itemPrice){
+        alert("잔액이 부족합니다.")
+        return
+    }
+
+    if(window.confirm("구매하시겠습니까?")){
+        axios.post(`/api/vintage/deal?vintageBoardId=${chatObj.item.itemId}`)
+        .then(response => {
+            console.log(response.data);
+            memObj.point = memObj.point - chatObj.item.itemPrice;
+            refreshMember(memObj);
+            alert("구매가 완료되었습니다.");
+        }).catch(error => {
+            alert(error.response.data);
+        })
+    } else{
+        return
+    }
+}
 
   const connect = (event) => {
   
@@ -54,10 +80,12 @@ function onConnected() {
 const sendMessage = (event) => {
  //event.preventDefault();
   var messageContent = message.trim();
-  if (chatObj.sellerNo.memberNo == memberObj.memberNo)
+  if (!chatObj.sellerNo)
+    chat();
+  if (chatObj.sellerNo.memberNo === memberObj.memberNo)
     var otherNo = chatObj.buyerNo.memberNo;
   else
-    var otherNo = chatObj.sellerNo.memberNo;
+    otherNo = chatObj.sellerNo.memberNo;
   if(messageContent && stompClient) {
     var chatMessage = {
       sender: memberObj.memberNo,

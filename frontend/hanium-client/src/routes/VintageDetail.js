@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef, memo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/Vintage.css"
 import VintageInfo from "../components/VintageInfo";
@@ -12,7 +12,7 @@ const VintageDetail = ({memberObj, refreshMember}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [chatObj, setChatObj] = useState(null);
     const vintageId = useParams().vintageId;
-    let memObj = memberObj
+
     const getItemInfo = () => {
         axios.get(`/api/vintage/${vintageId}`)
         .then(response => {
@@ -32,30 +32,6 @@ const VintageDetail = ({memberObj, refreshMember}) => {
         }
     }
 
-    const deal = () => {
-        if(!memberObj){
-            alert("로그인이 필요합니다.")
-            return
-        }
-        if (memObj.point < itemObj.itemPrice){
-            alert("가격이 부족합니다.")
-            return
-        }
-
-        if(window.confirm("구매하시겠습니까?")){
-            axios.post(`/api/vintage/deal?vintageBoardId=${vintageId}`)
-            .then(response => {
-                console.log(response.data);
-                memObj.point = memObj.point - itemObj.itemPrice;
-                refreshMember(memObj);
-                alert("구매가 완료되었습니다.");
-            }).catch(error => {
-                alert(error.response.data);
-            })
-        } else{
-            return
-        }
-    }
     const chat =() => {
         if (memberObj) {
             axios.post(`/api/chat/new?receiverNo=${itemObj.memberNo}&itemId=${vintageId}`)
@@ -78,11 +54,10 @@ const VintageDetail = ({memberObj, refreshMember}) => {
                     {memberObj?.memberId === itemObj.memberId ? 
                     <button id="modeButton"onClick={changeMode}>수정</button> : 
                     <div>
-                        <button onClick={deal}>구매</button>
                         <button className="openModalBtn" onClick={chat}>
                             채팅
                         </button>
-                        {modalOpen && <ChattingRoom memberObj={memberObj} deal={deal}chatObj={chatObj} setOpenModal={setModalOpen}/>}
+                        {modalOpen && <ChattingRoom refreshMember={refreshMember} memberObj={memberObj} chatObj={chatObj} chat={chat}setOpenModal={setModalOpen}/>}
                     </div>}
                     </div> : null}
                     
