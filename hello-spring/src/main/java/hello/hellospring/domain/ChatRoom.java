@@ -20,7 +20,6 @@ public class ChatRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "itemId")
     private Item item;
