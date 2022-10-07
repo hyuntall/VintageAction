@@ -8,6 +8,7 @@ import lombok.Setter;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Member {
+public class Member implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberNo;
@@ -40,6 +41,11 @@ public class Member {
     @JsonManagedReference
     @OneToMany(mappedBy = "auctionId", orphanRemoval = true)
     private List<AuctionBoard> auctionBoardList = new ArrayList<>();
+
+
+    //입찰 기록
+    @OneToMany(mappedBy = "bidMember")
+    List<BidRecord> bidRecords = new ArrayList<>();
 
 
     //구매한 기록

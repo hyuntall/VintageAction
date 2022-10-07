@@ -23,12 +23,11 @@ public class Item {
 
     private String itemCategory;
 
-    @Column(nullable = false)
     private Integer itemPrice;
 
     private String itemImage;
-    private Integer itemStartPrice;
-    private Integer itemCurPrice;
+    private Integer itemBidPrice; //입찰 시작 가격
+    private Integer itemBidEndPrice; //최종 입찰 가격
 
     //판매중, 판매완료 -> 채팅창에서 한 기억이...
     @Enumerated(EnumType.STRING)
@@ -48,11 +47,13 @@ public class Item {
 
 
 
+    //vintageBoard, auctionBoard 등록 시, 사용하는 builder
     @Builder
-    public Item(String itemName, Integer itemPrice, String itemCategory) {
+    public Item(String itemName, Integer itemPrice, Integer itemBidPrice, String itemCategory) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.itemCategory = itemCategory;
+        this.itemBidPrice = itemBidPrice;
         this.itemStatus = ItemStatus.PROGRESSING;
     }
 }
