@@ -2,10 +2,8 @@ import React, {useEffect, useState} from 'react';
 import AppRouter from './AppRouter';
 import "../css/App.css"
 import Footer from './Footer';
-
 function App() {
     const [memberObj ,setMemberObj] = useState(null);
-
     // 현재 로컬스토리지에 저장되어있는 유저 정보 체크
     // 정보 존재할 시 자동으로 클라이언트 실행 시 로그인 처리
     // 세션토큰 존재 여부에 따른 로그인 처리로 수정 필요
@@ -23,7 +21,6 @@ function App() {
     }
     // 렌더링 시 getLoggedInfo 함수 한번만 실행
     useEffect(getLoggedInfo, []);
-
     const refreshMember = (memberObj) => {
         // 유저 정보 변경(회원가입 or 로그인) 시 
         // 재 랜더링 하는 함수
