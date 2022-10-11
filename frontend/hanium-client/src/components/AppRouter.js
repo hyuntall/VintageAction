@@ -8,6 +8,7 @@ import Header from "./Header";
 import VintageUpload from "../routes/VintageUpload";
 import Vintage from "../routes/Vintage";
 import VintageDetail from "../routes/VintageDetail";
+import Auction from "../routes/Auction";
 const AppRouter = ({ memberObj, refreshMember }) => {
     return (
         <Router>
@@ -23,6 +24,7 @@ const AppRouter = ({ memberObj, refreshMember }) => {
                         <Route path='/vintages' element={<Vintage />}/>
                         <Route path="/vintage/:vintageId" element={<VintageDetail memberObj={memberObj} refreshMember={refreshMember}/>}/>
                         <Route path='/' element={<Home/>}/>
+                        <Route path='/auction' element={<Auction />}/>
                     </>
                 </Routes>
             </div>

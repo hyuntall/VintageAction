@@ -11,12 +11,12 @@ const ItemNavigation = () => (
         </Link>
       </li>
       <div className="icon-box">
-        <Link to="/aa">
+        <Link to="/auction">
           <img className="icon" src={require("../img/logo.png")} />
         </Link>
       </div>
       <li>
-        <Link to="/aa" className="Auction">
+        <Link to="/auction" className="Auction">
           경매 거래
         </Link>
         <img className="icon2" src={require("../img/icon2.png")} />

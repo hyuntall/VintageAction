@@ -17,6 +17,11 @@
     font-weight:bold;
     text-align: center;
 }
+.item-time {
+  margin: 0;
+  font-weight:bold;
+  text-align: center;
+}
 
 .item-price {
     margin: 0;
