@@ -68,12 +68,6 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
             console.log(response.data);
         })
     }
-    const chatList = chatRoomList && chatRoomList.map((item)=>{
-        if (item.buyerNo.memberId === memberObj.memberId)
-            return <button onClick={(e) => {chat(item, item.id, e)}}>{item.sellerNo.memberId}</button>
-        else
-            return <button onClick={(e) => {chat(item, item.id, e)}}>{item.buyerNo.memberId}</button>
-      })
     const getChatRoomList = () => {
         console.log(memberObj)
         if (memberObj) {
