@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name="chatroom")
 public class ChatRoom {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

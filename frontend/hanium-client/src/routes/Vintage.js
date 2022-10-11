@@ -27,6 +27,7 @@ const Vintage = () => {
   };
   return (
     <>
+    <Link to='/vintage-upload'>중고 상품 등록</Link>
       <Top></Top>
       <h1>중고 상품 리스트</h1>
       <div className="vintage-container">

@@ -1,5 +1,5 @@
 package hello.hellospring.domain;
 
 public enum ItemStatus {
-    PROGRESSING, COMPLETED
+    PROGRESSING, COMPLETED,FAILED
 }

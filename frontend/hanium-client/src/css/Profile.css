@@ -7,27 +7,67 @@
     height: 60vh;
     min-height: 400px;
     margin: auto;
-    margin-top: 5vh;
     align-content: center;
     border: 0;
     border-radius: 2.5em;
+    margin-top: 5vh;
 }
+.profile-container .profile-title {
+    margin-left: 3vw;
+    position :absolute;
+    top: -5%;
+    font-size: 5vmin;
+    font-weight: bolder;
 
+}
 .user-info {
+    width: 100%;
     display: flex;
 }
 
 .user-info .user-image {
-    width: 30%;
+    max-width: 30vw;;
+    min-width: 30%;
     margin-left: 5%;
-    margin-top: 5vh;
+    margin-top: 10vh;
     height: 100%;
     text-align: center;
+    flex: 3;
 }
 
 .user-info .user-image img {
     border: 5px solid lightgray;
-    border-radius: 30%;
-    width: 80%;
+    border-radius: 50%;
     height: 30vh;
+    max-width: 80%;
+}
+
+.user-info .user-text {
+    margin-top: 10vh;
+    margin-left: 5%;
+    width: max-content;
+    flex: 7;
+}
+
+.chat-list{
+    display: flex;
+}
+
+.chat-circle {
+    width: 50px;
+    height: 50px;
+    border: 5px solid lightgray;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 10px 0 10px;
+  }
+  
+  .chat-circle img {
+    width: 60%;
+    max-height: 50px;
+  }
+
+  .chat-item-name {
+    margin-top: -20px;
+    font-weight: bold;
   }
