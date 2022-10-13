@@ -1,15 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import ChattingRoom from "../components/ChattingRoom";
 import { useState } from "react";
 const formData = new FormData();
 const ProfileUpdate = ({ memberObj, refreshMember }) => {
     const navigate = useNavigate();
-    const [chatObj, setChatObj] = useState([]);
-    const [modalOpen, setModalOpen] = useState(false);
-    const [chatRoomList, setchatRoomList] = useState([]);
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState({});
     const [attachment, setAttachment] = useState(memberObj.attachment);
     const [userImg, setUserImg] = useState("temp.png");
     const [userId, setUserId] = useState(memberObj?.memberId)
@@ -24,11 +20,10 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
         reader.onloadend = (finishEvent) => {
             const {currentTarget: { result }} = finishEvent
             setAttachment(result)
-            console.log(attachment)
         }
         reader.readAsDataURL(theFile);
         setFile(`${memberObj.memberId}_${theFile.name}`);
-        console.log(`${memberObj.memberId}_${theFile.name}`);
+        //console.log(`${memberObj.memberId}_${theFile.name}`);
     }
 
     const updateMemberData = async () => {
@@ -36,7 +31,7 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
         formData.append("memberId", userId);
         formData.append("memberName", userName);
         formData.append("memberPassword", memberObj.memberPassword)
-        formData.append("memberImgUrl", file);
+        formData.append("memberImgUrl", file); 
         await axios.post(`/api/memberUpdate`, 
         formData, {headers: {
             'Content-Type': "multipart/form-data"
@@ -68,28 +63,12 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
             console.log(response.data);
         })
     }
-    const getChatRoomList = () => {
-        console.log(memberObj)
-        if (memberObj) {
-            axios.get(`/api/chatroom`)
-            .then(response => {
-                console.log(response.data)
-                setchatRoomList(response.data);
-            })
-        } else {
-            return
-        }
-    }
     useEffect(() => {
-        getChatRoomList();
         console.log(memberObj.memberImgUrl != null)
         if (memberObj.memberImgUrl != null)
             setUserImg(memberObj.memberImgUrl);
     }, []);
-    const chat = (chatObj) => {
-            setChatObj(chatObj);
-                setModalOpen(true);
-            }
+
     return (
         <>
         <div className="profile-container">

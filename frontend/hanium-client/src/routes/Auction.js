@@ -14,8 +14,8 @@ const Vintage = () => {
   // 렌더링 시 중고 상품 리스트 정보 요청
   const getItemList = (currentPage) => {
     if(currentPage) currentPage--;
-    axios.get(`/api/vintages?page=${currentPage ?? page}`).then((response) => {
-      setItemList(response.data.vintageBoardList);
+    axios.get(`/api/auctions?page=${currentPage ?? page}`).then((response) => {
+      setItemList(response.data.auctionBoardList);
       setTotalPage(response.data.totalPage);
       console.log(response.data);
     });
@@ -27,6 +27,7 @@ const Vintage = () => {
   };
   return (
     <>
+    <Link to='/auction-upload'>경매 상품 등록</Link>
       <Top></Top>
       <h1>경매 상품 리스트</h1>
       <div className="vintage-container">
@@ -35,8 +36,8 @@ const Vintage = () => {
           itemList
             .slice(0)
             .map((item) => (
-              <Link key={item.vintageId} to={`/vintage/${item.vintageId}`}>
-                <Item itemInfo={item} />
+              <Link key={item.auctionId} to={`/auction/${item.auctionId}`}>
+                <Item itemInfo={item} itemTitle={item.auctionTitle}/>
               </Link>
             ))}
       </div>

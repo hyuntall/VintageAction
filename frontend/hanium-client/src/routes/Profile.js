@@ -9,6 +9,7 @@ const Profile = ({ memberObj, refreshMember }) => {
         setEditMode(!editMode);
         console.log(editMode)
     }
+    console.log(memberObj);
     return (
         <>
         {!editMode ? 

@@ -37,7 +37,7 @@ const Vintage = () => {
             .slice(0)
             .map((item) => (
               <Link key={item.vintageId} to={`/vintage/${item.vintageId}`}>
-                <Item itemInfo={item} />
+                <Item itemInfo={item} itemTitle={item.vintageTitle} />
               </Link>
             ))}
       </div>
