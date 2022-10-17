@@ -52,13 +52,7 @@ const AuctionDetail = ({memberObj, refreshMember}) => {
                         <VintageUpdateForm auctionId={auctionId} itemInfo={itemObj}/>
                          : <AuctionInfo auctionId={auctionId} memberObj={memberObj}/> }
                     {memberObj?.memberId === itemObj.memberId ? 
-                    <button id="modeButton"onClick={changeMode}>수정</button> : 
-                    <div>
-                        <button className="openModalBtn" onClick={chat}>
-                            채팅
-                        </button>
-                        {modalOpen && <ChattingRoom refreshMember={refreshMember} memberObj={memberObj} chatObj={chatObj} chat={chat}setOpenModal={setModalOpen}/>}
-                    </div>}
+                    <button id="modeButton"onClick={changeMode}>수정</button> : null}
                     </div> : null}
                     
                     

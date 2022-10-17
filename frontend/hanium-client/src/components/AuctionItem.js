@@ -7,7 +7,7 @@ const Item =({ itemInfo }) => {
             <img className="thumbnail" 
             src={itemImage ? (require(`../itemImages/${itemImage}`)):(require("../img/temp.png"))} />            
             <br/>
-            <p className="item-title">{itemInfo.vintageTitle}</p>
+            <p className="item-title">{itemInfo.auctionTitle}</p>
             <p className="item-time">00:00:00</p>
         </div>
     )

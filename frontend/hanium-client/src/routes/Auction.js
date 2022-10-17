@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Item from "../components/AuctionItem";
 import "../css/Vintage.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Top from "../components/Top";
 
