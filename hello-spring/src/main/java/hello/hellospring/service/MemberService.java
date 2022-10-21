@@ -2,6 +2,7 @@ package hello.hellospring.service;
 
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.request.MemberSignupDto;
 import hello.hellospring.dto.request.MemberUpdateDto;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public interface MemberService{
     List<Member> findAll() throws Exception;
 
     //내 정보 조회
-    Optional<Member> getMyInfo(String memberId) throws Exception;
+    MemberInfoDto getMyInfo(String memberId) throws Exception;
 
     //회원 정보 수정(비밀번호 변경)
     void memberUpdate(String id, MemberUpdateDto memberUpdateDto, MultipartFile multipartFile);

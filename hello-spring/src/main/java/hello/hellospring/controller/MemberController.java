@@ -1,6 +1,7 @@
 package hello.hellospring.controller;
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.request.MemberSignupDto;
 import hello.hellospring.dto.request.MemberUpdateDto;
 import hello.hellospring.service.MemberService;
@@ -74,14 +75,15 @@ public class MemberController {
      * 내정보조회
      */
     @GetMapping("/api/member")
-    public Optional<Member> getMyInfo(HttpServletRequest request) throws Exception {
+    public MemberInfoDto getMyInfo(HttpServletRequest request) throws Exception {
 
         HttpSession session = request.getSession(false);
         Member member = (Member) session.getAttribute(session.getId());
 
-        Optional<Member> info = memberService.getMyInfo(member.getMemberId());
+        MemberInfoDto getMemberInfo = memberService.getMyInfo(member.getMemberId());
 
-        return info;
+
+        return getMemberInfo;
     }
 
     /**

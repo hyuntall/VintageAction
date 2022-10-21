@@ -2,6 +2,7 @@ package hello.hellospring.service;
 
 
 import hello.hellospring.domain.Member;
+import hello.hellospring.dto.MemberInfoDto;
 import hello.hellospring.dto.request.MemberSignupDto;
 
 import hello.hellospring.dto.request.MemberUpdateDto;
@@ -46,8 +47,14 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Optional<Member> getMyInfo(String memberId) throws Exception {
-        return memberRepository.findByMemberId(memberId);
+    public MemberInfoDto getMyInfo(String memberId) throws Exception {
+
+        Optional<Member> byMemberId = memberRepository.findByMemberId(memberId);
+        Member getMember = byMemberId.get();
+
+        MemberInfoDto memberInfoDto = new MemberInfoDto(getMember);
+        return memberInfoDto;
+
     }
 
     @Value("${memberImg.path}")

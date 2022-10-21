@@ -15,22 +15,24 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
     const onFileChange = (event) => {
         // 이미지 입력 시 url을 읽는 함수
         const {target:{files}} = event;
-        const theFile = files[0];
+        // const theFile = files[0];
+        const theFile = event.target.files[0];
         const reader = new FileReader();
         reader.onloadend = (finishEvent) => {
             const {currentTarget: { result }} = finishEvent
             setAttachment(result)
         }
         reader.readAsDataURL(theFile);
-        setFile(`${memberObj.memberId}_${theFile.name}`);
+        // setFile(`${memberObj.memberId}_${theFile.name}`);
+        setFile(theFile);
         //console.log(`${memberObj.memberId}_${theFile.name}`);
     }
 
     const updateMemberData = async () => {
         console.log(file);
-        formData.append("memberId", userId);
-        formData.append("memberName", userName);
-        formData.append("memberPassword", memberObj.memberPassword)
+        // formData.append("memberId", userId);
+        // formData.append("memberName", userName);
+        // formData.append("memberPassword", memberObj.memberPassword)
         formData.append("memberImgUrl", file); 
         await axios.post(`/api/memberUpdate`, 
         formData, {headers: {
@@ -38,8 +40,9 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
         }})
         .then(response => {
             console.log(response.data);
-            alert("다시 로그인 해주세요.");
-            SignOut();
+            navigate("/profile")
+            // alert("다시 로그인 해주세요.");
+            // SignOut();
         })
         .catch(error => console.log(error.response.data))
     }
