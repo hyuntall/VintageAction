@@ -31,6 +31,16 @@ function ChattingRoom({ refreshMember, memberObj, chatObj, chat, setOpenModal })
       return <li className="chat other"><Message messageObj={m}/></li>
   })
 
+  const refreshMemberData = async () => {
+    await axios.get("/api/member")
+    .then(response => {
+        console.log(response.data)
+        refreshMember(response.data)
+    }).catch(error => {
+        console.log(error)
+    })
+  }
+
   const deal = () => {
     if(!memberObj){
         alert("로그인이 필요합니다.")
@@ -45,8 +55,8 @@ function ChattingRoom({ refreshMember, memberObj, chatObj, chat, setOpenModal })
         axios.post(`/api/vintage/deal?vintageBoardId=${chatObj.item.itemId}`)
         .then(response => {
             console.log(response.data);
-            memObj.point = memObj.point - chatObj.item.itemPrice;
-            refreshMember(memObj);
+            //memObj.point = memObj.point - chatObj.item.itemPrice;
+            refreshMemberData();
             alert("구매가 완료되었습니다.");
         }).catch(error => {
             alert(error.response.data);

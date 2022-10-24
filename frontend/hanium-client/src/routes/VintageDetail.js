@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../css/Vintage.css"
 import VintageInfo from "../components/VintageInfo";
@@ -12,6 +12,8 @@ const VintageDetail = ({memberObj, refreshMember}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [chatObj, setChatObj] = useState(null);
     const vintageId = useParams().vintageId;
+
+    const navigate = useNavigate();
 
     const getItemInfo = () => {
         axios.get(`/api/vintage/${vintageId}`)
@@ -29,6 +31,23 @@ const VintageDetail = ({memberObj, refreshMember}) => {
         } else {
             setPostMode(true);
             document.getElementById("modeButton").innerHTML = "취소"
+        }
+    }
+
+    const deletePost = () => {
+        console.log(itemObj)
+        if (window.confirm("삭제하시겠습니까?"))
+        {
+            if (memberObj) {
+                axios.post(`/api/vintage/${vintageId}/delete`)
+                .then(response => {
+                    navigate("/");
+                    console.log(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            }
         }
     }
 
@@ -52,7 +71,10 @@ const VintageDetail = ({memberObj, refreshMember}) => {
                         <VintageUpdateForm vintageId={vintageId} itemInfo={itemObj}/>
                          : <VintageInfo vintageId={vintageId}/> }
                     {memberObj?.memberId === itemObj.memberId ? 
-                    <button id="modeButton"onClick={changeMode}>수정</button> : 
+                    <div>
+                        <button id="modeButton" onClick={changeMode}>수정</button>
+                        <button id="deleteButton" onClick={deletePost}>삭제</button>   
+                    </div> : 
                     <div>
                         <button className="openModalBtn" onClick={chat}>
                             채팅

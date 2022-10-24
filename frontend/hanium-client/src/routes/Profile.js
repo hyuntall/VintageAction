@@ -12,10 +12,12 @@ const Profile = ({ memberObj, refreshMember }) => {
     console.log(memberObj);
     return (
         <>
-        {!editMode ? 
-        <ProfileInfo memberObj={memberObj} refreshMember={refreshMember}/>
+        {!editMode ?
+        <div>
+            <ProfileInfo memberObj={memberObj} refreshMember={refreshMember}/>
+            <button onClick={changeMode}>회원정보수정</button>
+        </div>
         : <ProfileUpdate memberObj={memberObj} refreshMember={refreshMember}/>}
-        <button onClick={changeMode}>회원정보수정</button>
         </>
     )
 }

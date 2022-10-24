@@ -28,10 +28,20 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
         //console.log(`${memberObj.memberId}_${theFile.name}`);
     }
 
+    const refreshMemberData = async () => {
+        await axios.get("/api/member")
+        .then(response => {
+            console.log(response.data)
+            refreshMember(response.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     const updateMemberData = async () => {
         console.log(file);
-        // formData.append("memberId", userId);
-        // formData.append("memberName", userName);
+        formData.append("memberId", userId);
+        formData.append("memberName", userName);
         // formData.append("memberPassword", memberObj.memberPassword)
         formData.append("memberImgUrl", file); 
         await axios.post(`/api/memberUpdate`, 
@@ -40,7 +50,8 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
         }})
         .then(response => {
             console.log(response.data);
-            navigate("/profile")
+            refreshMemberData();
+            navigate("/vintages")
             // alert("다시 로그인 해주세요.");
             // SignOut();
         })

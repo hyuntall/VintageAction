@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 const ChatCircle =({setChatObj, setModalOpen, item, member}) => {
-    console.log(member);
+    //console.log(member);
     const chat = (chatObj) => {
         setChatObj(chatObj);
         setModalOpen(true);
