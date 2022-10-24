@@ -9,17 +9,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberInfoDto {
 
-    private String id;
-    private String name;
+    private String memberId;
+    private String memberName;
     private String memberImgUrl;
-    private Long memberPoint;
+    private Long point;
 
 
     @Builder
     public MemberInfoDto(Member member) {
-        this.id = member.getMemberId();
-        this.name = member.getMemberName();
+        this.memberId = member.getMemberId();
+        this.memberName = member.getMemberName();
         this.memberImgUrl = member.getMemberImgUrl();
-        this.memberPoint = member.getMemberPoint();
+        this.point = member.getMemberPoint();
     }
 }
