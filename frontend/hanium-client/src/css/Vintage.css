@@ -232,7 +232,7 @@
   font-weight: bold;
 }
 
-#modeButton, .openModalBtn {
+#modeButton, .openModalBtn, .bidButton {
   right: 5%;
 }
 

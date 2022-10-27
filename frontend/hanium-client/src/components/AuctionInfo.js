@@ -91,7 +91,7 @@ const VintageInfo = ({ auctionId, memberObj }) => {
           {memberObj.memberId === sellerId ? null : 
           (
             <div>
-            <button onClick={bidding}>입찰</button>
+            <button className="bidButton"onClick={bidding}>입찰</button>
             </div>)}
         </div>
       ) : null}

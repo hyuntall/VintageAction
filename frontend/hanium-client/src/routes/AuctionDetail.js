@@ -5,6 +5,7 @@ import "../css/Vintage.css"
 import AuctionInfo from "../components/AuctionInfo";
 import VintageUpdateForm from "../components/VintageUpdateForm";
 import ChattingRoom from "../components/ChattingRoom";
+import AuctionUpdateForm from "../components/AuctionUpdateForm";
 
 const AuctionDetail = ({memberObj, refreshMember}) => {
     const [itemObj, setItemObj] = useState(null);
@@ -32,9 +33,9 @@ const AuctionDetail = ({memberObj, refreshMember}) => {
 
     return (
         <>
-                {itemObj ? <div className="auction-detail-container">
+                {itemObj ? <div className="vintage-detail-container">
                     {postMode ? 
-                        <VintageUpdateForm auctionId={auctionId} itemInfo={itemObj}/>
+                        <AuctionUpdateForm auctionId={auctionId} itemInfo={itemObj}/>
                          : <AuctionInfo auctionId={auctionId} memberObj={memberObj}/> }
                     {memberObj?.memberId === itemObj.memberId ? 
                     <button id="modeButton"onClick={changeMode}>수정</button> : null}
