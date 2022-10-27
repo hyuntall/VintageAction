@@ -1,58 +1,28 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Item from "../components/AuctionItem";
+import React from "react";
 import "../css/Vintage.css";
-import { Link } from "react-router-dom";
-import Pagination from "react-js-pagination";
-import Top from "../components/Top";
+import AuctionList from "../components/AuctionList";
+import AuctionSearch from "../components/AuctionSearch";
+import { useNavigate } from "react-router-dom";
 
-const Vintage = () => {
-  const [itemList, setItemList] = useState(null);
-  const [totalPage, setTotalPage] = useState(0);
-  const [page, setPage] = useState(0);
+const Auction = ({memberObj}) => {
+  const navigate = useNavigate()
 
-  // 렌더링 시 중고 상품 리스트 정보 요청
-  const getItemList = (currentPage) => {
-    if(currentPage) currentPage--;
-    axios.get(`/api/auctions?page=${currentPage ?? page}`).then((response) => {
-      setItemList(response.data.auctionBoardList);
-      setTotalPage(response.data.totalPage);
-      console.log(response.data);
-    });
-  };
-  useEffect(getItemList, []);
-  const handlePageChange = (page) => {
-    setPage(page);
-    getItemList(page);
-  };
+  const goToUpload = () => {
+    if(!memberObj) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+    navigate('/vintage-upload');
+  }
   return (
     <>
-    <Link to='/auction-upload'>경매 상품 등록</Link>
-      <Top></Top>
-      <h1>경매 상품 리스트</h1>
-      <div className="vintage-container">
-        {/*setItemList 배열의 갯수만큼 Item 컴포넌트 생성 및 해당 컴포넌트에 아이템 정보 전달 */}
-        {itemList &&
-          itemList
-            .slice(0)
-            .map((item) => (
-              <Link key={item.auctionId} to={`/auction/${item.auctionId}`}>
-                <Item itemInfo={item} itemTitle={item.auctionTitle}/>
-              </Link>
-            ))}
+      <div className="vintage-route">
+        <button className="go-to-upload" onClick={goToUpload}>경매 상품 등록</button>
+        <AuctionSearch />
+        <AuctionList />
       </div>
-      <Pagination
-        activePage={page}
-        itemsCountPerPage={1}
-        totalItemsCount={totalPage}
-        pageRangeDisplayed={10}
-        prevPageText={"‹"}
-        nextPageText={"›"}
-        onChange={handlePageChange}
-        className="pagenation"
-      />
     </>
   );
 };
 
-export default Vintage;
+export default Auction;

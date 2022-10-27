@@ -1,11 +1,11 @@
 import { React, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Item from "../components/Item";
+import Item from "../components/AuctionItem";
 
 import "../css/Top.css";
 
-const VintageSearch = () => {
+const AuctionSearch = () => {
   const [itemList, setItemList] = useState(null);
   const [search, setSearch] = useState("");
   // input 칸에 데이터가 바뀔때마다 리렌더링
@@ -25,9 +25,9 @@ const VintageSearch = () => {
     // 입력받은 데이터를 객체에 담아
     // 로그인 api에 post 요청 // /search?page=0&vintageTitle=${search}
     axios
-      .get(`/api/vintages/search?page=0&vintageTitle=${search}`)
+      .get(`/api/auctions/search?page=0&auctionTitle=${search}`)
       .then((response) => {
-        //response
+        // response
         console.log(response.data.vintageBoardList);
         setItemList(response.data.vintageBoardList);
         console.log("성공");
@@ -63,8 +63,8 @@ const VintageSearch = () => {
             .slice(0)
             .reverse()
             .map((item) => (
-              <Link key={item.vintageId} to={`/vintage/${item.vintageId}`}>
-                <Item itemInfo={item} itemTitle={item.vintageTitle}/>
+              <Link key={item.vintageId} to={`/auction/${item.auctionId}`}>
+                <Item itemInfo={item} itemTitle={item.auctionTitle}/>
               </Link>
             ))}
       </div>
@@ -72,4 +72,4 @@ const VintageSearch = () => {
   );
 };
 
-export default VintageSearch;
+export default AuctionSearch;

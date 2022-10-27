@@ -17,9 +17,7 @@ const Vintage = ({memberObj}) => {
     <>
       <div className="vintage-route">
         <button className="go-to-upload" onClick={goToUpload}>중고 상품 등록</button>
-        <br/>
         <VintageSearch />
-        <br/>
         <VintageList />
       </div>
     </>

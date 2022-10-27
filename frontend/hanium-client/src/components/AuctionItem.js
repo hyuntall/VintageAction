@@ -1,13 +1,13 @@
 import React from "react"
 import "../css/Item.css"
-const Item =({ itemInfo }) => {
+const Item =({ itemInfo, itemTitle }) => {
     const itemImage = itemInfo.storeFileNames[0];
     return (
         <div className="item-container">
             <img className="thumbnail" 
             src={itemImage ? (require(`../itemImages/${itemImage}`)):(require("../img/temp.png"))} />            
             <br/>
-            <p className="item-title">{itemInfo.auctionTitle}</p>
+            <p className="item-title">{itemTitle}</p>
             <p className="item-time">00:00:00</p>
         </div>
     )
