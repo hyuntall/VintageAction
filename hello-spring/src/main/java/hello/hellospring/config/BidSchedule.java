@@ -26,7 +26,7 @@ public class BidSchedule {
     private final RedisTemplate redisTemplate;
 
     //Sorted Set 을 이용한  스케줄
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "* * * * * *")
     @Transactional
     public void auctionClose() {
         //경매가 현재 "Progessing" 상태 이면서 마감 시간이 지난 것을 가져온다.

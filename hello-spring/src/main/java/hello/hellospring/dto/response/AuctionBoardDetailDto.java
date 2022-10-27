@@ -1,6 +1,7 @@
 package hello.hellospring.dto.response;
 
 import hello.hellospring.domain.AuctionBoard;
+import hello.hellospring.domain.AuctionStatus;
 import lombok.Data;
 
 import java.util.List;
@@ -15,12 +16,13 @@ public class AuctionBoardDetailDto {
     private String itemCategory;
     private List<String> storeFileName;
     private String memberId;
-
+    private AuctionStatus auctionStatus;
     private Long memberNo;
 
     public AuctionBoardDetailDto(AuctionBoard auctionBoard) {
         title = auctionBoard.getAuctionTitle();
         detail = auctionBoard.getAuctionDetail();
+        auctionStatus = auctionBoard.getAuctionStatus();
         itemName = auctionBoard.getAuctionItem().getItemName();
         itemBidPrice = auctionBoard.getAuctionItem().getItemBidPrice();
         itemCategory = auctionBoard.getAuctionItem().getItemCategory();
