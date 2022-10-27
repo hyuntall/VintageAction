@@ -23,10 +23,10 @@ const AppRouter = ({ memberObj, refreshMember }) => {
                         <Route path='/sign-in' element={<SignIn refreshMember={refreshMember}/>}/>
                         <Route path='/profile' element={<Profile memberObj={memberObj} refreshMember={refreshMember}/>}/>
                         <Route path='/vintage-upload' element={<VintageUpload memberObj={memberObj}/>}/>
-                        <Route path='/vintages' element={<Vintage />}/>
+                        <Route path='/vintages' element={<Vintage memberObj={memberObj}/>}/>
                         <Route path="/vintage/:vintageId" element={<VintageDetail memberObj={memberObj} refreshMember={refreshMember}/>}/>
                         <Route path='/' element={<Home/>}/>
-                        <Route path='/auction' element={<Auction />}/>
+                        <Route path='/auction' element={<Auction memberObj={memberObj}/>}/>
                         <Route path='/auction-upload' element={<AuctionUpload memberObj={memberObj}/>}/>
                         <Route path="/auction/:auctionId" element={<AuctionDetail memberObj={memberObj} refreshMember={refreshMember}/>}/>
                     </>
