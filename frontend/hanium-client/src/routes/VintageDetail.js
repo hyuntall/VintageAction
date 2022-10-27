@@ -71,10 +71,12 @@ const VintageDetail = ({memberObj, refreshMember}) => {
                         <VintageUpdateForm vintageId={vintageId} itemInfo={itemObj}/>
                          : <VintageInfo vintageId={vintageId}/> }
                     {memberObj?.memberId === itemObj.memberId ? 
+                    <>{!postMode ? 
                     <div>
                         <button id="modeButton" onClick={changeMode}>수정</button>
                         <button id="deleteButton" onClick={deletePost}>삭제</button>   
-                    </div> : 
+                    </div> : null}
+                    </> : 
                     <div>
                         <button className="openModalBtn" onClick={chat}>
                             채팅

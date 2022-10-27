@@ -62,7 +62,7 @@ const VintageUpdateForm =({itemInfo, vintageId}) => {
         }})
         .then(response => {
             console.log(response.data);
-            navigate(`/vintage`);
+            navigate(`/vintages`);
         })
         .catch(error => console.log(error.response.data))
     };
