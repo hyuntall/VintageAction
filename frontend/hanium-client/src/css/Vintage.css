@@ -162,31 +162,35 @@
   padding-top: 3%;
   padding-left: 8%;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 2.5vmin;
   border: none;
 }
 
 .vintage-detail-container .content-title {
-  font-size: 30px;
+  font-size: 3.5vmin;
   border: none;
-  margin-top: 2%;
+  margin-top: 1%;
   margin-left: 8%;
   margin-bottom: 2%;
+  font-weight: bold;
 }
 
 .item-info {
   display: flex;
   margin-left: 10%;
 }
+
 .text-info {
   margin-left: 10%;
 }
+
 .image-info img {
   border: 5px solid lightgray;
   border-radius: 30%;
   width: 250px;
   height: 250px;
 }
+
 .text-info div {
   border: 3px solid #ebebeb;
   border-bottom-color: #e2e2e2;
@@ -196,16 +200,19 @@
   margin-left: 25px;
   font-size: 18px;
 }
+
 .text-info .detail-input1 {
   padding-left: 5px;
   width: 245px;
 }
+
 .text-info .detail-input2 {
   margin-left: 41px;
-  padding-right: 10px;
-  width: 145px;
+  padding-right: 5px;
+  width: 245px;
   text-align: right;
 }
+
 .text-info .detail-input3 {
   padding-left: 5px;
   margin-left: 41px;
@@ -213,16 +220,23 @@
   height: 40%;
 }
 
-.vintage-detail-container #modeButton {
+.vintage-detail-container button {
   position: absolute;
   height: 8%;
   width: 8%;
-  bottom: 15px;
-  right: 5%;
+  bottom: 25px;
   background-color: orange;
   border: 0;
   border-radius: 0.5em;
   font-weight: bold;
+}
+
+#modeButton, .openModalBtn {
+  right: 5%;
+}
+
+#deleteButton {
+  right: 15%;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
@@ -239,7 +253,7 @@
   border: none;
   border-radius: 6px;
   background-color: white;
-  color: bleack;
+  color: black;
   cursor: pointer;
   margin: 0px;
   padding: 0px;
