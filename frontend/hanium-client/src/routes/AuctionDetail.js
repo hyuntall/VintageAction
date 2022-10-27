@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/Vintage.css"
 import AuctionInfo from "../components/AuctionInfo";
@@ -11,12 +11,18 @@ const AuctionDetail = ({memberObj, refreshMember}) => {
     const [itemObj, setItemObj] = useState(null);
     const [postMode, setPostMode] = useState(false);
     const auctionId = useParams().auctionId;
+    const navigate = useNavigate();
 
     const getItemInfo = () => {
         axios.get(`/api/auction/${auctionId}`)
         .then(response => {
         setItemObj(response.data);
         console.log(response.data);
+        if (response.data.auctionStatus !== "PROGRESSING")
+        {
+            alert("경매가 종료된 상품입니다.")
+            navigate('/auction');
+        }
     })
     }
     useEffect(getItemInfo, []);
