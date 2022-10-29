@@ -13,9 +13,9 @@ const Profile = ({ memberObj, refreshMember }) => {
     return (
         <>
         {!editMode ?
-        <div>
+        <div className="profile-route">
             <ProfileInfo memberObj={memberObj} refreshMember={refreshMember}/>
-            <button onClick={changeMode}>회원정보수정</button>
+            <button className="mode-button"onClick={changeMode}>회원정보수정</button>
         </div>
         : <ProfileUpdate memberObj={memberObj} refreshMember={refreshMember}/>}
         </>

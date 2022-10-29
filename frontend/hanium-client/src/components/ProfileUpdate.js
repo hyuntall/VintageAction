@@ -65,18 +65,15 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
             setUserId(value);
     }
 
+    const cancel = () => {
+        navigate("/");
+    }
+    
     // 유저 정보가 없으면 기본 페이지로 이동
     if (!memberObj) {
         navigate("/")
     }
-    const SignOut = () => {
-        refreshMember(null)
-        navigate("/")
-        axios.post('/api/members/logout/', )
-        .then(response => {
-            console.log(response.data);
-        })
-    }
+    
     useEffect(() => {
         console.log(memberObj.memberImgUrl != null)
         if (memberObj.memberImgUrl != null)
@@ -124,7 +121,8 @@ const ProfileUpdate = ({ memberObj, refreshMember }) => {
                     <div className="user-point">{memberObj?.point}</div>
                 </div>
             </div>
-            <button onClick={updateMemberData}>회원정보수정</button>
+            <button className="save-button" onClick={updateMemberData}>수정</button>
+            <button className="return-button" onClick={cancel}>취소</button>
         </div>
         </>
     )

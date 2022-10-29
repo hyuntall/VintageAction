@@ -71,3 +71,42 @@
     margin-top: -20px;
     font-weight: bold;
   }
+  .profile-route {
+    position: relative;
+  }
+  .mode-button{
+    position: absolute;
+    height: 8%;
+    width: 15%;
+    bottom: 25px;
+    background-color: orange;
+    border: 0;
+    border-radius: 0.5em;
+    font-weight: bold;
+    left: 50%;
+    margin-left: 200px;
+  }
+
+  .save-button {
+    position: absolute;
+    height: 8%;
+    width: 15%;
+    bottom: 25px;
+    background-color: orange;
+    border: 0;
+    border-radius: 0.5em;
+    font-weight: bold;
+    right: 25%;
+  }
+
+  .return-button{
+    position: absolute;
+    height: 8%;
+    width: 15%;
+    bottom: 25px;
+    background-color: orange;
+    border: 0;
+    border-radius: 0.5em;
+    font-weight: bold;
+    right: 5%;
+  }

@@ -12,6 +12,9 @@
     border-radius: 1.5em;
     background-color: white;
 }
+.thumbnail:hover {
+  border: 3px solid white;
+}
 
 
 .item-title {
