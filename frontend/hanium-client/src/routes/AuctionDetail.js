@@ -3,8 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../css/Vintage.css"
 import AuctionInfo from "../components/AuctionInfo";
-import VintageUpdateForm from "../components/VintageUpdateForm";
-import ChattingRoom from "../components/ChattingRoom";
 import AuctionUpdateForm from "../components/AuctionUpdateForm";
 
 const AuctionDetail = ({memberObj, refreshMember}) => {

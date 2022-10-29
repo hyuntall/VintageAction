@@ -45,6 +45,7 @@
 }
 
 .item-navigator {
+  padding: 0;
   justify-content: center;
   display: flex;
   list-style: none;
